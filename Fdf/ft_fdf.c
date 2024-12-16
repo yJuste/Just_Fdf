@@ -13,5 +13,15 @@
 
 int	main(void)
 {
+	int	fd;
+
+	fd = open("non.txt", O_RDONLY);
+	if (fd == -1)
+	{
+		int i = -1;
+		while (++i < 50)
+			ft_printf(2, "Error %d: %s\n", i, strerror(i));
+		return (1);
+	}
 	return (0);
 }

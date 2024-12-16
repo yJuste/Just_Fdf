@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-// Buffers
+// Buffer
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 60
