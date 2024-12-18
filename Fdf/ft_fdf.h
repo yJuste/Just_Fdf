@@ -32,6 +32,11 @@
 # include "Get_Next_Line/get_next_line.h"
 # include "Printf_fd/ft_printf.h"
 
+// Macros
+
+# define HEIGHT 1470
+# define WIDTH 956
+
 // Structure
 
 typedef struct s_fdf
