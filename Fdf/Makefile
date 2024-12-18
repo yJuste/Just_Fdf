@@ -1,10 +1,11 @@
 NAME = fdf
 
 CC = cc
-CFLAGS = -g # -framework OpenGL -framework AppKit
+CFLAGS = -g # -lm
 
 MINILIBX = libmlx.a
-PATH_MINILIBX = minilibx_macos
+PATH_MINILIBX = minilibx
+MLXFLAGS = -framework OpenGL -framework AppKit
 
 PRINTF = libftprintf.a
 PATH_PRINTF = Printf_fd
@@ -21,7 +22,6 @@ NORMINETTE =	ft_*.c		\
 		Get_Next_Line	\
 		Printf_fd
 
-
 RESET			= "\033[0m"
 GREEN			= "\033[92m"	# Green
 RED			= "\033[91m"	# Red
@@ -29,7 +29,7 @@ RED			= "\033[91m"	# Red
 all: $(NAME)
 
 $(NAME): $(OBJ) $(PRINTF) $(MINILIBX)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(PATH_PRINTF) -lftprintf -L $(PATH_MINILIBX) -lmlx
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(PATH_PRINTF) -lftprintf -L $(PATH_MINILIBX) -lmlx $(MLXFLAGS)
 	@echo $(GREEN)"--- EXECUTABLE ./$(NAME) is ready ---"$(RESET)
 
 $(PRINTF):
@@ -40,8 +40,8 @@ $(MINILIBX):
 
 clean:
 	rm -f $(OBJ)
-	@$(MAKE) -C $(PATH_MINILIBX) clean
 	@$(MAKE) -C $(PATH_PRINTF) clean
+	@$(MAKE) -C $(PATH_MINILIBX) clean
 
 fclean: clean
 	rm -f $(NAME)

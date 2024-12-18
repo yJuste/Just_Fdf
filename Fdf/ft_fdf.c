@@ -11,17 +11,33 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
+int close_window(t_fdf *fdf)
+{
+    	printf("Fermeture propre du programme.\n");
+	exit(0);
+}
+
+// Default Mac Air M2: 1470 x 956
+// 	Large resolution: 1710 x 1112
 int	main(void)
 {
-	int	fd;
+	t_fdf		*fdf;
 
-	fd = open("non.txt", O_RDONLY);
-	if (fd == -1)
+	fdf = malloc(sizeof(t_fdf));
+	if (!fdf)
+		return (1);
+	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
+		return (1);
+	fdf->win = mlx_new_window(fdf->mlx, 1470, 956, "Fdf by Juste");
+	if (!fdf->win)
 	{
-		int i = -1;
-		while (++i < 50)
-			ft_printf(2, "Error %d: %s\n", i, strerror(i));
+		free(fdf->win);
+		free(fdf->mlx);
 		return (1);
 	}
+	free(fdf->win);
+	free(fdf->mlx);
+	free(fdf);
 	return (0);
 }

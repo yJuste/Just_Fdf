@@ -16,18 +16,30 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-// -> open:
+// open
 # include <fcntl.h>
-// -> strerror, errno:
+// strerror, errno
 # include <string.h>
 # include <errno.h>
+# include <math.h>
+# include <stdio.h>
 
 // My library
+
+// minilibX
+# include "minilibx/mlx.h"
 
 # include "Get_Next_Line/get_next_line.h"
 # include "Printf_fd/ft_printf.h"
 
 // Structure
+
+typedef struct s_fdf
+{
+	void		*mlx;
+	void		*win;
+	void		*img;
+}	t_fdf;
 
 //	---------- MY CODE ----------
 
