@@ -34,17 +34,40 @@
 
 // Macros
 
-# define HEIGHT 1470
-# define WIDTH 956
+// Default Mac Air M2: 1470 x 956
+// 	Large resolution: 1710 x 1112
+# define HEIGHT 700
+# define WIDTH 500
 
 // Structure
+
+typedef struct s_coord t_coord;
 
 typedef struct s_fdf
 {
 	void		*mlx;
 	void		*win;
 	void		*img;
+	t_coord		*coord;
 }	t_fdf;
+
+typedef struct s_coord
+{
+	int		x0;
+	int		y0;
+	int		x1;
+	int		y1;
+}	t_coord;
+
+typedef struct s_line
+{
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+	int		err;
+	int		e2;
+}	t_line;
 
 //	---------- MY CODE ----------
 
