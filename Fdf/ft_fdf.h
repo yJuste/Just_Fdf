@@ -16,13 +16,6 @@
 
 # include <unistd.h>
 # include <stdlib.h>
-// open
-# include <fcntl.h>
-// strerror, errno
-# include <string.h>
-# include <errno.h>
-# include <math.h>
-# include <stdio.h>
 
 // My library
 
@@ -41,14 +34,18 @@
 
 // Structure
 
-typedef struct s_coord t_coord;
+typedef struct s_coord	t_coord;
 
 typedef struct s_fdf
 {
 	void		*mlx;
 	void		*win;
 	void		*img;
-	t_coord		*coord;
+	char		*data;
+	int			px_bit;
+	int			ln_bit;
+	int			endian;
+	t_coord		*c;
 }	t_fdf;
 
 typedef struct s_coord
@@ -59,19 +56,16 @@ typedef struct s_coord
 	int		y1;
 }	t_coord;
 
-typedef struct s_line
-{
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-	int		e2;
-}	t_line;
-
 //	---------- MY CODE ----------
 
 // ft_fdf.c
+
+// ft_fdf_next.c
+
+// ft_bresenham.c
+
+void		ft_bresenham_line(t_fdf *fdf);
+void		ft_bresenham_line_next(t_fdf *fdf, int sx, int sy, int err);
 
 // ft_lib.c
 

@@ -11,6 +11,8 @@ PRINTF = libftprintf.a
 PATH_PRINTF = Printf_fd
 
 SRC =	ft_fdf.c				\
+	ft_fdf_next.c				\
+	ft_bresenham.c				\
 	ft_lib.c				\
 	ft_split.c				\
 	Get_Next_Line/get_next_line.c
