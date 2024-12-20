@@ -11,8 +11,8 @@
 
 Merci a :
 
-[Algo de Bresenham](https://zingl.github.io/bresenham.html)
-[Youtubeur: Quantale](https://www.youtube.com/watch?v=3_iZcoYrXOM)
+- [Algo de Bresenham](https://zingl.github.io/bresenham.html)
+- [Youtubeur: Quantale](https://www.youtube.com/watch?v=3_iZcoYrXOM)
 
 ##	/: EOF
 

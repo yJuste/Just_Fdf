@@ -11,10 +11,74 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// ----------------------------PROTOTYPE----------------------------
-void	ft_bresenham_line(t_fdf *fdf);
-void	ft_bresenham_line_next(t_fdf *fdf, int sx, int sy, int err);
-// -----------------------------------------------------------------
+// --------------------------------PROTOTYPE-------------------------------
+int		ft_color(t_img *img);
+void	ft_pixel_put(t_img *img, int x, int y, int color);
+void	ft_bresenham_line(t_fdf *fdf, t_img *img);
+void	ft_bresenham_line_next(t_fdf *fdf, t_img *img, int sx, int sy);
+// ------------------------------------------------------------------------
+
+int	ft_color(t_img *img)
+{
+    return ((img->red << 16) | (img->green << 8) | img->blue);
+}
+
+void	ft_pixel_put(t_img *img, int x, int y, int color)
+{
+	char		*pixel;
+
+	pixel = img->addr + (y * img->size + x * (img->bpp / 8));
+	*(int *)pixel = color;
+}
+
+void	ft_bresenham_line(t_fdf *fdf, t_img *img)
+{
+	int		dx;
+	int		dy;
+	int		sx;
+	int		sy;
+
+	dx = abs(fdf->c->x1 - fdf->c->x0);
+	dy = -abs(fdf->c->y1 - fdf->c->y0);
+	if (fdf->c->x0 < fdf->c->x1)
+		sx = 1;
+	else
+		sx = -1;
+	if (fdf->c->y0 < fdf->c->y1)
+		sy = 1;
+	else
+		sy = -1;
+	ft_bresenham_line_next(fdf, img, sx, sy);
+}
+
+void	ft_bresenham_line_next(t_fdf *fdf, t_img *img, int sx, int sy)
+{
+	int		dx;
+	int		dy;
+	int		err;
+	int		e2;
+
+	dx = abs(fdf->c->x1 - fdf->c->x0);
+	dy = -abs(fdf->c->y1 - fdf->c->y0);
+	err = dx + dy;
+	while (1)
+	{
+		ft_pixel_put(img, fdf->c->x0, fdf->c->y0, ft_color(img));
+		if (fdf->c->x0 == fdf->c->x1 && fdf->c->y0 == fdf->c->y1)
+			break ;
+		e2 = 2 * err;
+		if (e2 >= dy)
+		{
+			err += dy;
+			fdf->c->x0 += sx;
+		}
+		if (e2 <= dx)
+		{
+			err += dx;
+			fdf->c->y0 += sy;
+		}
+	}
+}
 
 /*
 void plotLine(t_fdf *fdf, int x0, int y0, int x1, int y1)
@@ -32,52 +96,3 @@ void plotLine(t_fdf *fdf, int x0, int y0, int x1, int y1)
    }
 }
 */
-
-void	ft_bresenham_line(t_fdf *fdf)
-{
-	int		dx;
-	int		dy;
-	int		sx;
-	int		sy;
-	int		err;
-
-	dx = abs(fdf->c->x1 - fdf->c->x0);
-	dy = -abs(fdf->c->y1 - fdf->c->y0);
-	if (fdf->c->x0 < fdf->c->x1)
-		sx = 1;
-	else
-		sx = -1;
-	if (fdf->c->y0 < fdf->c->y1)
-		sy = 1;
-	else
-		sy = -1;
-	err = dx + dy;
-	ft_bresenham_line_next(fdf, sx, sy, err);
-}
-
-void	ft_bresenham_line_next(t_fdf *fdf, int sx, int sy, int err)
-{
-	int		dx;
-	int		dy;
-	int		e2;
-
-	dx = abs(fdf->c->x1 - fdf->c->x0);
-	dy = -abs(fdf->c->y1 - fdf->c->y0);
-	while (1)
-	{
-		mlx_pixel_put(fdf->mlx, fdf->win, fdf->c->x0, fdf->c->y0, 0xfffb00);
-		if (fdf->c->x0 == fdf->c->x1 && fdf->c->y0 == fdf->c->y1)
-			break ;
-		e2 = 2 * err;
-		if (e2 >= dy)
-		{
-			err += dy;
-			fdf->c->x0 += sx;
-		}
-		if (e2 <= dx)
-		{
-			err += dx;
-			fdf->c->y0 += sy;
-		}
-	}
-}

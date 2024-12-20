@@ -68,6 +68,6 @@ help:
 	@echo $(RESET)
 
 norm:
-	norminette $(NORMINETTE)
+	@norminette $(NORMINETTE)
 
 .PHONY: all clean fclean re rf s help norm

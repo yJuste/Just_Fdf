@@ -29,24 +29,33 @@
 
 // Default Mac Air M2: 1470 x 956
 // 	Large resolution: 1710 x 1112
-# define HEIGHT 700
-# define WIDTH 500
+# define WIDTH 900
+# define HEIGHT 500
 
 // Structure
 
+typedef struct s_img	t_img;
 typedef struct s_coord	t_coord;
 
 typedef struct s_fdf
 {
 	void		*mlx;
 	void		*win;
-	void		*img;
-	char		*data;
-	int			px_bit;
-	int			ln_bit;
-	int			endian;
+	t_img		*i;
 	t_coord		*c;
 }	t_fdf;
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size;
+	int		endian;
+	int		red;
+	int		green;
+	int		blue;
+}	t_img;
 
 typedef struct s_coord
 {
@@ -60,12 +69,18 @@ typedef struct s_coord
 
 // ft_fdf.c
 
+void	ft_fdf(t_fdf *fdf, t_img *img);
+void	ft_init(t_fdf **fdf, t_img **img);
+int		close_window(t_fdf *fdf);
+
 // ft_fdf_next.c
 
 // ft_bresenham.c
 
-void		ft_bresenham_line(t_fdf *fdf);
-void		ft_bresenham_line_next(t_fdf *fdf, int sx, int sy, int err);
+int		ft_color(t_img *img);
+void	ft_pixel_put(t_img *img, int x, int y, int color);
+void	ft_bresenham_line(t_fdf *fdf, t_img *img);
+void	ft_bresenham_line_next(t_fdf *fdf, t_img *img, int sx, int sy);
 
 // ft_lib.c
 
