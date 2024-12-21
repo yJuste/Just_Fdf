@@ -23,30 +23,6 @@ int	ft_zoom(int key, t_fdf *fdf);
 int			close_window(t_fdf *fdf);
 // --------------------------------------------------------
 
-
-# define NUM_PAD_PLUS		69
-# define MAIN_PAD_PLUS		24
-# define MOUSE_SCROLL_UP	4
-
-# define MOUSE_SCROLL_DOWN	5
-# define NUM_PAD_MINUS		78
-# define MAIN_PAD_MINUS		27
-
-int	ft_zoom(int key, t_fdf *fdf)
-{
-	if (key == NUM_PAD_PLUS ||
-		key == MAIN_PAD_PLUS ||
-		key == MOUSE_SCROLL_UP)
-		fdf->cam->zoom += 0.1;
-	else if (key == NUM_PAD_MINUS ||
-		key == MAIN_PAD_MINUS ||
-		key == MOUSE_SCROLL_DOWN)
-		fdf->cam->zoom -= 0.1;
-	ft_draw_vertical(fdf, img);
-	ft_draw_horizontal(fdf, img);
-	return (0);
-}
-
 int	main(void)
 {
 	t_fdf		*fdf;

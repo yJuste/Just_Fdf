@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lib.c                                           :+:      :+:    :+:   */
+/*   ft_macros.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -9,41 +9,31 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "ft_fdf.h"
+#ifndef FT_MACROS_H
+# define FT_MACROS_H
 
-// ----------------------------PROTOTYPE---------------------------
-void	*ft_calloc(size_t count, size_t size);
-void	ft_clear_image(t_img *img);
-// ----------------------------------------------------------------
+// Taille de l'ecran :'
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	size_t		i;
-	size_t		tot;
-	void		*ptr;
+// Default Mac Air M2: 1470 x 956
+// 	Large resolution: 1710 x 1112
+# define WIDTH 900
+# define HEIGHT 500
 
-	i = 0;
-	tot = count * size;
-	ptr = malloc(tot);
-	if (!ptr)
-		return (NULL);
-	while (i < tot)
-	{
-		((char *)ptr)[i] = 0;
-		i++;
-	}
-	return (ptr);
-}
+// For the ZOOM:
 
-void	ft_clear_image(t_img *img)
-{
-	int		tot;
-	int		*buffer;
-	int		i;
+# define NUM_PAD_PLUS		69
+# define MAIN_PAD_PLUS		24
+# define MOUSE_SCROLL_UP	4
 
-	buffer = (int *)img->addr;
-	tot = WIDTH * HEIGHT;
-	i = -1;
-	while (++i < tot)
-		buffer[i] = 0;
-}
+# define MOUSE_SCROLL_DOWN	5
+# define NUM_PAD_MINUS		78
+# define MAIN_PAD_MINUS		27
+
+// For the TRANSLATION:
+
+# define ARROW_LEFT		123
+# define ARROW_RIGHT		124
+# define ARROW_DOWN		125
+# define ARROW_UP		126
+
+#endif

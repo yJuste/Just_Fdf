@@ -31,12 +31,8 @@
 # include "Get_Next_Line/get_next_line.h"
 # include "Printf_fd/ft_printf.h"
 
-// Macros
-
-// Default Mac Air M2: 1470 x 956
-// 	Large resolution: 1710 x 1112
-# define WIDTH 900
-# define HEIGHT 500
+// Macros des fct
+# include "ft_macros.h"
 
 // Structure
 
@@ -80,22 +76,34 @@ typedef struct s_map
 typedef struct s_camera
 {
 	float		zoom;
+	int		offset_x;
+	int		offset_y;
 }	t_camera;
 
 //	---------- MY CODE ----------
 
 // ft_fdf.c
 
-void		ft_fdf(t_fdf *fdf, t_img *img);
-void		ft_fdf_next(t_fdf *fdf, t_img *img);
+void		ft_error(t_fdf *fdf, int error);
+void		ft_init(t_fdf **fdf);
 
 // ft_fdf_next.c
 
 void		ft_fdf(t_fdf *fdf, t_img *img);
 void		ft_fdf_next(t_fdf *fdf, t_img *img);
 void		ft_draw(t_fdf *fdf);
-void		ft_isometric(int *x, int *y, int *z);
 void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
+void		ft_draw_vertical(t_fdf *fdf, t_map *map);
+
+// ft_cam_movements.c
+
+void		ft_isometric(int *x, int *y, int *z);
+void		ft_translation(t_camera *cam, int *x, int *y);
+
+// ft_macros.c
+
+int		ft_key_hook(int keycode, t_fdf *fdf);
+int		ft_zoom(int keycode, t_fdf *fdf);
 
 // ft_bresenham.c
 
@@ -107,6 +115,7 @@ void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
 // ft_lib.c
 
 void		*ft_calloc(size_t count, size_t size);
+void		ft_clear_image(t_img *img);
 
 // ft_split.c
 
