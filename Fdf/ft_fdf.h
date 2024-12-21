@@ -17,6 +17,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
+// strerror, errno
+# include <string.h>
+# include <errno.h>
+
+# include <math.h>
+
 // My library
 
 // minilibX
@@ -35,52 +41,68 @@
 // Structure
 
 typedef struct s_img	t_img;
-typedef struct s_coord	t_coord;
+typedef struct s_camera	t_camera;
+typedef struct s_map	t_map;
 
 typedef struct s_fdf
 {
 	void		*mlx;
 	void		*win;
-	t_img		*i;
-	t_coord		*c;
+	t_img			*img;
+	t_camera		*cam;
+	t_map			*map;
 }	t_fdf;
 
 typedef struct s_img
 {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		size;
-	int		endian;
-	int		red;
-	int		green;
-	int		blue;
+	void		*ptr;
+	char		*addr;
+	int			bpp;
+	int			size;
+	int			endian;
+	int			red;
+	int			green;
+	int			blue;
 }	t_img;
 
-typedef struct s_coord
+typedef struct s_map
 {
-	int		x0;
-	int		y0;
-	int		x1;
-	int		y1;
-}	t_coord;
+	int			width;
+	int			height;
+	int			x0;
+	int			x1;
+	int			y0;
+	int			y1;
+	int			z0;
+	int			z1;
+}	t_map;
+
+typedef struct s_camera
+{
+	float		zoom;
+}	t_camera;
 
 //	---------- MY CODE ----------
 
 // ft_fdf.c
 
-void	ft_fdf(t_fdf *fdf, t_img *img);
-void	ft_init(t_fdf **fdf, t_img **img);
-int		close_window(t_fdf *fdf);
+void		ft_fdf(t_fdf *fdf, t_img *img);
+void		ft_fdf_next(t_fdf *fdf, t_img *img);
 
 // ft_fdf_next.c
+
+void		ft_fdf(t_fdf *fdf, t_img *img);
+void		ft_fdf_next(t_fdf *fdf, t_img *img);
+void		ft_draw(t_fdf *fdf);
+void		ft_isometric(int *x, int *y, int *z);
+void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 
 // ft_bresenham.c
 
 int		ft_color(t_img *img);
 void	ft_pixel_put(t_img *img, int x, int y, int color);
-void	ft_bresenham_line(t_fdf *fdf, t_img *img);
-void	ft_bresenham_line_next(t_fdf *fdf, t_img *img, int sx, int sy);
+void	ft_bresenham_line(t_fdf *fdf, t_map *map);
+void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
 
 // ft_lib.c
 
