@@ -65,6 +65,8 @@ typedef struct s_map
 {
 	int			width;
 	int			height;
+	int			wid;
+	int			hei;
 	int			x0;
 	int			x1;
 	int			y0;
@@ -98,12 +100,14 @@ void		ft_draw_vertical(t_fdf *fdf, t_map *map);
 // ft_cam_movements.c
 
 void		ft_isometric(int *x, int *y, int *z);
-void		ft_translation(t_camera *cam, int *x, int *y);
+void		ft_translate(t_camera *cam, int *x, int *y);
+void		ft_zoom(t_fdf *fdf, t_map *map);
 
 // ft_macros.c
 
 int		ft_key_hook(int keycode, t_fdf *fdf);
-int		ft_zoom(int keycode, t_fdf *fdf);
+int		ft_key_zoom(int keycode, t_fdf *fdf);
+int		ft_key_translate(int keycode, t_fdf *fdf);
 
 // ft_bresenham.c
 

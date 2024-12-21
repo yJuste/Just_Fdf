@@ -13,8 +13,8 @@
 
 // -----------------------PROTOTYPE------------------------
 int		ft_key_hook(int keycode, t_fdf *fdf);
-int		ft_zoom(int keycode, t_fdf *fdf);
-void	ft_translate(int keycode, t_fdf *fdf);
+int		ft_key_zoom(int keycode, t_fdf *fdf);
+int		ft_key_translate(int keycode, t_fdf *fdf);
 // --------------------------------------------------------
 
 int	ft_key_hook(int keycode, t_fdf *fdf)
@@ -22,14 +22,14 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 	if (keycode == NUM_PAD_PLUS || keycode == MAIN_PAD_PLUS
 		|| keycode == MOUSE_SCROLL_UP || keycode == NUM_PAD_MINUS
 		|| keycode == MAIN_PAD_MINUS || keycode == MOUSE_SCROLL_DOWN)
-		ft_zoom(keycode, fdf);
+		ft_key_zoom(keycode, fdf);
 	else if (keycode == ARROW_LEFT || keycode == ARROW_RIGHT
 		|| keycode == ARROW_UP || keycode == ARROW_DOWN)
-		ft_translate(keycode, fdf);
+		ft_key_translate(keycode, fdf);
 	return (0);
 }
 
-int	ft_zoom(int keycode, t_fdf *fdf)
+int	ft_key_zoom(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_PLUS ||
 		keycode == MAIN_PAD_PLUS ||
@@ -45,7 +45,7 @@ int	ft_zoom(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-void	ft_translate(int keycode, t_fdf *fdf)
+int	ft_key_translate(int keycode, t_fdf *fdf)
 {
 	if (keycode == ARROW_LEFT) {
 		fdf->cam->offset_x += 20;
@@ -60,4 +60,5 @@ void	ft_translate(int keycode, t_fdf *fdf)
 		fdf->cam->offset_y += 20;
 	}
 	ft_draw(fdf);
+	return (0);
 }
