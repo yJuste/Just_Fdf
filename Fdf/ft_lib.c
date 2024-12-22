@@ -35,15 +35,18 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
+// 
 void	ft_clear_image(t_img *img)
 {
-	int		tot;
-	int		*buffer;
 	int		i;
+	int		tot;
+	int		color;
+	int		*buffer;
 
 	buffer = (int *)img->addr;
+	color = BCKGRND_COLOR;
 	tot = WIDTH * HEIGHT;
 	i = -1;
 	while (++i < tot)
-		buffer[i] = 0;
+		buffer[i] = color;
 }

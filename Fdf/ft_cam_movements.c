@@ -34,6 +34,6 @@ void	ft_translate(t_camera *cam, int *x, int *y)
 
 void	ft_zoom(t_fdf *fdf, t_map *map)
 {
-	map->wid = WIDTH / map->width * fdf->cam->zoom;
-	map->hei = HEIGHT / map->height * fdf->cam->zoom;
+	map->wid *= fdf->cam->zoom;
+	map->hei *= fdf->cam->zoom;
 }

@@ -15,6 +15,7 @@
 void		ft_fdf(t_fdf *fdf, t_img *img);
 void		ft_fdf_next(t_fdf *fdf, t_img *img);
 void		ft_draw(t_fdf *fdf);
+void		ft_draw_next(t_fdf *fdf, t_map *map);
 void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 void		ft_draw_vertical(t_fdf *fdf, t_map *map);
 // -------------------------------------------------
@@ -30,10 +31,10 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 
 void	ft_fdf_next(t_fdf *fdf, t_img *img)
 {
-	fdf->map->width = 4;
-	fdf->map->height = 2;
+	fdf->map->width = 8;
+	fdf->map->height = 4;
 	fdf->cam->zoom = 0.5;
-	img->green = 255;
+	img->green = 0; img->blue = 0; img->red = 0;
 	ft_draw(fdf);
 	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
 }
@@ -41,10 +42,21 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 void	ft_draw(t_fdf *fdf)
 {
 	ft_clear_image(fdf->img);
+	// mlx_clear_window(fdf->mlx, fdf->win);
+	fdf->map->wid = WIDTH / fdf->map->width;
+	fdf->map->hei = HEIGHT / fdf->map->height;
 	ft_zoom(fdf, fdf->map);
 	ft_draw_horizontal(fdf, fdf->map);
 	ft_draw_vertical(fdf, fdf->map);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
+}
+
+void	ft_draw_next(t_fdf *fdf, t_map *map)
+{
+	ft_isometric(&map->x0, &map->y0, &map->z0);
+	ft_isometric(&map->x1, &map->y1, &map->z1);
+	ft_translate(fdf->cam, &map->x0, &map->y0);
+	ft_translate(fdf->cam, &map->x1, &map->y1);
 }
 
 void	ft_draw_horizontal(t_fdf *fdf, t_map *map)
@@ -62,10 +74,7 @@ void	ft_draw_horizontal(t_fdf *fdf, t_map *map)
 			map->y0 = y * map->hei;
 			map->x1 = (x + 1) * map->wid;
 			map->y1 = y * map->hei;
-			ft_isometric(&map->x0, &map->y0, &map->z0);
-			ft_isometric(&map->x1, &map->y1, &map->z1);
-			ft_translate(fdf->cam, &map->x0, &map->y0);
-			ft_translate(fdf->cam, &map->x1, &map->y1);
+			ft_draw_next(fdf, map);
 			ft_bresenham_line(fdf, map);
 			x++;
 		}
@@ -88,10 +97,7 @@ void	ft_draw_vertical(t_fdf *fdf, t_map *map)
 			map->y0 = y * map->hei;
 			map->x1 = x * map->wid;
 			map->y1 = (y + 1) * map->hei;
-			ft_isometric(&map->x0, &map->y0, &map->z0);
-			ft_isometric(&map->x1, &map->y1, &map->z1);
-			ft_translate(fdf->cam, &map->x0, &map->y0);
-			ft_translate(fdf->cam, &map->x1, &map->y1);
+			ft_draw_next(fdf, map);
 			ft_bresenham_line(fdf, map);
 			x++;
 		}
