@@ -78,6 +78,7 @@ typedef struct s_map
 typedef struct s_camera
 {
 	float		zoom;
+	int		zoom_ix;
 	int		offset_x;
 	int		offset_y;
 }	t_camera;
@@ -99,6 +100,7 @@ void		ft_draw_vertical(t_fdf *fdf, t_map *map);
 
 // ft_cam_movements.c
 
+void		ft_default_dimensions(t_fdf *fdf);
 void		ft_isometric(int *x, int *y, int *z);
 void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_fdf *fdf, t_map *map);

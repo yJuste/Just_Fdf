@@ -41,6 +41,8 @@ int	ft_key_zoom(int keycode, t_fdf *fdf)
 		fdf->cam->zoom -= 0.1;
 	if (fdf->cam->zoom <= 0.1)
 		fdf->cam->zoom = 0.1;
+	if (fdf->cam->zoom >= 15)
+		fdf->cam->zoom = 15;
 	ft_draw(fdf);
 	return (0);
 }

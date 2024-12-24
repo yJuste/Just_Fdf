@@ -25,7 +25,7 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 {
 	img->ptr = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->ptr, &img->bpp, &img->size, &img->endian);
-	ft_printf(1, "bpp: %d\nsize: %d\n", img->bpp, img->size);
+	// ft_printf(1, "ptr: %p\nbpp: %d\nsize: %d\nendian : %d\n", fdf->img->ptr, fdf->img->bpp, fdf->img->size, fdf->img->endian);
 	ft_fdf_next(fdf, img);
 	// mlx_destroy_image(fdf->mlx, img->ptr);
 }
@@ -33,9 +33,14 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 void	ft_fdf_next(t_fdf *fdf, t_img *img)
 {
 	fdf->map->width = 100;
-	fdf->map->height = 90;
+	fdf->map->height = 80;
 	fdf->cam->zoom = 1;
 	img->green = 255; img->blue = 255; img->red = 255;
+	fdf->cam->zoom_ix = 2;
+	if (WIDTH * HEIGHT > 450000)
+		fdf->cam->zoom_ix = 10;
+	if (WIDTH * HEIGHT > 4000000)
+		fdf->cam->zoom_ix = 25;
 	ft_draw(fdf);
 	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
 }
@@ -44,8 +49,7 @@ void	ft_draw(t_fdf *fdf)
 {
 	ft_clear_image(fdf->img);
 	// mlx_clear_window(fdf->mlx, fdf->win);
-	fdf->map->wid = WIDTH / fdf->map->width;
-	fdf->map->hei = HEIGHT / fdf->map->height;
+	ft_default_dimensions(fdf);
 	ft_zoom(fdf, fdf->map);
 	ft_draw_horizontal(fdf, fdf->map);
 	ft_draw_vertical(fdf, fdf->map);
@@ -61,6 +65,7 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 	ft_isometric(&map->x1, &map->y1, &map->z1);
 	ft_translate(fdf->cam, &map->x0, &map->y0);
 	ft_translate(fdf->cam, &map->x1, &map->y1);
+	// ft_printf(1, "x0y0:%d;%d\nx1y1:%d;%d\n", map->x0, map->y0, map->x1, map->y1);
 	ft_cohen_sutherland_clip(map);
 }
 
@@ -145,7 +150,8 @@ void	ft_draw_horizontal(t_fdf *fdf, t_map *map)
 			map->x1 = (x + 1) * map->wid;
 			map->y1 = y * map->hei;
 			ft_draw_next(fdf, map);
-			ft_bresenham_line(fdf, map);
+			if (map->x0 >= 0 && map->y0 >= -(fdf->cam->zoom * fdf->cam->zoom_ix))
+				ft_bresenham_line(fdf, map);
 			x++;
 		}
 		y++;
@@ -168,7 +174,8 @@ void	ft_draw_vertical(t_fdf *fdf, t_map *map)
 			map->x1 = x * map->wid;
 			map->y1 = (y + 1) * map->hei;
 			ft_draw_next(fdf, map);
-			ft_bresenham_line(fdf, map);
+			if (map->x0 >= 0 && map->y0 >= -(fdf->cam->zoom * fdf->cam->zoom_ix))
+				ft_bresenham_line(fdf, map);
 			x++;
 		}
 		y++;

@@ -27,6 +27,8 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 {
 	char		*pixel;
 
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
 	pixel = img->addr + (y * img->size + x * (img->bpp / 8));
 	*(int *)pixel = color;
 }

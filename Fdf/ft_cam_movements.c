@@ -12,10 +12,30 @@
 #include "ft_fdf.h"
 
 // -----------------------PROTOTYPE------------------------
+void		ft_default_dimensions(t_fdf *fdf);
 void		ft_isometric(int *x, int *y, int *z);
 void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_fdf *fdf, t_map *map);
 // --------------------------------------------------------
+
+void	ft_default_dimensions(t_fdf *fdf)
+{
+	int		ref;
+	int		max_dim;
+	int		scale;
+
+	if (WIDTH > HEIGHT)
+		ref = HEIGHT;
+	else
+		ref = WIDTH;
+	if (fdf->map->width > fdf->map->height)
+		max_dim = fdf->map->width;
+	else
+		max_dim = fdf->map->height;
+	scale = ref / max_dim;
+	fdf->map->wid = scale;
+	fdf->map->hei = scale;
+}
 
 void	ft_isometric(int *x, int *y, int *z)
 {
