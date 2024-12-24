@@ -16,6 +16,7 @@ void		ft_fdf(t_fdf *fdf, t_img *img);
 void		ft_fdf_next(t_fdf *fdf, t_img *img);
 void		ft_draw(t_fdf *fdf);
 void		ft_draw_next(t_fdf *fdf, t_map *map);
+void		ft_cohen_sutherland_clip(t_map *map);
 void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 void		ft_draw_vertical(t_fdf *fdf, t_map *map);
 // -------------------------------------------------
@@ -31,10 +32,10 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 
 void	ft_fdf_next(t_fdf *fdf, t_img *img)
 {
-	fdf->map->width = 8;
-	fdf->map->height = 4;
-	fdf->cam->zoom = 0.5;
-	img->green = 0; img->blue = 0; img->red = 0;
+	fdf->map->width = 100;
+	fdf->map->height = 90;
+	fdf->cam->zoom = 1;
+	img->green = 255; img->blue = 255; img->red = 255;
 	ft_draw(fdf);
 	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
 }
@@ -48,7 +49,10 @@ void	ft_draw(t_fdf *fdf)
 	ft_zoom(fdf, fdf->map);
 	ft_draw_horizontal(fdf, fdf->map);
 	ft_draw_vertical(fdf, fdf->map);
+	// int i = 0;
+	// ft_printf(1, "pair %d = %p\n", i++, fdf->img->ptr);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
+	// ft_printf(1, "impair %d = %p\n", i++, fdf->img->ptr);
 }
 
 void	ft_draw_next(t_fdf *fdf, t_map *map)
@@ -57,6 +61,72 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 	ft_isometric(&map->x1, &map->y1, &map->z1);
 	ft_translate(fdf->cam, &map->x0, &map->y0);
 	ft_translate(fdf->cam, &map->x1, &map->y1);
+	ft_cohen_sutherland_clip(map);
+}
+
+
+int	ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax)
+{
+	int		code;
+
+	code = 0;
+	if (x < xmin)
+		code |= LEFT;
+	else if (x > xmax)
+		code |= RIGHT;
+	return (code);
+}
+
+void	ft_cohen_sutherland_clip(t_map *map)
+{
+	int		xmin = 0, xmax = WIDTH - 1;
+	int		ymin = 0, ymax = HEIGHT - 1;
+	int		code0 = ft_compute_region_code(map->x0, map->y0, xmin, xmax, ymin, ymax);
+	int		code1 = ft_compute_region_code(map->x1, map->y1, xmin, xmax, ymin, ymax);
+
+	while (1)
+	{
+		if ((code0 | code1) == 0)
+			break ;
+		else if (code0 & code1)
+		{
+			map->x0 = -1;
+			map->x1 = -1;
+			return ;
+		}
+		else
+		{
+			int		code_out;
+			int		x, y;
+
+			if (code0 != 0)
+				code_out = code0;
+			else
+				code_out = code1;
+			if (code_out & LEFT)
+			{
+				x = xmin;
+				y = map->y0 + (map->y1 - map->y0) * (xmin - map->x0) / (map->x1 - map->x0);
+			}
+			else if (code_out & RIGHT)
+			{
+				x = xmax;
+				y = map->y0 + (map->y1 - map->y0) * (xmax - map->x0) / (map->x1 - map->x0);
+			}
+			if (code_out == code0)
+			{
+				map->x0 = x;
+				map->y0 = y;
+				code0 = ft_compute_region_code(map->x0, map->y0, xmin, xmax, ymin, ymax);
+			}
+			else
+			{
+				map->x1 = x;
+				map->y1 = y;
+				code1 = ft_compute_region_code(map->x1, map->y1, xmin, xmax, ymin, ymax);
+			}
+		}
+	}
 }
 
 void	ft_draw_horizontal(t_fdf *fdf, t_map *map)

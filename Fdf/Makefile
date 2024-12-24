@@ -5,6 +5,7 @@ CFLAGS = -g # -lm
 
 MINILIBX = libmlx.a
 PATH_MINILIBX = minilibx
+
 MLXFLAGS = -framework OpenGL -framework AppKit
 
 PRINTF = libftprintf.a

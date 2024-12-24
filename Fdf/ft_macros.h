@@ -18,8 +18,8 @@
 # define WIDTH			900
 # define HEIGHT			500
 
-// You have 0x424242, this one is cool too.
-# define BCKGRND_COLOR		0x7c7b85
+// You have 0x424242 or 0x7c7b85, this one is cool too.
+# define BCKGRND_COLOR		0xa6b1b3
 
 // For the ZOOM:
 
@@ -37,5 +37,10 @@
 # define ARROW_RIGHT		124
 # define ARROW_DOWN		125
 # define ARROW_UP		126
+
+// For Cohen SutherLand Clip
+
+# define LEFT			1
+# define RIGHT			2
 
 #endif
