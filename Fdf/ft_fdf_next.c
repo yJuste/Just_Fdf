@@ -37,9 +37,7 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 	fdf->cam->zoom = 1;
 	img->green = 255; img->blue = 255; img->red = 255;
 	fdf->cam->zoom_ix = 2;
-	if (WIDTH * HEIGHT > 450000)
-		fdf->cam->zoom_ix = 10;
-	if (WIDTH * HEIGHT > 4000000)
+	if (WIDTH * HEIGHT >= 450000)
 		fdf->cam->zoom_ix = 25;
 	ft_draw(fdf);
 	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
