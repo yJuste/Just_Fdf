@@ -17,6 +17,7 @@ int		ft_key_zoom(int keycode, t_fdf *fdf);
 int		ft_key_translate(int keycode, t_fdf *fdf);
 // --------------------------------------------------------
 
+// Fonction principale qui appelle les differentes touches presses.
 int	ft_key_hook(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_PLUS || keycode == MAIN_PAD_PLUS
@@ -29,6 +30,7 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 	return (0);
 }
 
+// Gere les touches de ZOOM.
 int	ft_key_zoom(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_PLUS ||
@@ -47,20 +49,17 @@ int	ft_key_zoom(int keycode, t_fdf *fdf)
 	return (0);
 }
 
+// Gere les touches de TRANSLATION
 int	ft_key_translate(int keycode, t_fdf *fdf)
 {
-	if (keycode == ARROW_LEFT) {
+	if (keycode == ARROW_LEFT)
 		fdf->cam->offset_x += 20;
-	}
-	else if (keycode == ARROW_RIGHT) {
+	else if (keycode == ARROW_RIGHT)
 		fdf->cam->offset_x -= 20;
-	}
-	else if (keycode == ARROW_DOWN) {
+	else if (keycode == ARROW_DOWN)
 		fdf->cam->offset_y -= 20;
-	}
-	else if (keycode == ARROW_UP) {
+	else if (keycode == ARROW_UP)
 		fdf->cam->offset_y += 20;
-	}
 	ft_draw(fdf);
 	return (0);
 }

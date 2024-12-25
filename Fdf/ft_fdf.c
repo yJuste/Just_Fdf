@@ -36,6 +36,8 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
+// 1. Alloue de la memoire pour chaque structure
+// 2. Met toutes les variables a 0.
 void	ft_init(t_fdf **fdf)
 {
 	*fdf = ft_calloc(1, sizeof(t_fdf));
@@ -44,6 +46,7 @@ void	ft_init(t_fdf **fdf)
 	(*fdf)->cam = ft_calloc(1, sizeof(t_camera));
 }
 
+// Fonction d'erreur
 void	ft_error(t_fdf *fdf, int error)
 {
 	if (fdf)

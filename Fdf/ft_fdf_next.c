@@ -21,6 +21,7 @@ void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 void		ft_draw_vertical(t_fdf *fdf, t_map *map);
 // -------------------------------------------------
 
+// Fonction principale
 void	ft_fdf(t_fdf *fdf, t_img *img)
 {
 	img->ptr = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
@@ -35,7 +36,7 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 	fdf->map->width = 100;
 	fdf->map->height = 80;
 	fdf->cam->zoom = 1;
-	img->green = 255; img->blue = 255; img->red = 255;
+	// img->green = 255; img->blue = 255; img->red = 255;
 	fdf->cam->zoom_ix = 2;
 	if (WIDTH * HEIGHT >= 450000)
 		fdf->cam->zoom_ix = 25;
@@ -43,6 +44,7 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
 }
 
+// Fonction pour dessiner la grille
 void	ft_draw(t_fdf *fdf)
 {
 	ft_clear_image(fdf->img);
@@ -57,6 +59,7 @@ void	ft_draw(t_fdf *fdf)
 	// ft_printf(1, "impair %d = %p\n", i++, fdf->img->ptr);
 }
 
+// Fonction pour appliquer certains rendus directement pendant le processus d'ajout de point
 void	ft_draw_next(t_fdf *fdf, t_map *map)
 {
 	ft_isometric(&map->x0, &map->y0, &map->z0);
@@ -67,7 +70,7 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 	ft_cohen_sutherland_clip(map);
 }
 
-
+// Fonction pour assigner les zones binaires
 int	ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax)
 {
 	int		code;
@@ -80,6 +83,7 @@ int	ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax)
 	return (code);
 }
 
+// Algorithme de Cohen SutherLand Clip qui coupe les lignes qui depasse de la fenetre
 void	ft_cohen_sutherland_clip(t_map *map)
 {
 	int		xmin = 0, xmax = WIDTH - 1;
@@ -132,6 +136,8 @@ void	ft_cohen_sutherland_clip(t_map *map)
 	}
 }
 
+// 1. Fonction pour desiner les lignes horizontales
+// 2. La condition if avec zoom_ix est pour optimiser le code
 void	ft_draw_horizontal(t_fdf *fdf, t_map *map)
 {
 	int		x;
@@ -156,6 +162,8 @@ void	ft_draw_horizontal(t_fdf *fdf, t_map *map)
 	}
 }
 
+// 1. Fonction pour dessiner les lignes verticales
+// 2. La condition if avec zoom_ix est pour optimiser le code
 void	ft_draw_vertical(t_fdf *fdf, t_map *map)
 {
 	int		x;

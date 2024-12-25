@@ -35,7 +35,8 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-// 
+// 1. Clear tous les pixels a 0 ( ou une couleur dans mon cas)
+// 2. Non je ne destroy pas l'image, je travaille avec la meme.
 void	ft_clear_image(t_img *img)
 {
 	int		i;

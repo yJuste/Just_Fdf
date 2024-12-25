@@ -18,11 +18,13 @@ void	ft_bresenham_line(t_fdf *fdf, t_map *map);
 void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
 // ------------------------------------------------------------------------
 
+// Fonction pour trnasformer une couleure hexa en RGB. ( hexa est mieux en fait)
 int	ft_color(t_img *img)
 {
     return ((img->red << 16) | (img->green << 8) | img->blue);
 }
 
+// Fonction d'ajout de pixel pour mlx_new_image
 void	ft_pixel_put(t_img *img, int x, int y, int color)
 {
 	char		*pixel;
@@ -33,6 +35,7 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
+// Algorithme de bresenham
 void	ft_bresenham_line(t_fdf *fdf, t_map *map)
 {
 	int		dx;
@@ -82,7 +85,7 @@ void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy)
 	}
 }
 
-/*
+/* Algo de bresenham
 void plotLine(t_fdf *fdf, int x0, int y0, int x1, int y1)
 {
    int dx =  abs(x1-x0), sx = x0<x1 ? 1 : -1;

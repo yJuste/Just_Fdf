@@ -18,6 +18,8 @@ void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_fdf *fdf, t_map *map);
 // --------------------------------------------------------
 
+// 1. On prend la plus petite echelle pour voir toute la grille en 1er.
+// 2. Les cases de la grille sont carre.
 void	ft_default_dimensions(t_fdf *fdf)
 {
 	int		ref;
@@ -37,6 +39,7 @@ void	ft_default_dimensions(t_fdf *fdf)
 	fdf->map->hei = scale;
 }
 
+// Rend la grille en vue isometrique.
 void	ft_isometric(int *x, int *y, int *z)
 {
 	int		tmp;
@@ -46,12 +49,14 @@ void	ft_isometric(int *x, int *y, int *z)
 	*y = (tmp + *y) * sin(0.523599) - *z;
 }
 
+// Fonction pour translater.
 void	ft_translate(t_camera *cam, int *x, int *y)
 {
 	*x += cam->offset_x;
 	*y += cam->offset_y;
 }
 
+// Fonction pour zoomer.
 void	ft_zoom(t_fdf *fdf, t_map *map)
 {
 	map->wid *= fdf->cam->zoom;

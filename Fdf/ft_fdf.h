@@ -75,6 +75,7 @@ typedef struct s_map
 	int			z1;
 }	t_map;
 
+// zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
 	float		zoom;
