@@ -75,6 +75,12 @@ typedef struct s_map
 	int			z1;
 }	t_map;
 
+typedef struct s_menu
+{
+	int		x;
+	int		y;
+}	t_menu;
+
 // zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
@@ -119,10 +125,16 @@ void	ft_pixel_put(t_img *img, int x, int y, int color);
 void	ft_bresenham_line(t_fdf *fdf, t_map *map);
 void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
 
+// ft_menu.c
+
+void		ft_menu(t_fdf *fdf);
+void		ft_menu_next(t_fdf *fdf);
+void		ft_background_menu(t_fdf *fdf);
+void		ft_header(t_fdf *fdf);
+
 // ft_lib.c
 
 void		*ft_calloc(size_t count, size_t size);
-void		ft_clear_image(t_img *img);
 
 // ft_split.c
 

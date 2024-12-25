@@ -18,8 +18,12 @@
 # define WIDTH			900
 # define HEIGHT			500
 
-// You have 0x424242 or 0x7c7b85, this one is cool too.
+// You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
+
+// Change the color for menu, 0x7b8587 is good.
+# define COLOR_HEADER		BCKGRND_COLOR
+# define COLOR_MENU		0x2a2d2e
 
 // For the ZOOM:
 

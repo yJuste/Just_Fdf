@@ -19,6 +19,7 @@ void		ft_draw_next(t_fdf *fdf, t_map *map);
 void		ft_cohen_sutherland_clip(t_map *map);
 void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 void		ft_draw_vertical(t_fdf *fdf, t_map *map);
+void		ft_clear_image(t_fdf *fdf, t_img *img);
 // -------------------------------------------------
 
 // Fonction principale
@@ -36,7 +37,7 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 	fdf->map->width = 100;
 	fdf->map->height = 80;
 	fdf->cam->zoom = 1;
-	// img->green = 255; img->blue = 255; img->red = 255;
+	img->green = 255; img->blue = 255; img->red = 255;
 	fdf->cam->zoom_ix = 2;
 	if (WIDTH * HEIGHT >= 450000)
 		fdf->cam->zoom_ix = 25;
@@ -47,7 +48,7 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 // Fonction pour dessiner la grille
 void	ft_draw(t_fdf *fdf)
 {
-	ft_clear_image(fdf->img);
+	ft_clear_image(fdf, fdf->img);
 	// mlx_clear_window(fdf->mlx, fdf->win);
 	ft_default_dimensions(fdf);
 	ft_zoom(fdf, fdf->map);
@@ -56,6 +57,7 @@ void	ft_draw(t_fdf *fdf)
 	// int i = 0;
 	// ft_printf(1, "pair %d = %p\n", i++, fdf->img->ptr);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
+	ft_menu(fdf);
 	// ft_printf(1, "impair %d = %p\n", i++, fdf->img->ptr);
 }
 
@@ -186,4 +188,23 @@ void	ft_draw_vertical(t_fdf *fdf, t_map *map)
 		}
 		y++;
 	}
+}
+
+// 1. Clear tous les pixels a 0 ( ou une couleur dans mon cas)
+// 2. Non je ne destroy pas l'image, je travaille avec la meme.
+void	ft_clear_image(t_fdf *fdf, t_img *img)
+{
+	int		i;
+	int		tot;
+	int		color;
+	int		*buffer;
+
+	buffer = (int *)img->addr;
+	color = BCKGRND_COLOR;
+	tot = WIDTH * HEIGHT;
+	i = -1;
+	while (++i < tot)
+		buffer[i] = color;
+	if (WIDTH > 300)
+		ft_background_menu(fdf);
 }
