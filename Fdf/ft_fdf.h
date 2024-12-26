@@ -21,6 +21,9 @@
 # include <string.h>
 # include <errno.h>
 
+// open
+# include <fcntl.h>
+
 # include <math.h>
 
 // My library
@@ -73,6 +76,7 @@ typedef struct s_map
 	int			y1;
 	int			z0;
 	int			z1;
+	int			**map;
 }	t_map;
 
 typedef struct s_menu
@@ -105,6 +109,14 @@ void		ft_draw(t_fdf *fdf);
 void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 void		ft_draw_vertical(t_fdf *fdf, t_map *map);
 
+// ft_fdf_2.c
+
+void		ft_clear_image(t_fdf *fdf, t_img *img);
+
+// ft_parse_map.c
+
+void		ft_parse_map(t_fdf *fdf, char **argv);
+
 // ft_cam_movements.c
 
 void		ft_default_dimensions(t_fdf *fdf);
@@ -118,13 +130,6 @@ int		ft_key_hook(int keycode, t_fdf *fdf);
 int		ft_key_zoom(int keycode, t_fdf *fdf);
 int		ft_key_translate(int keycode, t_fdf *fdf);
 
-// ft_bresenham.c
-
-int		ft_color(t_img *img);
-void	ft_pixel_put(t_img *img, int x, int y, int color);
-void	ft_bresenham_line(t_fdf *fdf, t_map *map);
-void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
-
 // ft_menu.c
 
 void		ft_menu(t_fdf *fdf);
@@ -132,17 +137,36 @@ void		ft_menu_next(t_fdf *fdf);
 void		ft_background_menu(t_fdf *fdf);
 void		ft_header(t_fdf *fdf);
 
+// ft_bresenham.c
+
+int		ft_color(t_img *img);
+void	ft_pixel_put(t_img *img, int x, int y, int color);
+void	ft_bresenham_line(t_fdf *fdf, t_map *map);
+void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
+
+// ft_cohen_sutherland_clip.c
+
+void		ft_cohen_sutherland_clip(t_map *map);
+int			ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax);
+
 // ft_lib.c
 
 void		*ft_calloc(size_t count, size_t size);
+void		*ft_realloc(void *ptr, size_t size);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+size_t		ft_strslen(const char **s);
 
 // ft_split.c
 
-char		**ft_split(const char *s, char c);
-size_t		ft_count_words(const char *s, char c);
-char		**ft_split_next(char **out, const char *s, char c);
+char		**ft_split(const char *s);
+size_t		ft_count_words(const char *s);
+char		**ft_split_next(char **out, const char *s);
 char		**ft_split_error(char **out, size_t k);
 char		*ft_strncpy(char *dest, const char *src, size_t n);
+
+char	**ft_split_sep(char *str, char *charseti);
+char	*ft_strdup_sep_split(char *src, int start, int end);
+int	ft_is_sep_split(char c, char *charset);
 
 // get_next_line.c
 

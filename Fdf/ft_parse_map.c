@@ -12,51 +12,54 @@
 #include "ft_fdf.h"
 
 // -----------------------PROTOTYPE------------------------
-void		ft_error(t_fdf *fdf, int error);
-void		ft_init(t_fdf **fdf);
+void	ft_parse_map(t_fdf *fdf, char **argv);
 // --------------------------------------------------------
 
-int	main(int argc, char **argv)
+void	ft_free_strs(void **strs)
 {
-	t_fdf		*fdf;
+	size_t		i;
 
-	fdf = NULL;
-	if (argc == 2)
+	i = 0;
+	if (!strs)
+		return ;
+	while (strs[i])
 	{
-		ft_init(&fdf);
-		ft_parse_map(fdf, argv);
-		free(fdf->img);
-		free(fdf->map);
-		free(fdf->cam);
-		free(fdf);
-		/*
-		fdf->mlx = mlx_init();
-		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Fdf by Juste");
-		ft_fdf(fdf, fdf->img);
-		// mlx_hook(fdf->win, 17, 0, close_window, fdf);
-		mlx_loop(fdf->mlx);
-		*/
+		free(strs[i]);
+		strs[i] = NULL;
+		i++;
 	}
-	else
-		ft_error(fdf, ENOEXEC);
-	return (0);
+	free(strs);
+	strs = NULL;
 }
 
-// 1. Alloue de la memoire pour chaque structure
-// 2. Met toutes les variables a 0.
-void	ft_init(t_fdf **fdf)
+void	ft_parse_map(t_fdf *fdf, char **argv)
 {
-	*fdf = ft_calloc(1, sizeof(t_fdf));
-	(*fdf)->img = ft_calloc(1, sizeof(t_img));
-	(*fdf)->map = ft_calloc(1, sizeof(t_map));
-	(*fdf)->cam = ft_calloc(1, sizeof(t_camera));
-}
+	size_t		i;
+	int		j;
+	int		fd;
+	char		*line;
+	char		**out;
 
-// Fonction d'erreur
-void	ft_error(t_fdf *fdf, int error)
-{
-	if (fdf)
-		free(fdf);
-	ft_printf(2, "%s\n", strerror(error));
-	exit(error);
+	j = 0;
+	out = NULL;
+	fd = open(argv[1], O_RDONLY);
+	line = get_next_line(fd);
+	while (line)
+	{
+		out = ft_split(line);
+		j++;
+		fdf->map->map = ft_realloc(fdf->map->map, sizeof(int *) * j);
+		fdf->map->width = ft_strslen((const char **)out);
+		fdf->map->map[j - 1] = ft_calloc(fdf->map->width, sizeof(int));
+		i = -1;
+		while (++i && out[i])
+			fdf->map->map[j - 1][i] = ft_atoi(out[i]);
+		ft_free_strs((void **)out);
+		free(line);
+		line = get_next_line(fd);
+	}
+	fdf->map->height = j;
+	ft_printf(1, "w: %d, h: %d\n", fdf->map->width, fdf->map->height);
+	ft_free_strs((void **)fdf->map->map);
+	return ;
 }

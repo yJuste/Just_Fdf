@@ -16,28 +16,28 @@
 #include "ft_fdf.h"
 
 // ----------------------------PROTOTYPE---------------------------
-char		**ft_split(const char *s, char c);
-size_t		ft_count_words(const char *s, char c);
-char		**ft_split_next(char **out, const char *s, char c);
+char		**ft_split(const char *s);
+size_t		ft_count_words(const char *s);
+char		**ft_split_next(char **out, const char *s);
 char		**ft_split_error(char **out, size_t k);
 char		*ft_strncpy(char *dest, const char *src, size_t n);
 // ----------------------------------------------------------------
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(const char *s)
 {
 	size_t		wc;
 	char		**out;
 
 	if (!s)
 		return (NULL);
-	wc = ft_count_words(s, c);
+	wc = ft_count_words(s);
 	out = ft_calloc(wc + 1, sizeof(char *));
 	if (!out)
 		return (NULL);
-	return (ft_split_next(out, s, c));
+	return (ft_split_next(out, s));
 }
 
-size_t	ft_count_words(const char *s, char c)
+size_t	ft_count_words(const char *s)
 {
 	size_t		i;
 	size_t		wc;
@@ -46,17 +46,17 @@ size_t	ft_count_words(const char *s, char c)
 	wc = 0;
 	while (s[i])
 	{
-		while (s[i] && (s[i] == c))
+		while (s[i] == ' ' || s[i] == '\n')
 			i++;
 		if (s[i])
 			wc++;
-		while (s[i] && (s[i] != c))
+		while (s[i] && (s[i] != ' ' && s[i] != '\n'))
 			i++;
 	}
 	return (wc);
 }
 
-char	**ft_split_next(char **out, const char *s, char c)
+char	**ft_split_next(char **out, const char *s)
 {
 	size_t		i;
 	size_t		j;
@@ -67,17 +67,18 @@ char	**ft_split_next(char **out, const char *s, char c)
 	k = 0;
 	while (s[i])
 	{
-		while (s[i] && (s[i] == c))
+		while (s[i] == ' ' || s[i] == '\n')
 			i++;
-		j = i;
-		while (s[i] && (s[i] != c))
+		if (s[i])
+			j = i;
+		while (s[i] && (s[i] != ' ' && s[i] != '\n'))
 			i++;
 		if (i > j)
 		{
 			out[k] = ft_calloc(i - j + 1, sizeof(char));
 			if (!out[k])
 				return (ft_split_error(out, k));
-			ft_strncpy(out[k++], &s[j], (i - j));
+			ft_strncpy(out[k++], s + j, i - j);
 		}
 	}
 	out[k] = NULL;
