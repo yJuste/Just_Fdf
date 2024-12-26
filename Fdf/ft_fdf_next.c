@@ -18,6 +18,8 @@ void		ft_draw(t_fdf *fdf);
 void		ft_draw_next(t_fdf *fdf, t_map *map);
 void		ft_draw_horizontal(t_fdf *fdf, t_map *map);
 void		ft_draw_vertical(t_fdf *fdf, t_map *map);
+void		ft_draw_diagonal(t_fdf *fdf, t_map *map);
+void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
 // -------------------------------------------------
 
 // Fonction principale
@@ -32,8 +34,8 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 
 void	ft_fdf_next(t_fdf *fdf, t_img *img)
 {
-	fdf->map->width = 100;
-	fdf->map->height = 80;
+	// fdf->map->width = 100;
+	// fdf->map->height = 80;
 	fdf->cam->zoom = 1;
 	img->green = 255; img->blue = 255; img->red = 255;
 	fdf->cam->zoom_ix = 2;
@@ -50,8 +52,10 @@ void	ft_draw(t_fdf *fdf)
 	// mlx_clear_window(fdf->mlx, fdf->win);
 	ft_default_dimensions(fdf);
 	ft_zoom(fdf, fdf->map);
-	ft_draw_horizontal(fdf, fdf->map);
-	ft_draw_vertical(fdf, fdf->map);
+	ft_draw_lines(fdf, fdf->map, 1, 0);  // Horizontal
+	ft_draw_lines(fdf, fdf->map, 0, 1);  // Vertical
+	// ft_draw_lines(fdf, fdf->map, 1, 1);  // Diagonale principale
+	// ft_draw_lines(fdf, fdf->map, -1, 1); // Diagonale secondaire
 	// int i = 0;
 	// ft_printf(1, "pair %d = %p\n", i++, fdf->img->ptr);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
@@ -64,57 +68,39 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 {
 	ft_isometric(&map->x0, &map->y0, &map->z0);
 	ft_isometric(&map->x1, &map->y1, &map->z1);
+	if (map->z0 > 0)
+		map->y0 -= map->z0;
+	if (map->z1 > 0)
+		map->y1 -= map->z1;
 	ft_translate(fdf->cam, &map->x0, &map->y0);
 	ft_translate(fdf->cam, &map->x1, &map->y1);
+	// ft_project(map, fdf->cam);
 	// ft_printf(1, "x0y0:%d;%d\nx1y1:%d;%d\n", map->x0, map->y0, map->x1, map->y1);
 	ft_cohen_sutherland_clip(map);
 }
 
-// 1. Fonction pour desiner les lignes horizontales
+// 1. Fonction pour desiner les lignes
 // 2. La condition if avec zoom_ix est pour optimiser le code
-void	ft_draw_horizontal(t_fdf *fdf, t_map *map)
+void	ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy)
 {
 	int		x;
 	int		y;
 
 	y = 0;
-	while (y < map->height)
+	while (y < map->height - (dy > 0))
 	{
 		x = 0;
-		while (x < map->width - 1)
+		while (x < map->width - (dx > 0))
 		{
 			map->x0 = x * map->wid;
 			map->y0 = y * map->hei;
-			map->x1 = (x + 1) * map->wid;
-			map->y1 = y * map->hei;
+			map->x1 = (x + dx) * map->wid;
+			map->y1 = (y + dy) * map->hei;
+			map->z0 = map->map[y][x];
+			map->z1 = map->map[y + dy][x + dx];
 			ft_draw_next(fdf, map);
-			if (map->x0 >= 0 && map->y0 >= -(fdf->cam->zoom * fdf->cam->zoom_ix))
-				ft_bresenham_line(fdf, map);
-			x++;
-		}
-		y++;
-	}
-}
-
-// 1. Fonction pour dessiner les lignes verticales
-// 2. La condition if avec zoom_ix est pour optimiser le code
-void	ft_draw_vertical(t_fdf *fdf, t_map *map)
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < map->height - 1)
-	{
-		x = 0;
-		while (x < map->width)
-		{
-			map->x0 = x * map->wid;
-			map->y0 = y * map->hei;
-			map->x1 = x * map->wid;
-			map->y1 = (y + 1) * map->hei;
-			ft_draw_next(fdf, map);
-			if (map->x0 >= 0 && map->y0 >= -(fdf->cam->zoom * fdf->cam->zoom_ix))
+			if (map->x0 >= 0 && map->y0 >=
+				-(fdf->cam->zoom * fdf->cam->zoom_ix))
 				ft_bresenham_line(fdf, map);
 			x++;
 		}

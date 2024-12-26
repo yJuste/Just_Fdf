@@ -60,6 +60,6 @@ void	ft_parse_map(t_fdf *fdf, char **argv)
 	}
 	fdf->map->height = j;
 	ft_printf(1, "w: %d, h: %d\n", fdf->map->width, fdf->map->height);
-	ft_free_strs((void **)fdf->map->map);
+	// ft_free_strs((void **)fdf->map->map);
 	return ;
 }

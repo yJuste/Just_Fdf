@@ -42,6 +42,7 @@
 typedef struct s_img	t_img;
 typedef struct s_camera	t_camera;
 typedef struct s_map	t_map;
+typedef struct s_menu	t_menu;
 
 typedef struct s_fdf
 {
@@ -50,6 +51,7 @@ typedef struct s_fdf
 	t_img			*img;
 	t_camera		*cam;
 	t_map			*map;
+	t_menu			*menu;
 }	t_fdf;
 
 typedef struct s_img
@@ -79,12 +81,6 @@ typedef struct s_map
 	int			**map;
 }	t_map;
 
-typedef struct s_menu
-{
-	int		x;
-	int		y;
-}	t_menu;
-
 // zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
@@ -92,7 +88,16 @@ typedef struct s_camera
 	int		zoom_ix;
 	int		offset_x;
 	int		offset_y;
+	float		angle;
+	float		altitude;
+	int		depth_factor;
 }	t_camera;
+
+typedef struct s_menu
+{
+	int		x;
+	int		y;
+}	t_menu;
 
 //	---------- MY CODE ----------
 

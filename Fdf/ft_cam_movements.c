@@ -42,11 +42,13 @@ void	ft_default_dimensions(t_fdf *fdf)
 // Rend la grille en vue isometrique.
 void	ft_isometric(int *x, int *y, int *z)
 {
-	int		tmp;
+	int		tmp_x;
+	int		tmp_y;
 
-	tmp = *x;
-	*x = (tmp - *y) * cos(0.523599);
-	*y = (tmp + *y) * sin(0.523599) - *z;
+	tmp_x = *x;
+	tmp_y = *y;
+	*x = (tmp_x - tmp_y) * cos(0.523599);
+	*y = (tmp_x + tmp_y) * sin(0.523599) - *z;
 }
 
 // Fonction pour translater.

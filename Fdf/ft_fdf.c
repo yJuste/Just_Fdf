@@ -25,17 +25,11 @@ int	main(int argc, char **argv)
 	{
 		ft_init(&fdf);
 		ft_parse_map(fdf, argv);
-		free(fdf->img);
-		free(fdf->map);
-		free(fdf->cam);
-		free(fdf);
-		/*
 		fdf->mlx = mlx_init();
 		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Fdf by Juste");
 		ft_fdf(fdf, fdf->img);
 		// mlx_hook(fdf->win, 17, 0, close_window, fdf);
 		mlx_loop(fdf->mlx);
-		*/
 	}
 	else
 		ft_error(fdf, ENOEXEC);
@@ -50,6 +44,7 @@ void	ft_init(t_fdf **fdf)
 	(*fdf)->img = ft_calloc(1, sizeof(t_img));
 	(*fdf)->map = ft_calloc(1, sizeof(t_map));
 	(*fdf)->cam = ft_calloc(1, sizeof(t_camera));
+	(*fdf)->menu = ft_calloc(1, sizeof(t_menu));
 }
 
 // Fonction d'erreur
