@@ -27,15 +27,12 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 {
 	img->ptr = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
 	img->addr = mlx_get_data_addr(img->ptr, &img->bpp, &img->size, &img->endian);
-	// ft_printf(1, "ptr: %p\nbpp: %d\nsize: %d\nendian : %d\n", fdf->img->ptr, fdf->img->bpp, fdf->img->size, fdf->img->endian);
 	ft_fdf_next(fdf, img);
 	// mlx_destroy_image(fdf->mlx, img->ptr);
 }
 
 void	ft_fdf_next(t_fdf *fdf, t_img *img)
 {
-	// fdf->map->width = 100;
-	// fdf->map->height = 80;
 	fdf->cam->zoom = 1;
 	img->green = 255; img->blue = 255; img->red = 255;
 	fdf->cam->zoom_ix = 2;
@@ -49,24 +46,17 @@ void	ft_fdf_next(t_fdf *fdf, t_img *img)
 void	ft_draw(t_fdf *fdf)
 {
 	ft_clear_image(fdf, fdf->img);
-	// mlx_clear_window(fdf->mlx, fdf->win);
 	ft_default_dimensions(fdf);
-	// ft_zoom(fdf, fdf->map);
 	ft_draw_lines(fdf, fdf->map, 1, 0);
 	ft_draw_lines(fdf, fdf->map, 0, 1);
-	// int i = 0;
-	// ft_printf(1, "pair %d = %p\n", i++, fdf->img->ptr);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
 	ft_menu(fdf);
-	// ft_printf(1, "impair %d = %p\n", i++, fdf->img->ptr);
 }
 
 // Fonction pour appliquer certains rendus directement pendant le processus d'ajout de point
 void	ft_draw_next(t_fdf *fdf, t_map *map)
 {
 	ft_zoom(fdf, map);
-	// ft_isometric(&map->x0, &map->y0, &map->z0);
-	// ft_isometric(&map->x1, &map->y1, &map->z1);
 	// fdf->cam->angle = 0.523599;
 	fdf->cam->angle = 0.796884;
 	ft_projection(map, &fdf->cam->angle);
@@ -76,8 +66,6 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 		map->y1 -= map->z1;
 	ft_translate(fdf->cam, &map->x0, &map->y0);
 	ft_translate(fdf->cam, &map->x1, &map->y1);
-	// ft_project(map, fdf->cam);
-	// ft_printf(1, "x0y0:%d;%d\nx1y1:%d;%d\n", map->x0, map->y0, map->x1, map->y1);
 	ft_cohen_sutherland_clip(map);
 }
 
