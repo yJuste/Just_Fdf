@@ -89,8 +89,8 @@ typedef struct s_camera
 	int		offset_x;
 	int		offset_y;
 	float		angle;
-	float		altitude;
-	int		depth_factor;
+	// float		altitude;
+	// int		depth_factor;
 }	t_camera;
 
 typedef struct s_menu
@@ -125,7 +125,7 @@ void		ft_parse_map(t_fdf *fdf, char **argv);
 // ft_cam_movements.c
 
 void		ft_default_dimensions(t_fdf *fdf);
-void		ft_isometric(int *x, int *y, int *z);
+void		ft_projection(t_map *map, float *angle);
 void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_fdf *fdf, t_map *map);
 
@@ -156,10 +156,11 @@ int			ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int yma
 
 // ft_lib.c
 
-void		*ft_calloc(size_t count, size_t size);
-void		*ft_realloc(void *ptr, size_t size);
-void		*ft_memcpy(void *dst, const void *src, size_t n);
-size_t		ft_strslen(const char **s);
+void	*ft_calloc(size_t count, size_t size);
+void	*ft_realloc(void *ptr, size_t size);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+size_t	ft_strslen(const char **s);
+int	ft_is_separator(char c, const char *sep);
 
 // ft_split.c
 

@@ -16,6 +16,7 @@ void	*ft_calloc(size_t count, size_t size);
 void	*ft_realloc(void *ptr, size_t size);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 size_t	ft_strslen(const char **s);
+int	ft_is_separator(char c, const char *sep);
 // ----------------------------------------------------------------
 
 void	*ft_calloc(size_t count, size_t size)
@@ -76,4 +77,15 @@ size_t	ft_strslen(const char **s)
 	while (s[i])
 		i++;
 	return (i);
+}
+
+int	ft_is_separator(char c, const char *sep)
+{
+    while (*sep)
+    {
+        if (c == *sep)
+            return (1);
+        sep++;
+    }
+    return (0);
 }

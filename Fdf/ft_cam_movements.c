@@ -13,7 +13,7 @@
 
 // -----------------------PROTOTYPE------------------------
 void		ft_default_dimensions(t_fdf *fdf);
-void		ft_isometric(int *x, int *y, int *z);
+void		ft_projection(t_map *map, float *angle);
 void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_fdf *fdf, t_map *map);
 // --------------------------------------------------------
@@ -40,8 +40,9 @@ void	ft_default_dimensions(t_fdf *fdf)
 }
 
 // Rend la grille en vue isometrique.
-void	ft_isometric(int *x, int *y, int *z)
+void	ft_projection(t_map *map, float *angle)
 {
+	/*
 	int		tmp_x;
 	int		tmp_y;
 
@@ -49,6 +50,11 @@ void	ft_isometric(int *x, int *y, int *z)
 	tmp_y = *y;
 	*x = (tmp_x - tmp_y) * cos(0.523599);
 	*y = (tmp_x + tmp_y) * sin(0.523599) - *z;
+	*/
+	map->x0 = (map->x0 - map->y0) * cos(*angle);
+	map->y0 = (map->x0 + map->y0) * sin(*angle) - map->z0;
+	map->x1 = (map->x1 - map->y1) * cos(*angle);
+	map->y1 = (map->x1 + map->y1) * sin(*angle) - map->z1;
 }
 
 // Fonction pour translater.
@@ -61,6 +67,12 @@ void	ft_translate(t_camera *cam, int *x, int *y)
 // Fonction pour zoomer.
 void	ft_zoom(t_fdf *fdf, t_map *map)
 {
-	map->wid *= fdf->cam->zoom;
-	map->hei *= fdf->cam->zoom;
+	map->x0 *= fdf->cam->zoom;
+	map->y0 *= fdf->cam->zoom;
+	map->z0 *= fdf->cam->zoom;
+	map->x1 *= fdf->cam->zoom;
+	map->y1 *= fdf->cam->zoom;
+	map->z1 *= fdf->cam->zoom;
+	// map->wid *= fdf->cam->zoom;
+	// map->hei *= fdf->cam->zoom;
 }

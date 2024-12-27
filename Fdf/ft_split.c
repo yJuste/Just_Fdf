@@ -46,11 +46,11 @@ size_t	ft_count_words(const char *s)
 	wc = 0;
 	while (s[i])
 	{
-		while (s[i] == ' ' || s[i] == '\n')
+		while (s[i] && ft_is_separator(s[i], SEP))
 			i++;
 		if (s[i])
 			wc++;
-		while (s[i] && (s[i] != ' ' && s[i] != '\n'))
+		while (s[i] && !ft_is_separator(s[i], SEP))
 			i++;
 	}
 	return (wc);
@@ -67,11 +67,10 @@ char	**ft_split_next(char **out, const char *s)
 	k = 0;
 	while (s[i])
 	{
-		while (s[i] == ' ' || s[i] == '\n')
+		while (s[i] && ft_is_separator(s[i], SEP))
 			i++;
-		if (s[i])
-			j = i;
-		while (s[i] && (s[i] != ' ' && s[i] != '\n'))
+		j = i;
+		while (s[i] && !ft_is_separator(s[i], SEP))
 			i++;
 		if (i > j)
 		{

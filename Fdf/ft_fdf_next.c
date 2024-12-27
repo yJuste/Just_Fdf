@@ -51,11 +51,9 @@ void	ft_draw(t_fdf *fdf)
 	ft_clear_image(fdf, fdf->img);
 	// mlx_clear_window(fdf->mlx, fdf->win);
 	ft_default_dimensions(fdf);
-	ft_zoom(fdf, fdf->map);
-	ft_draw_lines(fdf, fdf->map, 1, 0);  // Horizontal
-	ft_draw_lines(fdf, fdf->map, 0, 1);  // Vertical
-	// ft_draw_lines(fdf, fdf->map, 1, 1);  // Diagonale principale
-	// ft_draw_lines(fdf, fdf->map, -1, 1); // Diagonale secondaire
+	// ft_zoom(fdf, fdf->map);
+	ft_draw_lines(fdf, fdf->map, 1, 0);
+	ft_draw_lines(fdf, fdf->map, 0, 1);
 	// int i = 0;
 	// ft_printf(1, "pair %d = %p\n", i++, fdf->img->ptr);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
@@ -66,8 +64,12 @@ void	ft_draw(t_fdf *fdf)
 // Fonction pour appliquer certains rendus directement pendant le processus d'ajout de point
 void	ft_draw_next(t_fdf *fdf, t_map *map)
 {
-	ft_isometric(&map->x0, &map->y0, &map->z0);
-	ft_isometric(&map->x1, &map->y1, &map->z1);
+	ft_zoom(fdf, map);
+	// ft_isometric(&map->x0, &map->y0, &map->z0);
+	// ft_isometric(&map->x1, &map->y1, &map->z1);
+	// fdf->cam->angle = 0.523599;
+	fdf->cam->angle = 0.796884;
+	ft_projection(map, &fdf->cam->angle);
 	if (map->z0 > 0)
 		map->y0 -= map->z0;
 	if (map->z1 > 0)

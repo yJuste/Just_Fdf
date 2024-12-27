@@ -47,4 +47,8 @@
 # define LEFT			1
 # define RIGHT			2
 
+// For split
+
+# define SEP			" \n"
+
 #endif
