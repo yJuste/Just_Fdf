@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------------PROTOTYPE------------------------
+// --------------------PROTOTYPE---------------------
 int		ft_key_hook(int keycode, t_fdf *fdf);
 void	ft_key_zoom(int keycode, t_fdf *fdf);
 void	ft_key_translate(int keycode, t_fdf *fdf);
 void	ft_key_rotate(int keycode, t_fdf *fdf);
-// --------------------------------------------------------
+// --------------------------------------------------
 
 // Fonction principale qui appelle les differentes touches presses.
 int	ft_key_hook(int keycode, t_fdf *fdf)
@@ -40,11 +40,11 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 // Gere les touches de ZOOM.
 void	ft_key_zoom(int keycode, t_fdf *fdf)
 {
-	if (keycode == NUM_PAD_PLUS ||
-		keycode == MAIN_PAD_PLUS)
+	if (keycode == NUM_PAD_PLUS
+		|| keycode == MAIN_PAD_PLUS)
 		fdf->cam->zoom += 0.1;
-	else if (keycode == NUM_PAD_MINUS ||
-		keycode == MAIN_PAD_MINUS)
+	else if (keycode == NUM_PAD_MINUS
+		|| keycode == MAIN_PAD_MINUS)
 		fdf->cam->zoom -= 0.1;
 	if (fdf->cam->zoom <= 0.1)
 		fdf->cam->zoom = 0.1;
@@ -53,7 +53,7 @@ void	ft_key_zoom(int keycode, t_fdf *fdf)
 	ft_draw(fdf);
 }
 
-// Gere les touches de TRANSLATION
+// Gere les touches de TRANSLATION.
 void	ft_key_translate(int keycode, t_fdf *fdf)
 {
 	if (keycode == ARROW_LEFT)
@@ -67,6 +67,7 @@ void	ft_key_translate(int keycode, t_fdf *fdf)
 	ft_draw(fdf);
 }
 
+// Gere les touches de ROTATION.
 void	ft_key_rotate(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_1 || keycode == MAIN_PAD_1)

@@ -11,14 +11,13 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------------PROTOTYPE------------------------
+// -----------------------------PROTOTYPE-------------------------------
 void		ft_translate(t_camera *cam, int *x, int *y);
-void		ft_zoom(t_fdf *fdf, t_map *map);
+void		ft_zoom(t_camera *cam, int *x, int *y, int *z);
 void		ft_rotate_x(t_camera *cam, int *y, int *z, float angle);
 void		ft_rotate_y(t_camera *cam, int *x, int *z, float angle);
 void		ft_rotate_z(t_camera *cam, int *x, int *y, float angle);
-// --------------------------------------------------------
-
+// ---------------------------------------------------------------------
 
 // Fonction pour translater.
 void	ft_translate(t_camera *cam, int *x, int *y)
@@ -28,39 +27,45 @@ void	ft_translate(t_camera *cam, int *x, int *y)
 }
 
 // Fonction pour zoomer.
-void	ft_zoom(t_fdf *fdf, t_map *map)
+void	ft_zoom(t_camera *cam, int *x, int *y, int *z)
 {
-	map->x0 *= fdf->cam->zoom;
-	map->y0 *= fdf->cam->zoom;
-	map->z0 *= fdf->cam->zoom;
-	map->x1 *= fdf->cam->zoom;
-	map->y1 *= fdf->cam->zoom;
-	map->z1 *= fdf->cam->zoom;
+	*x *= cam->zoom;
+	*y *= cam->zoom;
+	*z *= cam->zoom;
 }
 
-void ft_rotate_x(t_camera *cam, int *y, int *z, float angle)
+// Fonction pour rotater sur l'axe x.
+void	ft_rotate_x(t_camera *cam, int *y, int *z, float angle)
 {
-    float tmp_y = *y;
-    float tmp_z = *z;
+	float		tmp_y;
+	float		tmp_z;
 
-    *y = tmp_y * cos(angle) - tmp_z * sin(angle);
-    *z = tmp_y * sin(angle) + tmp_z * cos(angle);
+	tmp_y = *y;
+	tmp_z = *z;
+	*y = tmp_y * cos(angle) - tmp_z * sin(angle);
+	*z = tmp_y * sin(angle) + tmp_z * cos(angle);
 }
 
-void ft_rotate_y(t_camera *cam, int *x, int *z, float angle)
+// Fonction pour rotater sur l'axe y.
+void	ft_rotate_y(t_camera *cam, int *x, int *z, float angle)
 {
-    float tmp_x = *x;
-    float tmp_z = *z;
+	float		tmp_x;
+	float		tmp_z;
 
-    *x = tmp_x * cos(angle) + tmp_z * sin(angle);
-    *z = -tmp_x * sin(angle) + tmp_z * cos(angle);
+	tmp_x = *x;
+	tmp_z = *z;
+	*x = tmp_x * cos(angle) + tmp_z * sin(angle);
+	*z = -tmp_x * sin(angle) + tmp_z * cos(angle);
 }
 
-void ft_rotate_z(t_camera *cam, int *x, int *y, float angle)
+// Fonction pour rotater sur l'axe z.
+void	ft_rotate_z(t_camera *cam, int *x, int *y, float angle)
 {
-    float tmp_x = *x;
-    float tmp_y = *y;
+	float		tmp_x;
+	float		tmp_y;
 
-    *x = tmp_x * cos(angle) - tmp_y * sin(angle);
-    *y = tmp_x * sin(angle) + tmp_y * cos(angle);
+	tmp_x = *x;
+	tmp_y = *y;
+	*x = tmp_x * cos(angle) - tmp_y * sin(angle);
+	*y = tmp_x * sin(angle) + tmp_y * cos(angle);
 }

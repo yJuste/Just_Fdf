@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------------PROTOTYPE------------------------
+// ------------------PROTOTYPE------------------
 void		ft_error(t_fdf *fdf, int error);
 void		ft_init(t_fdf **fdf);
-// --------------------------------------------------------
+// ---------------------------------------------
 
 int	main(int argc, char **argv)
 {
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-// 1. Alloue de la memoire pour chaque structure
+// 1. Alloue de la memoire pour chaque structure.
 // 2. Met toutes les variables a 0.
 void	ft_init(t_fdf **fdf)
 {
@@ -47,7 +47,7 @@ void	ft_init(t_fdf **fdf)
 	(*fdf)->menu = ft_calloc(1, sizeof(t_menu));
 }
 
-// Fonction d'erreur
+// Fonction d'erreur.
 void	ft_error(t_fdf *fdf, int error)
 {
 	if (fdf)

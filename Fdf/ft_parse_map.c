@@ -55,9 +55,9 @@ void	ft_print_array(int **array, int rows, int cols)
 
 void	ft_parse_map(t_fdf *fdf, char **argv)
 {
+	int			fd;
 	size_t		i;
-	int		j;
-	int		fd;
+	size_t		j;
 	char		*line;
 	char		**out;
 

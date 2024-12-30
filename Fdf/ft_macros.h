@@ -15,8 +15,9 @@
 // Taille de l'ecran :'
 
 // Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112
-# define WIDTH			1100
-# define HEIGHT			700
+// Je recommande WIDTH plus de 900, HEIGHT plus de 600.
+# define WIDTH			1200
+# define HEIGHT			600
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
