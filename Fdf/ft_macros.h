@@ -15,8 +15,8 @@
 // Taille de l'ecran :'
 
 // Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112
-# define WIDTH			900
-# define HEIGHT			500
+# define WIDTH			1100
+# define HEIGHT			700
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
@@ -29,9 +29,7 @@
 
 # define NUM_PAD_PLUS		69
 # define MAIN_PAD_PLUS		24
-# define MOUSE_SCROLL_UP	4
 
-# define MOUSE_SCROLL_DOWN	5
 # define NUM_PAD_MINUS		78
 # define MAIN_PAD_MINUS		27
 
@@ -46,6 +44,26 @@
 
 # define LEFT			1
 # define RIGHT			2
+
+// For Rotation
+
+// alpha
+# define NUM_PAD_1		83
+# define NUM_PAD_4		86
+# define MAIN_PAD_1		18
+# define MAIN_PAD_2		19
+
+// beta
+# define NUM_PAD_2		84
+# define NUM_PAD_5		87
+# define MAIN_PAD_3		20
+# define MAIN_PAD_4		21
+
+// gamma
+# define NUM_PAD_3		85
+# define NUM_PAD_6		88
+# define MAIN_PAD_5		23
+# define MAIN_PAD_6		22
 
 // For split
 

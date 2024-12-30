@@ -12,50 +12,13 @@
 #include "ft_fdf.h"
 
 // -----------------------PROTOTYPE------------------------
-void		ft_default_dimensions(t_fdf *fdf);
-void		ft_projection(t_map *map, float *angle);
 void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_fdf *fdf, t_map *map);
+void		ft_rotate_x(t_camera *cam, int *y, int *z, float angle);
+void		ft_rotate_y(t_camera *cam, int *x, int *z, float angle);
+void		ft_rotate_z(t_camera *cam, int *x, int *y, float angle);
 // --------------------------------------------------------
 
-// 1. On prend la plus petite echelle pour voir toute la grille en 1er.
-// 2. Les cases de la grille sont carre.
-void	ft_default_dimensions(t_fdf *fdf)
-{
-	int		ref;
-	int		max_dim;
-	int		scale;
-
-	if (WIDTH > HEIGHT)
-		ref = HEIGHT;
-	else
-		ref = WIDTH;
-	if (fdf->map->width > fdf->map->height)
-		max_dim = fdf->map->width;
-	else
-		max_dim = fdf->map->height;
-	scale = ref / max_dim;
-	fdf->map->wid = scale;
-	fdf->map->hei = scale;
-}
-
-// Rend la grille en vue isometrique.
-void	ft_projection(t_map *map, float *angle)
-{
-	/*
-	int		tmp_x;
-	int		tmp_y;
-
-	tmp_x = *x;
-	tmp_y = *y;
-	*x = (tmp_x - tmp_y) * cos(0.523599);
-	*y = (tmp_x + tmp_y) * sin(0.523599) - *z;
-	*/
-	map->x0 = (map->x0 - map->y0) * cos(*angle);
-	map->y0 = (map->x0 + map->y0) * sin(*angle) - map->z0;
-	map->x1 = (map->x1 - map->y1) * cos(*angle);
-	map->y1 = (map->x1 + map->y1) * sin(*angle) - map->z1;
-}
 
 // Fonction pour translater.
 void	ft_translate(t_camera *cam, int *x, int *y)
@@ -73,6 +36,31 @@ void	ft_zoom(t_fdf *fdf, t_map *map)
 	map->x1 *= fdf->cam->zoom;
 	map->y1 *= fdf->cam->zoom;
 	map->z1 *= fdf->cam->zoom;
-	// map->wid *= fdf->cam->zoom;
-	// map->hei *= fdf->cam->zoom;
+}
+
+void ft_rotate_x(t_camera *cam, int *y, int *z, float angle)
+{
+    float tmp_y = *y;
+    float tmp_z = *z;
+
+    *y = tmp_y * cos(angle) - tmp_z * sin(angle);
+    *z = tmp_y * sin(angle) + tmp_z * cos(angle);
+}
+
+void ft_rotate_y(t_camera *cam, int *x, int *z, float angle)
+{
+    float tmp_x = *x;
+    float tmp_z = *z;
+
+    *x = tmp_x * cos(angle) + tmp_z * sin(angle);
+    *z = -tmp_x * sin(angle) + tmp_z * cos(angle);
+}
+
+void ft_rotate_z(t_camera *cam, int *x, int *y, float angle)
+{
+    float tmp_x = *x;
+    float tmp_y = *y;
+
+    *x = tmp_x * cos(angle) - tmp_y * sin(angle);
+    *y = tmp_x * sin(angle) + tmp_y * cos(angle);
 }

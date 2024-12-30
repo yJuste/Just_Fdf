@@ -16,6 +16,7 @@ SRC =	ft_fdf.c				\
 	ft_fdf_2.c				\
 	ft_parse_map.c				\
 	ft_cam_movements.c			\
+	ft_cam_movements_next.c			\
 	ft_macros.c				\
 	ft_menu.c				\
 	ft_bresenham.c				\
