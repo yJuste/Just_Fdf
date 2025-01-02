@@ -22,7 +22,7 @@ void		ft_projection(t_map *map, char projection);
 // Function for printing the menu.
 void	ft_menu(t_fdf *fdf)
 {
-	if (WIDTH > 300)
+	if (WIDTH > MIN_MENU)
 	{
 		ft_header(fdf);
 		ft_menu_next(fdf);

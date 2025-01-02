@@ -193,10 +193,10 @@ void		ft_free_strs(void **strs);
 
 // ft_bresenham.c
 
-int			ft_color(t_img *img);
-void		ft_pixel_put(t_img *img, int x, int y, int color);
 void		ft_bresenham_line(t_fdf *fdf, t_map *map);
 void		ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
+void		ft_pixel_put(t_img *img, int x, int y, int color);
+int			ft_color(t_img *img);
 
 // ft_cohen_sutherland_clip.c
 
@@ -205,6 +205,7 @@ void		ft_cohen_sutherland_clip_next(t_map *map, t_cohen *cohen,
 				int *code0, int *code1);
 void		ft_cohen_sutherland_clip_next_next(t_map *map, t_cohen *cohen,
 				int *code0, int *code1);
+int			ft_compute_region_code(t_cohen *cohen, int x);
 
 // ft_split.c
 

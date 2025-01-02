@@ -14,9 +14,9 @@
 // ---------------------------------PROTOTYPE--------------------------------
 int			ft_atoi_base(const char *str, int str_base);
 const char	*ft_atoi_base_next(const char *str, int str_base, int *sign);
-int			ft_tolower(int c);
 char		*ft_strchr(const char *s, int c);
-void		ft_free_strs(void **strs);
+int			ft_is_separator(char c, const char *sep);
+int			ft_tolower(int c);
 // --------------------------------------------------------------------------
 
 int	ft_atoi_base(const char *str, int str_base)
@@ -65,13 +65,6 @@ const char	*ft_atoi_base_next(const char *str, int str_base, int *sign)
 	return (str);
 }
 
-int	ft_tolower(int c)
-{
-	if (c >= 'A' && c <= 'Z')
-		c += 32;
-	return (c);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	size_t		i;
@@ -88,19 +81,20 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-void	ft_free_strs(void **strs)
+int	ft_is_separator(char c, const char *sep)
 {
-	size_t		i;
-
-	i = 0;
-	if (!strs)
-		return ;
-	while (strs[i])
+	while (*sep)
 	{
-		free(strs[i]);
-		strs[i] = NULL;
-		i++;
+		if (c == *sep)
+			return (1);
+		sep++;
 	}
-	free(strs);
-	strs = NULL;
+	return (0);
+}
+
+int	ft_tolower(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
+	return (c);
 }

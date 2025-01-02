@@ -52,7 +52,7 @@ void	ft_fdf_next(t_fdf *fdf)
 void	ft_draw(t_fdf *fdf)
 {
 	ft_clear_image(fdf->img);
-	if (WIDTH > 300)
+	if (WIDTH > MIN_MENU)
 		ft_background_menu(fdf);
 	ft_default_dimensions(fdf);
 	ft_draw_lines(fdf, fdf->map, 1, 0);

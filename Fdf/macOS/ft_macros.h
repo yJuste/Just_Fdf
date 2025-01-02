@@ -12,13 +12,16 @@
 #ifndef FT_MACROS_H
 # define FT_MACROS_H
 
-// Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112
+// Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112.
 // Je recommande WIDTH plus de 1100, HEIGHT plus de 700.
 # define WIDTH			1470
 # define HEIGHT			956
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
+
+// Affiche le menu a une taille minimum.
+# define MIN_MENU		500
 
 // Couleur principale des lignes.
 # define COLOR			0xffffff

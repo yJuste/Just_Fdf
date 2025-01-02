@@ -17,20 +17,8 @@ void		ft_cohen_sutherland_clip_next(t_map *map, t_cohen *cohen,
 				int *code0, int *code1);
 void		ft_cohen_sutherland_clip_next_next(t_map *map, t_cohen *cohen,
 				int *code0, int *code1);
+int			ft_compute_region_code(t_cohen *cohen, int x);
 // ---------------------------------------------------------------------------
-
-// Fonction pour assigner les zones binaires.
-int	ft_compute_region_code(t_cohen *cohen, int x)
-{
-	int		code;
-
-	code = 0;
-	if (x < cohen->xmin)
-		code |= LEFT;
-	else if (x > cohen->xmax)
-		code |= RIGHT;
-	return (code);
-}
 
 // Algorithme de Cohen SutherLand Clip qui coupe les lignes
 //   qui depasse de la fenetre.
@@ -95,4 +83,17 @@ void	ft_cohen_sutherland_clip_next_next(t_map *map, t_cohen *cohen,
 		*code1 = ft_compute_region_code(cohen, map->x1);
 	}
 	return ;
+}
+
+// Fonction pour assigner les zones binaires.
+int	ft_compute_region_code(t_cohen *cohen, int x)
+{
+	int		code;
+
+	code = 0;
+	if (x < cohen->xmin)
+		code |= LEFT;
+	else if (x > cohen->xmax)
+		code |= RIGHT;
+	return (code);
 }

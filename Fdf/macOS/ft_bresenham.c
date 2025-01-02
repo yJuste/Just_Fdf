@@ -12,28 +12,11 @@
 #include "ft_fdf.h"
 
 // ----------------------------------PROTOTYPE---------------------------------
-int			ft_color(t_img *img);
-void		ft_pixel_put(t_img *img, int x, int y, int color);
 void		ft_bresenham_line(t_fdf *fdf, t_map *map);
 void		ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
+void		ft_pixel_put(t_img *img, int x, int y, int color);
+int			ft_color(t_img *img);
 // ----------------------------------------------------------------------------
-
-// Fonction pour trnasformer une couleure hexa en RGB ( hexa est mieux en fait).
-int	ft_color(t_img *img)
-{
-	return ((img->red << 16) | (img->green << 8) | img->blue);
-}
-
-// Fonction d'ajout de pixel pour mlx_new_image.
-void	ft_pixel_put(t_img *img, int x, int y, int color)
-{
-	char		*pixel;
-
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return ;
-	pixel = img->addr + (y * img->size + x * (img->bpp / 8));
-	*(int *)pixel = color;
-}
 
 // Algorithme de bresenham.
 void	ft_bresenham_line(t_fdf *fdf, t_map *map)
@@ -81,19 +64,19 @@ void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy)
 	}
 }
 
-/* Algo de bresenham :
-void plotLine(t_fdf *fdf, int x0, int y0, int x1, int y1)
+// Fonction d'ajout de pixel pour mlx_new_image.
+void	ft_pixel_put(t_img *img, int x, int y, int color)
 {
-   int dx =  abs(x1-x0), sx = x0<x1 ? 1 : -1;
-   int dy = -abs(y1-y0), sy = y0<y1 ? 1 : -1; 
-   int err = dx+dy, e2; // error value e_xy
- 
-   for(;;){  // loop
-	mlx_pixel_put(fdf->mlx, fdf->win, x0, y0, 0xfffb00);
-      if (x0==x1 && y0==y1) break;
-      e2 = 2*err;
-      if (e2 >= dy) { err += dy; x0 += sx; } // e_xy+e_x > 0
-      if (e2 <= dx) { err += dx; y0 += sy; } // e_xy+e_y < 0
-   }
+	char		*pixel;
+
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
+	pixel = img->addr + (y * img->size + x * (img->bpp / 8));
+	*(int *)pixel = color;
 }
-*/
+
+// Fonction pour trnasformer une couleure hexa en RGB ( hexa est mieux en fait).
+int	ft_color(t_img *img)
+{
+	return ((img->red << 16) | (img->green << 8) | img->blue);
+}
