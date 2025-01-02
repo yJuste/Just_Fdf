@@ -9,6 +9,8 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Gestion des touches du clavier.                                        */
+/* ************************************************************************** */
 #include "ft_fdf.h"
 
 // -----------------------------PROTOTYPE-----------------------------
@@ -19,7 +21,7 @@ void		ft_key_rotate(int keycode, t_fdf *fdf);
 void		ft_key_projection_and_height(int keycode, t_fdf *fdf);
 // -------------------------------------------------------------------
 
-// Fonction principale qui appelle les differentes touches presses.
+// Fonction principale qui appelle les différentes touches pressées.
 int	ft_key_hook(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_PLUS || keycode == MAIN_PAD_PLUS
@@ -44,7 +46,7 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-// Gere les touches de ZOOM.
+// Gére les touches de ZOOM.
 void	ft_key_zoom(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_PLUS
@@ -60,7 +62,7 @@ void	ft_key_zoom(int keycode, t_fdf *fdf)
 	ft_draw(fdf);
 }
 
-// Gere les touches de TRANSLATION.
+// Gére les touches de TRANSLATION.
 void	ft_key_translate(int keycode, t_fdf *fdf)
 {
 	if (keycode == ARROW_LEFT)
@@ -74,7 +76,7 @@ void	ft_key_translate(int keycode, t_fdf *fdf)
 	ft_draw(fdf);
 }
 
-// Gere les touches de ROTATION.
+// Gére les touches de ROTATION.
 void	ft_key_rotate(int keycode, t_fdf *fdf)
 {
 	if (keycode == NUM_PAD_1 || keycode == MAIN_PAD_1)
@@ -92,7 +94,7 @@ void	ft_key_rotate(int keycode, t_fdf *fdf)
 	ft_draw(fdf);
 }
 
-// Gere les touches de PROJECTION et de HEIGHT.
+// Gére les touches de PROJECTION et de HEIGHT.
 void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_R)

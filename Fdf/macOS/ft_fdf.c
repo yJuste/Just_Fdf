@@ -9,6 +9,10 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Affiche des cartes 2D en projection 3D.                       PART 1   */
+/*   • ./a.out [ file ]                                                       */
+/*      -> file   [ .fdf ]                                                    */
+/* ************************************************************************** */
 #include "ft_fdf.h"
 
 // ---------------------------PROTOTYPE--------------------------
@@ -39,7 +43,7 @@ int	main(int argc, char **argv)
 	return (0);
 }
 
-// Ferme la fenetre.
+// Ferme la fenêtre.
 int	ft_close_window(int keycode, t_fdf *fdf)
 {
 	(void)keycode;
@@ -49,8 +53,8 @@ int	ft_close_window(int keycode, t_fdf *fdf)
 	return (0);
 }
 
-// 1. Alloue de la memoire pour chaque structure.
-// 2. Met toutes les variables a 0.
+// 1. Alloue de la mémoire pour chaque structure.
+// 2. Met toutes les variables à 0.
 void	ft_init(t_fdf **fdf)
 {
 	*fdf = ft_calloc(1, sizeof(t_fdf));
@@ -70,7 +74,7 @@ void	ft_error(t_fdf *fdf, int error)
 	exit(error);
 }
 
-// Free toutes les variables dans fdf.
+// Libére toutes les variables dans fdf.
 void	ft_free_fdf(t_fdf *fdf)
 {
 	if (fdf->map->map)

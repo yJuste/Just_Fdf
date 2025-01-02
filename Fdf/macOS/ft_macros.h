@@ -9,6 +9,8 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Gestion des touches du clavier.                                        */
+/* ************************************************************************** */
 #ifndef FT_MACROS_H
 # define FT_MACROS_H
 
@@ -20,7 +22,7 @@
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
 
-// Affiche le menu a une taille minimum.
+// Affiche le menu à une taille minimum.
 # define MIN_MENU		500
 
 // Couleur principale des lignes.
@@ -49,12 +51,12 @@
 # define ARROW_DOWN		125
 # define ARROW_UP		126
 
-// For Cohen SutherLand Clip.
+// For COHEN SUTHERLAND CLIP.
 
 # define LEFT			1
 # define RIGHT			2
 
-// For Rotation.
+// For ROTATION.
 
 // alpha
 # define NUM_PAD_1		83
@@ -74,18 +76,18 @@
 # define MAIN_PAD_5		23
 # define MAIN_PAD_6		22
 
-// For Projection.
+// For PROJECTION.
 
 # define KEY_R			15
 
-// For Height.
+// For HEIGHT.
 
 # define MAIN_PAD_8		28
 # define MAIN_PAD_9		25
 # define NUM_PAD_8		91
 # define NUM_PAD_9		92
 
-// For split.
+// For SPLIT.
 
 # define SEP			" \n"
 

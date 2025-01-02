@@ -9,6 +9,8 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Algorithme de ligne, l'algo Bresenham.                                 */
+/* ************************************************************************** */
 #include "ft_fdf.h"
 
 // ----------------------------------PROTOTYPE---------------------------------
@@ -18,7 +20,7 @@ void		ft_pixel_put(t_img *img, int x, int y, int color);
 int			ft_color(t_img *img);
 // ----------------------------------------------------------------------------
 
-// Algorithme de bresenham.
+// Algorithme de bresenham (pour dessiner des lignes).
 void	ft_bresenham_line(t_fdf *fdf, t_map *map)
 {
 	int		sx;
@@ -75,7 +77,7 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-// Fonction pour trnasformer une couleure hexa en RGB ( hexa est mieux en fait).
+// Fonction pour trnasformer une couleur hexa en RGB (hexa est mieux en fait).
 int	ft_color(t_img *img)
 {
 	return ((img->red << 16) | (img->green << 8) | img->blue);

@@ -9,6 +9,8 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Algorithme de découpage de ligne, l'algo Cohen Sutherland Clip.        */
+/* ************************************************************************** */
 #include "ft_fdf.h"
 
 // ---------------------------------PROTOTYPE---------------------------------
@@ -21,7 +23,7 @@ int			ft_compute_region_code(t_cohen *cohen, int x);
 // ---------------------------------------------------------------------------
 
 // Algorithme de Cohen SutherLand Clip qui coupe les lignes
-//   qui depasse de la fenetre.
+//   qui dépasse de la fenêtre.
 void	ft_cohen_sutherland_clip(t_map *map, t_cohen *cohen)
 {
 	int		code0;

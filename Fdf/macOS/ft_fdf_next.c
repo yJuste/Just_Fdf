@@ -9,6 +9,8 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Analyse la map.                                               PART 2   */
+/* ************************************************************************** */
 #include "ft_fdf.h"
 
 // --------------------------------PROTOTYPE------------------------------
@@ -91,8 +93,8 @@ void	ft_parse_map_next_next(t_map *map, char **out, size_t j)
 	}
 }
 
-// 1. Clear tous les pixels a 0 ( ou une couleur dans mon cas).
-// 2. Non je ne destroy pas l'image, je travaille avec la meme.
+// 1. Clear tous les pixels à 0 ( ou une couleur dans mon cas).
+// 2. Non je ne destroy pas l'image, je travaille avec la même.
 void	ft_clear_image(t_img *img)
 {
 	int		i;

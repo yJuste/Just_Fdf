@@ -9,6 +9,8 @@
 /*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+/*   • Affiche le menu et les aides.                                 PART 1   */
+/* ************************************************************************** */
 #include "ft_fdf.h"
 
 // -----------------------PROTOTYPE------------------------
@@ -19,7 +21,7 @@ void		ft_default_dimensions(t_fdf *fdf);
 void		ft_projection(t_map *map, char projection);
 // --------------------------------------------------------
 
-// Function for printing the menu.
+// Fonction pour afficher le menu.
 void	ft_menu(t_fdf *fdf)
 {
 	if (WIDTH > MIN_MENU)
@@ -68,8 +70,8 @@ void	ft_background_menu(t_fdf *fdf)
 
 //	----------PROJECTION x DEFAULT_DIMENSIONS----------
 
-// 1. On prend la plus petite echelle pour voir toute la grille en 1er.
-// 2. Les cases de la grille sont carre.
+// 1. On prend la plus petite échelle pour voir toute la grille en 1er.
+// 2. Les cases de la grille sont carrés.
 void	ft_default_dimensions(t_fdf *fdf)
 {
 	int		ref;
@@ -89,8 +91,8 @@ void	ft_default_dimensions(t_fdf *fdf)
 	fdf->map->hei = scale;
 }
 
-// 1. Rend la grille en une vue specifique.
-// 2. Projection 1 est la vue isometrique.
+// 1. Rend la grille en vue une spécifique.
+// 2. Projection 1 est la vue isométrique.
 // 3. Projection 2 est la vue orthogonale.
 void	ft_projection(t_map *map, char projection)
 {
