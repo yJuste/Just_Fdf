@@ -29,7 +29,7 @@
 // My library
 
 // minilibX
-# include "minilibx/mlx.h"
+# include "minilibx_macos/mlx.h"
 
 # include "Get_Next_Line/get_next_line.h"
 # include "Printf_fd/ft_printf.h"
