@@ -12,8 +12,6 @@
 #ifndef FT_MACROS_H
 # define FT_MACROS_H
 
-// Taille de l'ecran :
-
 // Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112
 // Je recommande WIDTH plus de 1100, HEIGHT plus de 700.
 # define WIDTH			1470

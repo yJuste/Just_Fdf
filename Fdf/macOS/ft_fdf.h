@@ -26,7 +26,7 @@
 
 # include <math.h>
 
-// My library
+// My libraries
 
 // minilibX
 # include "minilibx_macos/mlx.h"
@@ -37,7 +37,7 @@
 // Macros des fct
 # include "ft_macros.h"
 
-// Structure
+// Structures
 
 typedef struct s_img	t_img;
 typedef struct s_camera	t_camera;

@@ -11,13 +11,13 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -------------------------PROTOTYPE-------------------------
-int		ft_key_hook(int keycode, t_fdf *fdf);
-void	ft_key_zoom(int keycode, t_fdf *fdf);
-void	ft_key_translate(int keycode, t_fdf *fdf);
-void	ft_key_rotate(int keycode, t_fdf *fdf);
-void	ft_key_projection_and_height(int keycode, t_fdf *fdf);
-// -----------------------------------------------------------
+// -----------------------------PROTOTYPE-----------------------------
+int			ft_key_hook(int keycode, t_fdf *fdf);
+void		ft_key_zoom(int keycode, t_fdf *fdf);
+void		ft_key_translate(int keycode, t_fdf *fdf);
+void		ft_key_rotate(int keycode, t_fdf *fdf);
+void		ft_key_projection_and_height(int keycode, t_fdf *fdf);
+// -------------------------------------------------------------------
 
 // Fonction principale qui appelle les differentes touches presses.
 int	ft_key_hook(int keycode, t_fdf *fdf)

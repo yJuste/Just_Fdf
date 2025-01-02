@@ -11,12 +11,12 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------------------PROTOTYPE------------------------------
-int		ft_color(t_img *img);
-void	ft_pixel_put(t_img *img, int x, int y, int color);
-void	ft_bresenham_line(t_fdf *fdf, t_map *map);
-void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
-// --------------------------------------------------------------------
+// ----------------------------------PROTOTYPE---------------------------------
+int			ft_color(t_img *img);
+void		ft_pixel_put(t_img *img, int x, int y, int color);
+void		ft_bresenham_line(t_fdf *fdf, t_map *map);
+void		ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
+// ----------------------------------------------------------------------------
 
 // Fonction pour trnasformer une couleure hexa en RGB ( hexa est mieux en fait).
 int	ft_color(t_img *img)
