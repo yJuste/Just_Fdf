@@ -30,8 +30,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		ft_init(&fdf);
-		if (ft_parse_map(fdf, fdf->map, argv) == -1)
-			return (ft_error(fdf, EBADF), 1);
+		ft_parse_map(fdf, fdf->map, argv);
 		fdf->mlx = mlx_init();
 		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Just'Fdf");
 		ft_fdf(fdf, fdf->img);
