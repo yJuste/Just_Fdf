@@ -72,7 +72,7 @@ s:
 
 help:
 	@echo $(GREEN)
-	@head -n 13 ft_fdf.c
+	@head -n 15 ft_fdf.h
 	@echo $(RESET)
 
 norm:
