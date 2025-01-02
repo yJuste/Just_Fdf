@@ -13,13 +13,13 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// ---------------------------PROTOTYPE--------------------------
+// ---------------------------PROTOTYPE---------------------------
 void		*ft_calloc(size_t count, size_t size);
 void		*ft_realloc(void *ptr, size_t size);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 size_t		ft_strslen(const char **s);
-void		ft_free_strs(void **strs);
-// --------------------------------------------------------------
+int			ft_strcmp(const char *s1, const char *s2);
+// ---------------------------------------------------------------
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -81,19 +81,12 @@ size_t	ft_strslen(const char **s)
 	return (i);
 }
 
-void	ft_free_strs(void **strs)
+int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t		i;
 
 	i = 0;
-	if (!strs)
-		return ;
-	while (strs[i])
-	{
-		free(strs[i]);
-		strs[i] = NULL;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
 		i++;
-	}
-	free(strs);
-	strs = NULL;
+	return (s1[i] - s2[i]);
 }

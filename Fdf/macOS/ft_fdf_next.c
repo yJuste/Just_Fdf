@@ -14,11 +14,11 @@
 #include "ft_fdf.h"
 
 // --------------------------------PROTOTYPE------------------------------
-int			ft_parse_map(t_map *map, char **argv);
+int			ft_parse_map(t_fdf *fdf, t_map *map, char **argv);
 int			ft_parse_map_next(t_map *map, int fd, char *line);
 void		ft_parse_map_next_next(t_map *map, char **out, size_t j);
 void		ft_clear_image(t_img *img);
-void		ft_print_array(int **array, int rows, int cols);
+void		ft_free_strs(void **strs);
 // -----------------------------------------------------------------------
 
 /*	l.11-12, analyse la map et met les nombres / les couleurs dans un tableau.
@@ -28,15 +28,22 @@ void		ft_print_array(int **array, int rows, int cols);
 	if (map->colors)
 		ft_print_array(map->colors, map->height, map->width);
 */
-int	ft_parse_map(t_map *map, char **argv)
+int	ft_parse_map(t_fdf *fdf, t_map *map, char **argv)
 {
 	int			fd;
 	size_t		j;
 	char		*line;
+	char		*file;
 
+	file = argv[1];
+	file = ft_strchr(file, '.', 'r');
+	if (!file)
+		return (ft_error(fdf, ENOEXEC), exit(3), 0);
+	if (ft_strcmp(file, ".fdf") != 0)
+		return (ft_error(fdf, ENOEXEC), exit(3), 0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (-1);
+		return (-2);
 	line = get_next_line(fd);
 	j = ft_parse_map_next(map, fd, line);
 	close(fd);
@@ -77,7 +84,7 @@ void	ft_parse_map_next_next(t_map *map, char **out, size_t j)
 	i = 0;
 	while (out[i])
 	{
-		strchr = ft_strchr(out[i], ',');
+		strchr = ft_strchr(out[i], ',', 'c');
 		if (strchr)
 		{
 			*strchr = '\0';
@@ -110,22 +117,19 @@ void	ft_clear_image(t_img *img)
 		buffer[i] = color;
 }
 
-/* Test your arrays. */
-void	ft_print_array(int **array, int rows, int cols)
+void	ft_free_strs(void **strs)
 {
-	int		i;
-	int		j;
+	size_t		i;
 
 	i = 0;
-	while (i < rows)
+	if (!strs)
+		return ;
+	while (strs[i])
 	{
-		j = 0;
-		while (j < cols)
-		{
-			ft_printf(1, "%d ", array[i][j]);
-			j++;
-		}
-		ft_printf(1, "\n");
+		free(strs[i]);
+		strs[i] = NULL;
 		i++;
 	}
+	free(strs);
+	strs = NULL;
 }

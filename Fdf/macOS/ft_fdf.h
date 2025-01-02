@@ -134,11 +134,11 @@ void		ft_free_fdf(t_fdf *fdf);
 
 // ft_fdf_next.c
 
-int			ft_parse_map(t_map *map, char **argv);
+int			ft_parse_map(t_fdf *fdf, t_map *map, char **argv);
 int			ft_parse_map_next(t_map *map, int fd, char *line);
 void		ft_parse_map_next_next(t_map *map, char **out, size_t j);
 void		ft_clear_image(t_img *img);
-void		ft_print_array(int **array, int rows, int cols);
+void		ft_free_strs(void **strs);
 
 // ft_fdf_2.c
 
@@ -193,8 +193,8 @@ int			ft_is_separator(char c, const char *sep);
 int			ft_atoi_base(const char *str, int str_base);
 const char	*ft_atoi_base_next(const char *str, int str_base, int *sign);
 int			ft_tolower(int c);
-char		*ft_strchr(const char *s, int c);
-void		ft_free_strs(void **strs);
+char		*ft_strchr(const char *s, int c, char flg);
+int			ft_strcmp(const char *s1, const char *s2);
 
 // ft_bresenham.c
 

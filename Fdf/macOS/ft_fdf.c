@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		ft_init(&fdf);
-		if (ft_parse_map(fdf->map, argv) == -1)
+		if (ft_parse_map(fdf, fdf->map, argv) == -2)
 			return (ft_error(fdf, EBADF), 1);
 		fdf->mlx = mlx_init();
 		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Just'Fdf");
@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 		mlx_loop(fdf->mlx);
 	}
 	else
-		ft_error(fdf, ENOEXEC);
+		ft_error(fdf, ENOENT);
 	return (0);
 }
 
