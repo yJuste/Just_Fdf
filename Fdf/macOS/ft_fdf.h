@@ -43,6 +43,7 @@
 
 // Structures
 
+typedef struct s_fdf	t_fdf;
 typedef struct s_img	t_img;
 typedef struct s_camera	t_camera;
 typedef struct s_map	t_map;
@@ -94,10 +95,10 @@ typedef struct s_camera
 {
 	int			offset_x;
 	int			offset_y;
-	int			zoom_ix;
 	int			height;
-	char		projection;
+	int			zoom_ix;
 	float		zoom;
+	char		projection;
 	float		alpha;
 	float		beta;
 	float		gamma;

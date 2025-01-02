@@ -45,6 +45,8 @@ void	ft_menu_next(t_fdf *fdf)
 		"---------- zoom ---------");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 510, COLOR_HEADER,
 		"-- projection / height --");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 530, COLOR_HEADER,
+		"        and RESET        ");
 	mlx_string_put(fdf->mlx, fdf->win, 15, HEIGHT - 30, COLOR_HEADER,
 		"by Juste              2024");
 }
@@ -78,10 +80,20 @@ void	ft_default_dimensions(t_fdf *fdf)
 	int		max_dim;
 	int		scale;
 
-	if (WIDTH > HEIGHT)
-		ref = HEIGHT;
+	if (fdf->map->width < 500 || fdf->map->height < 500)
+	{
+		if (WIDTH > HEIGHT)
+			ref = HEIGHT;
+		else
+			ref = WIDTH;
+	}
 	else
-		ref = WIDTH;
+	{
+		if (fdf->map->width > fdf->map->height)
+			ref = fdf->map->width;
+		else
+			ref = fdf->map->height;
+	}
 	if (fdf->map->width > fdf->map->height)
 		max_dim = fdf->map->width;
 	else

@@ -16,8 +16,8 @@
 
 // Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112.
 // Je recommande WIDTH plus de 1100, HEIGHT plus de 700.
-# define WIDTH			1470
-# define HEIGHT			956
+# define WIDTH			1100
+# define HEIGHT			700
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
@@ -32,9 +32,10 @@
 # define COLOR_HEADER		BCKGRND_COLOR
 # define COLOR_MENU		0x2a2d2e
 
-// For exiting.
+// For exiting and Reset.
 
 # define MAIN_PAD_ESC		53
+# define KEY_R			15
 
 // For the ZOOM.
 
@@ -78,7 +79,7 @@
 
 // For PROJECTION.
 
-# define KEY_R			15
+# define KEY_I			34
 
 // For HEIGHT.
 
@@ -89,6 +90,6 @@
 
 // For SPLIT.
 
-# define SEP			" \n"
+# define SEP			" \n\t"
 
 #endif

@@ -37,7 +37,7 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 		|| keycode == NUM_PAD_3 || keycode == MAIN_PAD_5
 		|| keycode == NUM_PAD_6 || keycode == MAIN_PAD_6)
 		ft_key_rotate(keycode, fdf);
-	else if (keycode == KEY_R
+	else if (keycode == KEY_R || keycode == KEY_I
 		|| keycode == MAIN_PAD_8 || keycode == NUM_PAD_8
 		|| keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
 		ft_key_projection_and_height(keycode, fdf);
@@ -94,10 +94,16 @@ void	ft_key_rotate(int keycode, t_fdf *fdf)
 	ft_draw(fdf);
 }
 
-// Gére les touches de PROJECTION et de HEIGHT.
+// 1. Gére les touches de PROJECTION et de HEIGHT.
+// 2. Gére la touche de RESET.
 void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_R)
+	{
+		ft_fdf_next(fdf);
+		return ;
+	}
+	if (keycode == KEY_I)
 	{
 		if (fdf->cam->projection == 'i')
 			fdf->cam->projection = 'o';

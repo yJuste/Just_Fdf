@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 		if (ft_parse_map(fdf->map, argv) == -1)
 			return (ft_error(fdf, EBADF), 1);
 		fdf->mlx = mlx_init();
-		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Fdf by Juste");
+		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Just'Fdf");
 		ft_fdf(fdf, fdf->img);
 		mlx_hook(fdf->win, 17, 0, ft_close_window, fdf);
 		mlx_loop(fdf->mlx);

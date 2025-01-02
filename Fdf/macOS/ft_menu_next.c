@@ -72,9 +72,9 @@ void	ft_put_image_projection_and_height(t_fdf *fdf)
 	width = 300;
 	height = 200;
 	fdf->menu->projection_height = mlx_xpm_file_to_image(fdf->mlx,
-			"Images/projection_height.xpm", &width, &height);
+			"Images/projection_height_reset.xpm", &width, &height);
 	mlx_put_image_to_window(fdf->mlx, fdf->win,
-		fdf->menu->projection_height, 55, 530);
+		fdf->menu->projection_height, 55, 550);
 }
 
 //	----------HEADER FOR FDF----------

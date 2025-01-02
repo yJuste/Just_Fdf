@@ -33,14 +33,17 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 
 void	ft_fdf_next(t_fdf *fdf)
 {
-	fdf->cam->zoom = 1;
-	fdf->cam->zoom_ix = 200;
 	if (WIDTH * HEIGHT >= 450000)
 		fdf->cam->zoom_ix = 300;
 	fdf->cam->offset_x = WIDTH / 3;
 	fdf->cam->offset_y = HEIGHT / 3;
-	fdf->cam->projection = 'i';
 	fdf->cam->height = 3;
+	fdf->cam->zoom_ix = 200;
+	fdf->cam->zoom = 1;
+	fdf->cam->projection = 'i';
+	fdf->cam->alpha = 0;
+	fdf->cam->beta = 0;
+	fdf->cam->gamma = 0;
 	fdf->cohen->xmin = 0;
 	fdf->cohen->xmax = WIDTH - 1;
 	fdf->cohen->ymin = 0;

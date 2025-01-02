@@ -21,7 +21,7 @@ void		ft_clear_image(t_img *img);
 void		ft_print_array(int **array, int rows, int cols);
 // -----------------------------------------------------------------------
 
-/*	l.17-18, analyse la map et met les nombres / les couleurs dans un tableau.
+/*	l.11-12, analyse la map et met les nombres / les couleurs dans un tableau.
 	ft_printf(1, "w: %d, h: %d\n", map->width, map->height);
 	if (map->map)
 		ft_print_array(map->map, map->height, map->width);
@@ -41,6 +41,11 @@ int	ft_parse_map(t_map *map, char **argv)
 	j = ft_parse_map_next(map, fd, line);
 	close(fd);
 	map->height = j;
+	ft_printf(1, "w: %d, h: %d\n", map->width, map->height);
+	if (map->map)
+		ft_print_array(map->map, map->height, map->width);
+	if (map->colors)
+		ft_print_array(map->colors, map->height, map->width);
 	return (0);
 }
 
