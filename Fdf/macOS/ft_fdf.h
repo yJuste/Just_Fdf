@@ -16,6 +16,13 @@
 #ifndef FT_FDF_H
 # define FT_FDF_H
 
+/*
+ * NOTE:
+ * - La minilibx sur MacOS n'a pas été entièrement développé et c'est pour cette
+ *	raison qu'il y a 1 leak de 32 bytes non atteignable dû au comportement
+ *	de la lib.
+ */
+
 // Standard Libraries
 
 # include <unistd.h>
