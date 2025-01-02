@@ -28,6 +28,7 @@ void	ft_menu(t_fdf *fdf)
 		ft_put_image_translation(fdf);
 		ft_put_image_rotation(fdf);
 		ft_put_image_zoom(fdf);
+		ft_put_image_projection_and_height(fdf);
 	}
 }
 
@@ -39,6 +40,8 @@ void	ft_menu_next(t_fdf *fdf)
 		"-------- rotation -------");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 430, COLOR_HEADER,
 		"---------- zoom ---------");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 510, COLOR_HEADER,
+		"-- projection / height --");
 	mlx_string_put(fdf->mlx, fdf->win, 15, HEIGHT - 30, COLOR_HEADER,
 		"by Juste              2024");
 }

@@ -1,7 +1,7 @@
 NAME = fdf
 
 CC = cc
-CFLAGS = -g # -lm
+CFLAGS = -g -Wall -Wextra -Werror
 
 MINILIBX = libmlx.a
 PATH_MINILIBX = minilibx
@@ -14,15 +14,15 @@ PATH_PRINTF = Printf_fd
 SRC =	ft_fdf.c				\
 	ft_fdf_next.c				\
 	ft_fdf_2.c				\
-	ft_parse_map.c				\
 	ft_cam_movements.c			\
 	ft_cam_movements_next.c			\
-	ft_macros.c				\
 	ft_menu.c				\
 	ft_menu_next.c				\
+	ft_macros.c				\
+	ft_lib.c				\
+	ft_lib_2.c				\
 	ft_bresenham.c				\
 	ft_cohen_sutherland_clip.c		\
-	ft_lib.c				\
 	ft_split.c				\
 	Get_Next_Line/get_next_line.c
 

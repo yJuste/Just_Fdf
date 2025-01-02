@@ -43,6 +43,7 @@ typedef struct s_img	t_img;
 typedef struct s_camera	t_camera;
 typedef struct s_map	t_map;
 typedef struct s_menu	t_menu;
+typedef struct s_cohen	t_cohen;
 
 typedef struct s_fdf
 {
@@ -52,6 +53,7 @@ typedef struct s_fdf
 	t_camera	*cam;
 	t_map		*map;
 	t_menu		*menu;
+	t_cohen		*cohen;
 }	t_fdf;
 
 typedef struct s_img
@@ -79,16 +81,19 @@ typedef struct s_map
 	int			z0;
 	int			z1;
 	int			**map;
+	int			color;
+	int			**colors;
 }	t_map;
 
 // zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
-	float		zoom;
-	int			zoom_ix;
 	int			offset_x;
 	int			offset_y;
-	float		angle;
+	int			zoom_ix;
+	int			height;
+	char		projection;
+	float		zoom;
 	float		alpha;
 	float		beta;
 	float		gamma;
@@ -99,50 +104,57 @@ typedef struct s_menu
 	void		*rotation;
 	void		*translation;
 	void		*zoom;
+	void		*projection_height;
 }	t_menu;
+
+typedef struct s_cohen
+{
+	int			xmin;
+	int			xmax;
+	int			ymin;
+	int			ymax;
+	int			code_out;
+	int			x;
+	int			y;
+}	t_cohen;
 
 //	---------- MY CODE ----------
 
 // ft_fdf.c
 
-void		ft_error(t_fdf *fdf, int error);
+int			ft_close_window(int keycode, t_fdf *fdf);
 void		ft_init(t_fdf **fdf);
+void		ft_error(t_fdf *fdf, int error);
+void	ft_free_fdf(t_fdf *fdf);
 
 // ft_fdf_next.c
 
-void		ft_fdf(t_fdf *fdf, t_img *img);
-void		ft_fdf_next(t_fdf *fdf, t_img *img);
-void		ft_draw(t_fdf *fdf);
-void		ft_draw_next(t_fdf *fdf, t_map *map);
-void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
+int			ft_parse_map(t_map *map, char **argv);
+int			ft_parse_map_next(t_map *map, int fd, char *line);
+void		ft_parse_map_next_next(t_map *map, char **out, size_t j);
+void		ft_clear_image(t_img *img);
+void		ft_print_array(int **array, int rows, int cols);
 
 // ft_fdf_2.c
 
-void		ft_clear_image(t_fdf *fdf, t_img *img);
-
-// ft_parse_map.c
-
-void		ft_parse_map(t_fdf *fdf, char **argv);
+void		ft_fdf(t_fdf *fdf, t_img *img);
+void		ft_fdf_next(t_fdf *fdf);
+void		ft_draw(t_fdf *fdf);
+void		ft_draw_next(t_fdf *fdf, t_map *map);
+void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
 
 // ft_cam_movements.c
 
 void		ft_translate(t_camera *cam, int *x, int *y);
 void		ft_zoom(t_camera *cam, int *x, int *y, int *z);
-void		ft_rotate_x(t_camera *cam, int *y, int *z, float angle);
-void		ft_rotate_y(t_camera *cam, int *x, int *z, float angle);
-void		ft_rotate_z(t_camera *cam, int *x, int *y, float angle);
+void		ft_rotate_x(int *y, int *z, float angle);
+void		ft_rotate_y(int *x, int *z, float angle);
+void		ft_rotate_z(int *x, int *y, float angle);
 
 // ft_cam_movements_next.c
 
 void		ft_default_dimensions(t_fdf *fdf);
-void		ft_projection(t_map *map, float angle);
-
-// ft_macros.c
-
-int			ft_key_hook(int keycode, t_fdf *fdf);
-void		ft_key_zoom(int keycode, t_fdf *fdf);
-void		ft_key_translate(int keycode, t_fdf *fdf);
-void		ft_key_rotate(int keycode, t_fdf *fdf);
+void		ft_projection(t_map *map, char projection);
 
 // ft_menu.c
 
@@ -156,6 +168,31 @@ void		ft_header(t_fdf *fdf);
 void		ft_put_image_translation(t_fdf *fdf);
 void		ft_put_image_rotation(t_fdf *fdf);
 void		ft_put_image_zoom(t_fdf *fdf);
+void		ft_put_image_projection_and_height(t_fdf *fdf);
+
+// ft_macros.c
+
+int			ft_key_hook(int keycode, t_fdf *fdf);
+void		ft_key_zoom(int keycode, t_fdf *fdf);
+void		ft_key_translate(int keycode, t_fdf *fdf);
+void		ft_key_rotate(int keycode, t_fdf *fdf);
+void		ft_key_projection_and_height(int keycode, t_fdf *fdf);
+
+// ft_lib.c
+
+void		*ft_calloc(size_t count, size_t size);
+void		*ft_realloc(void *ptr, size_t size);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
+size_t		ft_strslen(const char **s);
+int			ft_is_separator(char c, const char *sep);
+
+// ft_lib_2.c
+
+int			ft_atoi_base(const char *str, int str_base);
+const char	*ft_atoi_base_next(const char *str, int str_base, int *sign);
+int			ft_tolower(int c);
+char		*ft_strchr(const char *s, int c);
+void		ft_free_strs(void **strs);
 
 // ft_bresenham.c
 
@@ -166,16 +203,11 @@ void		ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy);
 
 // ft_cohen_sutherland_clip.c
 
-void		ft_cohen_sutherland_clip(t_map *map);
-int			ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax);
-
-// ft_lib.c
-
-void		*ft_calloc(size_t count, size_t size);
-void		*ft_realloc(void *ptr, size_t size);
-void		*ft_memcpy(void *dst, const void *src, size_t n);
-size_t		ft_strslen(const char **s);
-int			ft_is_separator(char c, const char *sep);
+void		ft_cohen_sutherland_clip(t_map *map, t_cohen *cohen);
+void		ft_cohen_sutherland_clip_next(t_map *map, t_cohen *cohen,
+				int *code0, int *code1);
+void		ft_cohen_sutherland_clip_next_next(t_map *map, t_cohen *cohen,
+				int *code0, int *code1);
 
 // ft_split.c
 

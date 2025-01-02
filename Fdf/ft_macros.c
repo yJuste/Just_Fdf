@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// --------------------PROTOTYPE---------------------
+// -------------------------PROTOTYPE-------------------------
 int		ft_key_hook(int keycode, t_fdf *fdf);
 void	ft_key_zoom(int keycode, t_fdf *fdf);
 void	ft_key_translate(int keycode, t_fdf *fdf);
 void	ft_key_rotate(int keycode, t_fdf *fdf);
-// --------------------------------------------------
+void	ft_key_projection_and_height(int keycode, t_fdf *fdf);
+// -----------------------------------------------------------
 
 // Fonction principale qui appelle les differentes touches presses.
 int	ft_key_hook(int keycode, t_fdf *fdf)
@@ -34,6 +35,12 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 		|| keycode == NUM_PAD_3 || keycode == MAIN_PAD_5
 		|| keycode == NUM_PAD_6 || keycode == MAIN_PAD_6)
 		ft_key_rotate(keycode, fdf);
+	else if (keycode == KEY_R
+		|| keycode == MAIN_PAD_8 || keycode == NUM_PAD_8
+		|| keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
+		ft_key_projection_and_height(keycode, fdf);
+	else if (keycode == MAIN_PAD_ESC)
+		ft_close_window(keycode, fdf);
 	return (0);
 }
 
@@ -82,5 +89,26 @@ void	ft_key_rotate(int keycode, t_fdf *fdf)
 		fdf->cam->gamma += 0.05;
 	else if (keycode == NUM_PAD_6 || keycode == MAIN_PAD_6)
 		fdf->cam->gamma -= 0.05;
+	ft_draw(fdf);
+}
+
+// Gere les touches de PROJECTION et de HEIGHT.
+void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
+{
+	if (keycode == KEY_R)
+	{
+		if (fdf->cam->projection == 'i')
+			fdf->cam->projection = 'o';
+		else
+			fdf->cam->projection = 'i';
+	}
+	else if (keycode == MAIN_PAD_8 || keycode == NUM_PAD_8)
+		fdf->cam->height += 1;
+	else if (keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
+		fdf->cam->height -= 1;
+	if (fdf->cam->height > 30)
+		fdf->cam->height = 30;
+	if (fdf->cam->height < -30)
+		fdf->cam->height = -30;
 	ft_draw(fdf);
 }

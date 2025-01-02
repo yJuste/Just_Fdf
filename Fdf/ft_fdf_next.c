@@ -11,92 +11,119 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------------------PROTOTYPE-----------------------------
-void		ft_fdf(t_fdf *fdf, t_img *img);
-void		ft_fdf_next(t_fdf *fdf, t_img *img);
-void		ft_draw(t_fdf *fdf);
-void		ft_draw_next(t_fdf *fdf, t_map *map);
-void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
-// -------------------------------------------------------------------
+// --------------------------------PROTOTYPE------------------------------
+int			ft_parse_map(t_map *map, char **argv);
+int			ft_parse_map_next(t_map *map, int fd, char *line);
+void		ft_parse_map_next_next(t_map *map, char **out, size_t j);
+void		ft_clear_image(t_img *img);
+void		ft_print_array(int **array, int rows, int cols);
+// -----------------------------------------------------------------------
 
-// Fonction principale de fdf.
-void	ft_fdf(t_fdf *fdf, t_img *img)
+/*	l.17-18, analyse la map et met les nombres / les couleurs dans un tableau.
+	ft_printf(1, "w: %d, h: %d\n", map->width, map->height);
+	if (map->map)
+		ft_print_array(map->map, map->height, map->width);
+	if (map->colors)
+		ft_print_array(map->colors, map->height, map->width);
+*/
+int	ft_parse_map(t_map *map, char **argv)
 {
-	img->ptr = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-	img->addr = mlx_get_data_addr(img->ptr,
-			&img->bpp, &img->size, &img->endian);
-	ft_printf(1, "%d", img->bpp);
-	ft_fdf_next(fdf, img);
-	// mlx_destroy_image(fdf->mlx, img->ptr);
+	int			fd;
+	size_t		j;
+	char		*line;
+
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	line = get_next_line(fd);
+	j = ft_parse_map_next(map, fd, line);
+	close(fd);
+	map->height = j;
+	return (0);
 }
 
-void	ft_fdf_next(t_fdf *fdf, t_img *img)
+int	ft_parse_map_next(t_map *map, int fd, char *line)
 {
-	fdf->cam->zoom = 1;
-	fdf->cam->zoom_ix = 2;
-	if (WIDTH * HEIGHT >= 450000)
-		fdf->cam->zoom_ix = 25;
-	ft_draw(fdf);
-	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
-}
+	size_t		j;
+	char		**out;
 
-// Fonction pour dessiner la grille.
-void	ft_draw(t_fdf *fdf)
-{
-	ft_clear_image(fdf, fdf->img);
-	if (WIDTH > 300)
-		ft_background_menu(fdf);
-	ft_default_dimensions(fdf);
-	ft_draw_lines(fdf, fdf->map, 1, 0);
-	ft_draw_lines(fdf, fdf->map, 0, 1);
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
-	ft_menu(fdf);
-}
-
-// Fonction pour appliquer certains rendus directement
-//   pendant le processus d'ajout de point.
-void	ft_draw_next(t_fdf *fdf, t_map *map)
-{
-	ft_zoom(fdf->cam, &map->x0, &map->y0, &map->z0);
-	ft_zoom(fdf->cam, &map->x1, &map->y1, &map->z1);
-	fdf->cam->angle = 0.523599;
-	ft_rotate_x(fdf->cam, &map->y0, &map->z0, fdf->cam->alpha);
-	ft_rotate_x(fdf->cam, &map->y1, &map->z1, fdf->cam->alpha);
-	ft_rotate_y(fdf->cam, &map->x0, &map->z0, fdf->cam->beta);
-	ft_rotate_y(fdf->cam, &map->x1, &map->z1, fdf->cam->beta);
-	ft_rotate_z(fdf->cam, &map->x0, &map->y0, fdf->cam->gamma);
-	ft_rotate_z(fdf->cam, &map->x1, &map->y1, fdf->cam->gamma);
-	ft_projection(map, fdf->cam->angle);
-	ft_translate(fdf->cam, &map->x0, &map->y0);
-	ft_translate(fdf->cam, &map->x1, &map->y1);
-	ft_cohen_sutherland_clip(map);
-}
-
-// 1. Fonction pour desiner les lignes.
-// 2. La condition if avec zoom_ix est pour optimiser le code.
-void	ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy)
-{
-	int		x;
-	int		y;
-
-	y = 0;
-	while (y < map->height - (dy > 0))
+	j = 0;
+	while (line)
 	{
-		x = 0;
-		while (x < map->width - (dx > 0))
+		out = ft_split(line);
+		if (!out)
+			break ;
+		j++;
+		map->map = ft_realloc(map->map, sizeof(int *) * j);
+		map->colors = ft_realloc(map->colors, sizeof(int *) * j);
+		map->width = ft_strslen((const char **)out);
+		map->map[j - 1] = ft_calloc(map->width, sizeof(int));
+		map->colors[j - 1] = ft_calloc(map->width, sizeof(int));
+		ft_parse_map_next_next(map, out, j);
+		ft_free_strs((void **)out);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (j);
+}
+
+void	ft_parse_map_next_next(t_map *map, char **out, size_t j)
+{
+	size_t		i;
+	char		*strchr;
+
+	i = 0;
+	while (out[i])
+	{
+		strchr = ft_strchr(out[i], ',');
+		if (strchr)
 		{
-			map->x0 = x * map->wid;
-			map->y0 = y * map->hei;
-			map->x1 = (x + dx) * map->wid;
-			map->y1 = (y + dy) * map->hei;
-			map->z0 = map->map[y][x] * 5;
-			map->z1 = map->map[y + dy][x + dx] * 5;
-			ft_draw_next(fdf, map);
-			if (map->x0 >= 0 && map->y0
-				>= -(fdf->cam->zoom * fdf->cam->zoom_ix))
-				ft_bresenham_line(fdf, map);
-			x++;
+			*strchr = '\0';
+			map->map[j - 1][i] = ft_atoi(out[i]);
+			map->colors[j - 1][i] = ft_atoi_base(strchr + 1, 16);
 		}
-		y++;
+		else
+		{
+			map->map[j - 1][i] = ft_atoi(out[i]);
+			map->colors[j - 1][i] = COLOR;
+		}
+		i++;
+	}
+}
+
+// 1. Clear tous les pixels a 0 ( ou une couleur dans mon cas).
+// 2. Non je ne destroy pas l'image, je travaille avec la meme.
+void	ft_clear_image(t_img *img)
+{
+	int		i;
+	int		tot;
+	int		color;
+	int		*buffer;
+
+	buffer = (int *)img->addr;
+	color = BCKGRND_COLOR;
+	tot = WIDTH * HEIGHT;
+	i = -1;
+	while (++i < tot)
+		buffer[i] = color;
+}
+
+/* Test your arrays. */
+void	ft_print_array(int **array, int rows, int cols)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < rows)
+	{
+		j = 0;
+		while (j < cols)
+		{
+			ft_printf(1, "%d ", array[i][j]);
+			j++;
+		}
+		ft_printf(1, "\n");
+		i++;
 	}
 }

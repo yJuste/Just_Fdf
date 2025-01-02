@@ -11,32 +11,36 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------------PROTOTYPE------------------------
-void	ft_cohen_sutherland_clip(t_map *map);
-int		ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax);
-// --------------------------------------------------------
+// ---------------------------------PROTOTYPE---------------------------------
+void		ft_cohen_sutherland_clip(t_map *map, t_cohen *cohen);
+void		ft_cohen_sutherland_clip_next(t_map *map, t_cohen *cohen,
+				int *code0, int *code1);
+void		ft_cohen_sutherland_clip_next_next(t_map *map, t_cohen *cohen,
+				int *code0, int *code1);
+// ---------------------------------------------------------------------------
 
-// Fonction pour assigner les zones binaires
-int	ft_compute_region_code(int x, int y, int xmin, int xmax, int ymin, int ymax)
+// Fonction pour assigner les zones binaires.
+int	ft_compute_region_code(t_cohen *cohen, int x)
 {
 	int		code;
 
 	code = 0;
-	if (x < xmin)
+	if (x < cohen->xmin)
 		code |= LEFT;
-	else if (x > xmax)
+	else if (x > cohen->xmax)
 		code |= RIGHT;
 	return (code);
 }
 
-// Algorithme de Cohen SutherLand Clip qui coupe les lignes qui depasse de la fenetre
-void	ft_cohen_sutherland_clip(t_map *map)
+// Algorithme de Cohen SutherLand Clip qui coupe les lignes
+//   qui depasse de la fenetre.
+void	ft_cohen_sutherland_clip(t_map *map, t_cohen *cohen)
 {
-	int		xmin = 0, xmax = WIDTH - 1;
-	int		ymin = 0, ymax = HEIGHT - 1;
-	int		code0 = ft_compute_region_code(map->x0, map->y0, xmin, xmax, ymin, ymax);
-	int		code1 = ft_compute_region_code(map->x1, map->y1, xmin, xmax, ymin, ymax);
+	int		code0;
+	int		code1;
 
+	code0 = ft_compute_region_code(cohen, map->x0);
+	code1 = ft_compute_region_code(cohen, map->x1);
 	while (1)
 	{
 		if ((code0 | code1) == 0)
@@ -48,36 +52,47 @@ void	ft_cohen_sutherland_clip(t_map *map)
 			return ;
 		}
 		else
-		{
-			int		code_out;
-			int		x, y;
-
-			if (code0 != 0)
-				code_out = code0;
-			else
-				code_out = code1;
-			if (code_out & LEFT)
-			{
-				x = xmin;
-				y = map->y0 + (map->y1 - map->y0) * (xmin - map->x0) / (map->x1 - map->x0);
-			}
-			else if (code_out & RIGHT)
-			{
-				x = xmax;
-				y = map->y0 + (map->y1 - map->y0) * (xmax - map->x0) / (map->x1 - map->x0);
-			}
-			if (code_out == code0)
-			{
-				map->x0 = x;
-				map->y0 = y;
-				code0 = ft_compute_region_code(map->x0, map->y0, xmin, xmax, ymin, ymax);
-			}
-			else
-			{
-				map->x1 = x;
-				map->y1 = y;
-				code1 = ft_compute_region_code(map->x1, map->y1, xmin, xmax, ymin, ymax);
-			}
-		}
+			ft_cohen_sutherland_clip_next(map, cohen, &code0, &code1);
 	}
+	return ;
+}
+
+void	ft_cohen_sutherland_clip_next(t_map *map, t_cohen *cohen,
+		int *code0, int *code1)
+{
+	if (*code0 != 0)
+		cohen->code_out = *code0;
+	else
+		cohen->code_out = *code1;
+	if (cohen->code_out & LEFT)
+	{
+		cohen->x = cohen->xmin;
+		cohen->y = map->y0 + (map->y1 - map->y0)
+			* (cohen->xmin - map->x0) / (map->x1 - map->x0);
+	}
+	else if (cohen->code_out & RIGHT)
+	{
+		cohen->x = cohen->xmax;
+		cohen->y = map->y0 + (map->y1 - map->y0)
+			* (cohen->xmax - map->x0) / (map->x1 - map->x0);
+	}
+	ft_cohen_sutherland_clip_next_next(map, cohen, code0, code1);
+}
+
+void	ft_cohen_sutherland_clip_next_next(t_map *map, t_cohen *cohen,
+		int *code0, int *code1)
+{
+	if (cohen->code_out == *code0)
+	{
+		map->x0 = cohen->x;
+		map->y0 = cohen->y;
+		*code0 = ft_compute_region_code(cohen, map->x0);
+	}
+	else
+	{
+		map->x1 = cohen->x;
+		map->y1 = cohen->y;
+		*code1 = ft_compute_region_code(cohen, map->x1);
+	}
+	return ;
 }

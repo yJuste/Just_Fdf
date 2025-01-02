@@ -38,13 +38,9 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 // Algorithme de bresenham.
 void	ft_bresenham_line(t_fdf *fdf, t_map *map)
 {
-	int		dx;
-	int		dy;
 	int		sx;
 	int		sy;
 
-	dx = abs(map->x1 - map->x0);
-	dy = -abs(map->y1 - map->y0);
 	if (map->x0 < map->x1)
 		sx = 1;
 	else
@@ -68,7 +64,7 @@ void	ft_bresenham_line_next(t_fdf *fdf, t_map *map, int sx, int sy)
 	err = dx + dy;
 	while (1)
 	{
-		ft_pixel_put(fdf->img, map->x0, map->y0, ft_color(fdf->img));
+		ft_pixel_put(fdf->img, map->x0, map->y0, map->color);
 		if (map->x0 == map->x1 && map->y0 == map->y1)
 			break ;
 		e2 = 2 * err;

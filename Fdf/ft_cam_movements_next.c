@@ -11,10 +11,10 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// ---------------------PROTOTYPE----------------------
+// -----------------------PROTOTYPE------------------------
 void		ft_default_dimensions(t_fdf *fdf);
-void		ft_projection(t_map *map, float angle);
-// ----------------------------------------------------
+void		ft_projection(t_map *map, char projection);
+// --------------------------------------------------------
 
 // 1. On prend la plus petite echelle pour voir toute la grille en 1er.
 // 2. Les cases de la grille sont carre.
@@ -37,11 +37,16 @@ void	ft_default_dimensions(t_fdf *fdf)
 	fdf->map->hei = scale;
 }
 
-// Rend la grille en une vue specifique.
-void	ft_projection(t_map *map, float angle)
+// 1. Rend la grille en une vue specifique.
+// 2. Projection 1 est la vue isometrique.
+// 3. Projection 2 est la vue orthogonale.
+void	ft_projection(t_map *map, char projection)
 {
-	map->x0 = (map->x0 - map->y0) * cos(angle);
-	map->y0 = (map->x0 + map->y0) * sin(angle) - map->z0;
-	map->x1 = (map->x1 - map->y1) * cos(angle);
-	map->y1 = (map->x1 + map->y1) * sin(angle) - map->z1;
+	if (projection == 'i')
+	{
+		map->x0 = (map->x0 - map->y0) * cos(0.523599);
+		map->y0 = (map->x0 + map->y0) * sin(0.523599) - map->z0;
+		map->x1 = (map->x1 - map->y1) * cos(0.523599);
+		map->y1 = (map->x1 + map->y1) * sin(0.523599) - map->z1;
+	}
 }
