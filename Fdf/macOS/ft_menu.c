@@ -80,7 +80,7 @@ void	ft_default_dimensions(t_fdf *fdf)
 	int		max_dim;
 	int		scale;
 
-	if (fdf->map->width < 500 || fdf->map->height < 500)
+	if (fdf->map->width < 500 && fdf->map->height < 500)
 	{
 		if (WIDTH > HEIGHT)
 			ref = HEIGHT;

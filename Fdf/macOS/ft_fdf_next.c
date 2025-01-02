@@ -40,10 +40,10 @@ int	ft_parse_map(t_fdf *fdf, t_map *map, char **argv)
 	if (!file)
 		return (ft_error(fdf, ENOEXEC), exit(3), 0);
 	if (ft_strcmp(file, ".fdf") != 0)
-		return (ft_error(fdf, ENOEXEC), exit(3), 0);
+		return (ft_error(fdf, ENOEXEC), exit(4), 0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (-2);
+		return (-1);
 	line = get_next_line(fd);
 	j = ft_parse_map_next(map, fd, line);
 	close(fd);
