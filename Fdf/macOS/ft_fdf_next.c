@@ -41,11 +41,6 @@ int	ft_parse_map(t_map *map, char **argv)
 	j = ft_parse_map_next(map, fd, line);
 	close(fd);
 	map->height = j;
-	ft_printf(1, "w: %d, h: %d\n", map->width, map->height);
-	if (map->map)
-		ft_print_array(map->map, map->height, map->width);
-	if (map->colors)
-		ft_print_array(map->colors, map->height, map->width);
 	return (0);
 }
 
