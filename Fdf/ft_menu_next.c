@@ -16,6 +16,7 @@ void		ft_put_image_translation(t_fdf *fdf);
 void		ft_put_image_rotation(t_fdf *fdf);
 void		ft_put_image_zoom(t_fdf *fdf);
 void		ft_put_image_projection_and_height(t_fdf *fdf);
+void		ft_header(t_fdf *fdf);
 // ------------------------------------------------------------
 
 // Fonction pour afficher l'image de la rotation.
@@ -72,4 +73,25 @@ void	ft_put_image_projection_and_height(t_fdf *fdf)
 			"Images/projection_height.xpm", &width, &height);
 	mlx_put_image_to_window(fdf->mlx, fdf->win,
 		fdf->menu->projection_height, 55, 530);
+}
+
+//	----------HEADER FOR FDF----------
+
+// Le header 42 en police Varsity.
+void	ft_header(t_fdf *fdf)
+{
+	mlx_string_put(fdf->mlx, fdf->win, 20, 10, COLOR_HEADER,
+		" ________      __    ___  ");
+	mlx_string_put(fdf->mlx, fdf->win, 20, 30, COLOR_HEADER,
+		"|_   __  |    |  ] .' ..] ");
+	mlx_string_put(fdf->mlx, fdf->win, 20, 50, COLOR_HEADER,
+		"  | |_ \\_|.--.| | _| |_   ");
+	mlx_string_put(fdf->mlx, fdf->win, 20, 70, COLOR_HEADER,
+		"  |  _| / /'`\\' |'-| |-'  ");
+	mlx_string_put(fdf->mlx, fdf->win, 20, 90, COLOR_HEADER,
+		" _| |_  | \\__/  |  | |    ");
+	mlx_string_put(fdf->mlx, fdf->win, 20, 110, COLOR_HEADER,
+		"|_____|  '.__.;__][___]   ");
+	mlx_string_put(fdf->mlx, fdf->win, 20, 130, COLOR_HEADER,
+		"                          ");
 }

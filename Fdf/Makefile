@@ -14,11 +14,10 @@ PATH_PRINTF = Printf_fd
 SRC =	ft_fdf.c				\
 	ft_fdf_next.c				\
 	ft_fdf_2.c				\
-	ft_cam_movements.c			\
-	ft_cam_movements_next.c			\
 	ft_menu.c				\
-	ft_menu_next.c				\
 	ft_macros.c				\
+	ft_menu_next.c				\
+	ft_cam_movements.c			\
 	ft_lib.c				\
 	ft_lib_2.c				\
 	ft_bresenham.c				\

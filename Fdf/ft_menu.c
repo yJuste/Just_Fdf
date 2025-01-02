@@ -11,12 +11,13 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// -----------------PROTOTYPE------------------
+// -----------------------PROTOTYPE------------------------
 void		ft_menu(t_fdf *fdf);
 void		ft_menu_next(t_fdf *fdf);
 void		ft_background_menu(t_fdf *fdf);
-void		ft_header(t_fdf *fdf);
-// --------------------------------------------
+void		ft_default_dimensions(t_fdf *fdf);
+void		ft_projection(t_map *map, char projection);
+// --------------------------------------------------------
 
 // Function for printing the menu.
 void	ft_menu(t_fdf *fdf)
@@ -65,21 +66,39 @@ void	ft_background_menu(t_fdf *fdf)
 	}
 }
 
-// Le header 42 en police Varsity.
-void	ft_header(t_fdf *fdf)
+//	----------PROJECTION x DEFAULT_DIMENSIONS----------
+
+// 1. On prend la plus petite echelle pour voir toute la grille en 1er.
+// 2. Les cases de la grille sont carre.
+void	ft_default_dimensions(t_fdf *fdf)
 {
-	mlx_string_put(fdf->mlx, fdf->win, 20, 10, COLOR_HEADER,
-		" ________      __    ___  ");
-	mlx_string_put(fdf->mlx, fdf->win, 20, 30, COLOR_HEADER,
-		"|_   __  |    |  ] .' ..] ");
-	mlx_string_put(fdf->mlx, fdf->win, 20, 50, COLOR_HEADER,
-		"  | |_ \\_|.--.| | _| |_   ");
-	mlx_string_put(fdf->mlx, fdf->win, 20, 70, COLOR_HEADER,
-		"  |  _| / /'`\\' |'-| |-'  ");
-	mlx_string_put(fdf->mlx, fdf->win, 20, 90, COLOR_HEADER,
-		" _| |_  | \\__/  |  | |    ");
-	mlx_string_put(fdf->mlx, fdf->win, 20, 110, COLOR_HEADER,
-		"|_____|  '.__.;__][___]   ");
-	mlx_string_put(fdf->mlx, fdf->win, 20, 130, COLOR_HEADER,
-		"                          ");
+	int		ref;
+	int		max_dim;
+	int		scale;
+
+	if (WIDTH > HEIGHT)
+		ref = HEIGHT;
+	else
+		ref = WIDTH;
+	if (fdf->map->width > fdf->map->height)
+		max_dim = fdf->map->width;
+	else
+		max_dim = fdf->map->height;
+	scale = ref / max_dim;
+	fdf->map->wid = scale;
+	fdf->map->hei = scale;
+}
+
+// 1. Rend la grille en une vue specifique.
+// 2. Projection 1 est la vue isometrique.
+// 3. Projection 2 est la vue orthogonale.
+void	ft_projection(t_map *map, char projection)
+{
+	if (projection == 'i')
+	{
+		map->x0 = (map->x0 - map->y0) * cos(0.523599);
+		map->y0 = (map->x0 + map->y0) * sin(0.523599) - map->z0;
+		map->x1 = (map->x1 - map->y1) * cos(0.523599);
+		map->y1 = (map->x1 + map->y1) * sin(0.523599) - map->z1;
+	}
 }

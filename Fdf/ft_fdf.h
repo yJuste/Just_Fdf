@@ -151,17 +151,13 @@ void		ft_rotate_x(int *y, int *z, float angle);
 void		ft_rotate_y(int *x, int *z, float angle);
 void		ft_rotate_z(int *x, int *y, float angle);
 
-// ft_cam_movements_next.c
-
-void		ft_default_dimensions(t_fdf *fdf);
-void		ft_projection(t_map *map, char projection);
-
 // ft_menu.c
 
 void		ft_menu(t_fdf *fdf);
 void		ft_menu_next(t_fdf *fdf);
 void		ft_background_menu(t_fdf *fdf);
-void		ft_header(t_fdf *fdf);
+void		ft_default_dimensions(t_fdf *fdf);
+void		ft_projection(t_map *map, char projection);
 
 // ft_menu_next.c
 
@@ -169,6 +165,7 @@ void		ft_put_image_translation(t_fdf *fdf);
 void		ft_put_image_rotation(t_fdf *fdf);
 void		ft_put_image_zoom(t_fdf *fdf);
 void		ft_put_image_projection_and_height(t_fdf *fdf);
+void		ft_header(t_fdf *fdf);
 
 // ft_macros.c
 
