@@ -15,7 +15,7 @@
 int			ft_close_window(int keycode, t_fdf *fdf);
 void		ft_init(t_fdf **fdf);
 void		ft_error(t_fdf *fdf, int error);
-void	ft_free_fdf(t_fdf *fdf);
+void		ft_free_fdf(t_fdf *fdf);
 // --------------------------------------------------------------
 
 int	main(int argc, char **argv)
