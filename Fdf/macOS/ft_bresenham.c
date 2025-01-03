@@ -77,7 +77,7 @@ void	ft_pixel_put(t_img *img, int x, int y, int color)
 	*(int *)pixel = color;
 }
 
-// Fonction pour trnasformer une couleur hexa en RGB (hexa est mieux en fait).
+// Fonction pour transformer une couleur hexa en RGB (hexa est mieux en fait).
 int	ft_color(t_img *img)
 {
 	return ((img->red << 16) | (img->green << 8) | img->blue);
