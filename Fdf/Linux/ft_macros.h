@@ -19,7 +19,7 @@
 # define HEIGHT			1200
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
-# define BCKGRND_COLOR		0xa6b1b3
+# define BCKGRND_COLOR		0x000000
 
 // Affiche le menu à une taille minimum.
 # define MIN_MENU		500
