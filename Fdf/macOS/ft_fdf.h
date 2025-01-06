@@ -20,7 +20,8 @@
  * NOTE:
  * - La minilibx sur MacOS n'a pas été entièrement développé et c'est pour cette
  *	raison qu'il y a 1 leak de 32 bytes non atteignable dû au comportement
- *	de la lib.
+ *	de la lib. La raison est que mlx_destroy_display() n'a pas été ajouté
+ *	pour la version mac.
  */
 
 // Standard Libraries

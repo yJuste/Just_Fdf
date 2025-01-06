@@ -74,6 +74,10 @@ void	ft_error(t_fdf *fdf, int error)
 }
 
 // Libére toutes les variables dans fdf.
+/* Ne pas ajouter cette ligne si mlx_destroy_display() n'existe pas.
+ *	if (fdf->mlx)
+ *		free(fdf->mlx);
+ */
 void	ft_free_fdf(t_fdf *fdf)
 {
 	if (fdf->map->map)
@@ -92,8 +96,6 @@ void	ft_free_fdf(t_fdf *fdf)
 		mlx_destroy_image(fdf->mlx, fdf->img->ptr);
 	if (fdf->win)
 		mlx_destroy_window(fdf->mlx, fdf->win);
-	if (fdf->mlx)
-		free(fdf->mlx);
 	free(fdf->img);
 	free(fdf->cam);
 	free(fdf->map);
