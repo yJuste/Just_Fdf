@@ -42,7 +42,7 @@
 # define MAIN_PAD_PLUS		61
 
 # define NUM_PAD_MINUS		65453
-# define MAIN_PAD_MINUS		41
+# define MAIN_PAD_MINUS		45
 
 // For the TRANSLATION.
 
