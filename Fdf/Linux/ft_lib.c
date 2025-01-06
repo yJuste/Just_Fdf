@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/06 04:41:42 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • First Lib.                                                             */
@@ -15,7 +15,7 @@
 
 // ---------------------------PROTOTYPE---------------------------
 void		*ft_calloc(size_t count, size_t size);
-void		*ft_realloc(void *ptr, size_t size);
+void		*ft_realloc(void *ptr, size_t old, size_t size);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 size_t		ft_strslen(const char **s);
 int			ft_strcmp(const char *s1, const char *s2);
@@ -40,7 +40,7 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t old, size_t size)
 {
 	void		*nptr;
 
@@ -51,7 +51,10 @@ void	*ft_realloc(void *ptr, size_t size)
 	nptr = ft_calloc(1, size);
 	if (!nptr)
 		return (NULL);
-	ft_memcpy(nptr, ptr, size);
+	if (old < size)
+		ft_memcpy(nptr, ptr, old);
+	else
+		ft_memcpy(nptr, ptr, size);
 	free(ptr);
 	return (nptr);
 }

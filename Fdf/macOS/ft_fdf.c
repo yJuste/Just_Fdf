@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/06 04:45:09 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                       PART 1   */
@@ -47,6 +47,8 @@ int	ft_close_window(t_fdf *fdf)
 {
 	if (fdf)
 		ft_free_fdf(fdf);
+	if (fdf)
+		free(fdf);
 	ft_printf(1, "Window closed\n");
 	exit(2);
 	return (0);
@@ -69,6 +71,8 @@ void	ft_error(t_fdf *fdf, int error)
 {
 	if (fdf)
 		ft_free_fdf(fdf);
+	if (fdf)
+		free(fdf);
 	ft_printf(2, "%s\n", strerror(error));
 	exit(error);
 }
@@ -101,5 +105,4 @@ void	ft_free_fdf(t_fdf *fdf)
 	free(fdf->map);
 	free(fdf->menu);
 	free(fdf->cohen);
-	free(fdf);
 }

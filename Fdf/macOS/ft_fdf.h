@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/06 04:47:31 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                                */
@@ -191,7 +191,7 @@ void		ft_key_projection_and_height(int keycode, t_fdf *fdf);
 // ft_lib.c
 
 void		*ft_calloc(size_t count, size_t size);
-void		*ft_realloc(void *ptr, size_t size);
+void		*ft_realloc(void *ptr, size_t old, size_t size);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 size_t		ft_strslen(const char **s);
 int			ft_is_separator(char c, const char *sep);
