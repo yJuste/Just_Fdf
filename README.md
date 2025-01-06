@@ -8,6 +8,7 @@
 ## /. HELP
 
 * Voir le pdf de Fdf qui explique parfaitement le projet.
+* Le projet a été fait sur macOS ainsi que Linux. Tout est compilable en une commade `make`.
 
 Merci a :
 
@@ -16,4 +17,4 @@ Merci a :
 
 ##	/: EOF
 
-Modifié le 16 Décembre 2024 par Juste.
+Modifié le 6 Janvier 2025 par Juste.
