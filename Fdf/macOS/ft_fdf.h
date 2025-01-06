@@ -153,8 +153,8 @@ void		ft_free_strs(t_map *map, void **strs, char flg);
 void		ft_fdf(t_fdf *fdf, t_img *img);
 void		ft_fdf_next(t_fdf *fdf);
 void		ft_draw(t_fdf *fdf);
-void		ft_draw_next(t_fdf *fdf, t_map *map);
 void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
+void		ft_draw_next(t_fdf *fdf, t_map *map);
 
 // ft_cam_movements.c
 

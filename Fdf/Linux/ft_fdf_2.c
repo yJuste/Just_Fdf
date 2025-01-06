@@ -17,8 +17,8 @@
 void		ft_fdf(t_fdf *fdf, t_img *img);
 void		ft_fdf_next(t_fdf *fdf);
 void		ft_draw(t_fdf *fdf);
-void		ft_draw_next(t_fdf *fdf, t_map *map);
 void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
+void		ft_draw_next(t_fdf *fdf, t_map *map);
 // -------------------------------------------------------------------
 
 // Fonction principale de fdf.
@@ -72,24 +72,6 @@ void	ft_draw(t_fdf *fdf)
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
 }
 
-// Fonction pour appliquer certains rendus directement
-//   pendant le processus d'ajout de point.
-void	ft_draw_next(t_fdf *fdf, t_map *map)
-{
-	ft_zoom(fdf->cam, &map->x0, &map->y0, &map->z0);
-	ft_zoom(fdf->cam, &map->x1, &map->y1, &map->z1);
-	ft_rotate_x(&map->y0, &map->z0, fdf->cam->alpha);
-	ft_rotate_x(&map->y1, &map->z1, fdf->cam->alpha);
-	ft_rotate_y(&map->x0, &map->z0, fdf->cam->beta);
-	ft_rotate_y(&map->x1, &map->z1, fdf->cam->beta);
-	ft_rotate_z(&map->x0, &map->y0, fdf->cam->gamma);
-	ft_rotate_z(&map->x1, &map->y1, fdf->cam->gamma);
-	ft_projection(map, fdf->cam->projection);
-	ft_translate(fdf->cam, &map->x0, &map->y0);
-	ft_translate(fdf->cam, &map->x1, &map->y1);
-	ft_cohen_sutherland_clip(map, fdf->cohen);
-}
-
 // 1. Fonction pour desiner les lignes.
 // 2. La condition if avec zoom_ix est pour optimiser le code.
 void	ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy)
@@ -118,4 +100,22 @@ void	ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy)
 		}
 		y++;
 	}
+}
+
+// Fonction pour appliquer certains rendus directement
+//   pendant le processus d'ajout de point.
+void	ft_draw_next(t_fdf *fdf, t_map *map)
+{
+	ft_zoom(fdf->cam, &map->x0, &map->y0, &map->z0);
+	ft_zoom(fdf->cam, &map->x1, &map->y1, &map->z1);
+	ft_rotate_x(&map->y0, &map->z0, fdf->cam->alpha);
+	ft_rotate_x(&map->y1, &map->z1, fdf->cam->alpha);
+	ft_rotate_y(&map->x0, &map->z0, fdf->cam->beta);
+	ft_rotate_y(&map->x1, &map->z1, fdf->cam->beta);
+	ft_rotate_z(&map->x0, &map->y0, fdf->cam->gamma);
+	ft_rotate_z(&map->x1, &map->y1, fdf->cam->gamma);
+	ft_projection(map, fdf->cam->projection);
+	ft_translate(fdf->cam, &map->x0, &map->y0);
+	ft_translate(fdf->cam, &map->x1, &map->y1);
+	ft_cohen_sutherland_clip(map, fdf->cohen);
 }

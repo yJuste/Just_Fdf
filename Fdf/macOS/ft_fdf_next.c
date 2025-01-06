@@ -57,8 +57,8 @@ int	ft_parse_map_next(t_map *map, int fd, char *line)
 		if (!out)
 			break ;
 		j++;
-		map->map = realloc(map->map, sizeof(int *) * j);
-		map->colors = realloc(map->colors, sizeof(int *) * j);
+		map->map = ft_realloc(map->map, sizeof(int *) * j);
+		map->colors = ft_realloc(map->colors, sizeof(int *) * j);
 		map->width = ft_strslen((const char **)out);
 		map->map[j - 1] = ft_calloc(map->width, sizeof(int));
 		map->colors[j - 1] = ft_calloc(map->width, sizeof(int));
