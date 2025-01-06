@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/06 02:25:11 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                       PART 1   */
@@ -16,7 +16,7 @@
 #include "ft_fdf.h"
 
 // ---------------------------PROTOTYPE--------------------------
-int			ft_close_window(int keycode, t_fdf *fdf);
+int			ft_close(t_fdf *fdf);
 void		ft_init(t_fdf **fdf);
 void		ft_error(t_fdf *fdf, int error);
 void		ft_free_fdf(t_fdf *fdf);
@@ -34,7 +34,7 @@ int	main(int argc, char **argv)
 		fdf->mlx = mlx_init();
 		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Just'Fdf");
 		ft_fdf(fdf, fdf->img);
-		mlx_hook(fdf->win, 17, 0, ft_close_window, fdf);
+		mlx_hook(fdf->win, 17, 1L << 17, ft_close_window, fdf);
 		mlx_loop(fdf->mlx);
 	}
 	else
@@ -43,10 +43,10 @@ int	main(int argc, char **argv)
 }
 
 // Ferme la fenêtre.
-int	ft_close_window(int keycode, t_fdf *fdf)
+int	ft_close_window(t_fdf *fdf)
 {
-	(void)keycode;
-	(void)fdf;
+	if (fdf)
+		ft_free_fdf(fdf);
 	ft_printf(1, "Window closed\n");
 	exit(2);
 	return (0);
@@ -77,9 +77,9 @@ void	ft_error(t_fdf *fdf, int error)
 void	ft_free_fdf(t_fdf *fdf)
 {
 	if (fdf->map->map)
-		ft_free_strs((void **)fdf->map->map);
+		ft_free_strs(fdf->map, (void **)fdf->map->map, 'i');
 	if (fdf->map->colors)
-		ft_free_strs((void **)fdf->map->colors);
+		ft_free_strs(fdf->map, (void **)fdf->map->colors, 'i');
 	if (fdf->menu->rotation)
 		mlx_destroy_image(fdf->mlx, fdf->menu->rotation);
 	if (fdf->menu->translation)
@@ -93,7 +93,8 @@ void	ft_free_fdf(t_fdf *fdf)
 	if (fdf->win)
 		mlx_destroy_window(fdf->mlx, fdf->win);
 	if (fdf->mlx)
-		free(fdf->mlx);
+		mlx_destroy_display(fdf->mlx);
+	free(fdf->mlx);
 	free(fdf->img);
 	free(fdf->cam);
 	free(fdf->map);

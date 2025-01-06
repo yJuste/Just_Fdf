@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/06 01:55:17 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Gestion des touches du clavier.                                        */
@@ -42,7 +42,7 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 		|| keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
 		ft_key_projection_and_height(keycode, fdf);
 	else if (keycode == MAIN_PAD_ESC)
-		ft_close_window(keycode, fdf);
+		ft_close_window(fdf);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/04 02:36:34 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche les lignes et applique les rendus.                             */
@@ -28,7 +28,7 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 	img->addr = mlx_get_data_addr(img->ptr,
 			&img->bpp, &img->size, &img->endian);
 	ft_fdf_next(fdf);
-	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
+	mlx_hook(fdf->win, 2, 1L << 0, ft_key_hook, fdf);
 }
 
 void	ft_fdf_next(t_fdf *fdf)
@@ -54,16 +54,22 @@ void	ft_fdf_next(t_fdf *fdf)
 }
 
 // Fonction pour dessiner la grille.
+/*
+ * note: j'enleve ft_menu car l'optimisation des PC de 42 est assez
+ * mauvaise.
+ * l.1-2;
+ *	if (WIDTH > MIN_MENU)
+ *		ft_background_menu(fdf);
+ * l.5-6:
+ * 	ft_menu(fdf);
+ */
 void	ft_draw(t_fdf *fdf)
 {
-	ft_clear_image(fdf->img);
-	if (WIDTH > MIN_MENU)
-		ft_background_menu(fdf);
+	ft_clear_image(fdf, fdf->img);
 	ft_default_dimensions(fdf);
 	ft_draw_lines(fdf, fdf->map, 1, 0);
 	ft_draw_lines(fdf, fdf->map, 0, 1);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
-	ft_menu(fdf);
 }
 
 // Fonction pour appliquer certains rendus directement

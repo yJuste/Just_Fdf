@@ -6,10 +6,10 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/03 23:30:38 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*   • Gestion des touches du clavier.                                        */
+/*   • Gestion des touches du clavier.                                MACOS   */
 /* ************************************************************************** */
 #ifndef FT_MACROS_H
 # define FT_MACROS_H
@@ -83,10 +83,10 @@
 
 // For HEIGHT.
 
-# define MAIN_PAD_8		28
-# define MAIN_PAD_9		25
 # define NUM_PAD_8		91
 # define NUM_PAD_9		92
+# define MAIN_PAD_8		28
+# define MAIN_PAD_9		25
 
 // For SPLIT.
 

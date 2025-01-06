@@ -1,12 +1,12 @@
 NAME = fdf
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -g -Wall -Wextra -Werror
 
-MINILIBX = libmlx.a
+MINILIBX = libmlx_Linux.a
 PATH_MINILIBX = minilibx_linux
 
-MLXFLAGS = -lmlx -lXext -lX11
+MLXFLAGS = -lm -lmlx -lXext -lX11
 
 PRINTF = libftprintf.a
 PATH_PRINTF = Printf_fd
@@ -46,7 +46,7 @@ $(PRINTF):
 	$(MAKE) -C $(PATH_PRINTF)
 
 $(MINILIBX):
-	$(MAKE) -C $(PATH_MINILIBX)
+	@$(MAKE) -s -C $(PATH_MINILIBX) all > /dev/null 2>&1
 
 clean:
 	rm -f $(OBJ)

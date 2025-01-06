@@ -6,18 +6,17 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/03 23:30:21 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*   • Gestion des touches du clavier.                                        */
+/*   • Gestion des touches du clavier.                                LINUX   */
 /* ************************************************************************** */
 #ifndef FT_MACROS_H
 # define FT_MACROS_H
 
-// Default Mac Air M2: 1470 x 956; Large resolution: 1710 x 1112.
-// Je recommande WIDTH plus de 1100, HEIGHT plus de 700.
-# define WIDTH			1100
-# define HEIGHT			700
+// Je recommande WIDTH plus de 1700, HEIGHT plus de 1200.
+# define WIDTH			1700
+# define HEIGHT			1200
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
 # define BCKGRND_COLOR		0xa6b1b3
@@ -34,23 +33,23 @@
 
 // For exiting and Reset.
 
-# define MAIN_PAD_ESC		53
-# define KEY_R			15
+# define MAIN_PAD_ESC		65307
+# define KEY_R			114
 
 // For the ZOOM.
 
-# define NUM_PAD_PLUS		69
-# define MAIN_PAD_PLUS		24
+# define NUM_PAD_PLUS		65451
+# define MAIN_PAD_PLUS		61
 
-# define NUM_PAD_MINUS		78
-# define MAIN_PAD_MINUS		27
+# define NUM_PAD_MINUS		65453
+# define MAIN_PAD_MINUS		41
 
 // For the TRANSLATION.
 
-# define ARROW_LEFT		123
-# define ARROW_RIGHT		124
-# define ARROW_DOWN		125
-# define ARROW_UP		126
+# define ARROW_LEFT		65361
+# define ARROW_RIGHT		65363
+# define ARROW_DOWN		65364
+# define ARROW_UP		65362
 
 // For COHEN SUTHERLAND CLIP.
 
@@ -60,33 +59,33 @@
 // For ROTATION.
 
 // alpha
-# define NUM_PAD_1		83
-# define NUM_PAD_4		86
-# define MAIN_PAD_1		18
-# define MAIN_PAD_2		19
+# define NUM_PAD_1		65436
+# define NUM_PAD_4		65430
+# define MAIN_PAD_1		49
+# define MAIN_PAD_2		50
 
 // beta
-# define NUM_PAD_2		84
-# define NUM_PAD_5		87
-# define MAIN_PAD_3		20
-# define MAIN_PAD_4		21
+# define NUM_PAD_2		65433
+# define NUM_PAD_5		65437
+# define MAIN_PAD_3		51
+# define MAIN_PAD_4		52
 
 // gamma
-# define NUM_PAD_3		85
-# define NUM_PAD_6		88
-# define MAIN_PAD_5		23
-# define MAIN_PAD_6		22
+# define NUM_PAD_3		65435
+# define NUM_PAD_6		65432
+# define MAIN_PAD_5		53
+# define MAIN_PAD_6		54
 
 // For PROJECTION.
 
-# define KEY_I			34
+# define KEY_I			105
 
 // For HEIGHT.
 
-# define MAIN_PAD_8		28
-# define MAIN_PAD_9		25
-# define NUM_PAD_8		91
-# define NUM_PAD_9		92
+# define NUM_PAD_8		65431
+# define NUM_PAD_9		65434
+# define MAIN_PAD_8		56
+# define MAIN_PAD_9		57
 
 // For SPLIT.
 
