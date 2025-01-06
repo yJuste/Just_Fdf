@@ -17,8 +17,8 @@
 int			ft_parse_map(t_fdf *fdf, t_map *map, char **argv);
 int			ft_parse_map_next(t_map *map, int fd, char *line);
 void		ft_parse_map_next_next(t_map *map, char **out, size_t j);
-void		ft_clear_image(t_img *img);
-void		ft_free_strs(void **strs);
+void		ft_clear_image(t_fdf *fdf, t_img *img);
+void		ft_free_strs(t_map *map, void **strs, char flg);
 // -----------------------------------------------------------------------
 
 // analyse la map et met les nombres / les couleurs dans un tableau.
@@ -40,8 +40,8 @@ int	ft_parse_map(t_fdf *fdf, t_map *map, char **argv)
 		return (ft_error(fdf, EBADF), exit(5), 0);
 	line = get_next_line(fd);
 	j = ft_parse_map_next(map, fd, line);
-	close(fd);
 	map->height = j;
+	close(fd);
 	return (0);
 }
 
@@ -57,13 +57,13 @@ int	ft_parse_map_next(t_map *map, int fd, char *line)
 		if (!out)
 			break ;
 		j++;
-		map->map = ft_realloc(map->map, sizeof(int *) * j);
-		map->colors = ft_realloc(map->colors, sizeof(int *) * j);
+		map->map = realloc(map->map, sizeof(int *) * j);
+		map->colors = realloc(map->colors, sizeof(int *) * j);
 		map->width = ft_strslen((const char **)out);
 		map->map[j - 1] = ft_calloc(map->width, sizeof(int));
 		map->colors[j - 1] = ft_calloc(map->width, sizeof(int));
 		ft_parse_map_next_next(map, out, j);
-		ft_free_strs((void **)out);
+		ft_free_strs(map, (void **)out, 'c');
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -96,7 +96,7 @@ void	ft_parse_map_next_next(t_map *map, char **out, size_t j)
 
 // 1. Clear tous les pixels à 0 ( ou une couleur dans mon cas).
 // 2. Non je ne destroy pas l'image, je travaille avec la même.
-void	ft_clear_image(t_img *img)
+void	ft_clear_image(t_fdf *fdf, t_img *img)
 {
 	int		i;
 	int		tot;
@@ -109,20 +109,40 @@ void	ft_clear_image(t_img *img)
 	i = -1;
 	while (++i < tot)
 		buffer[i] = color;
+	if (fdf->menu->rotation)
+		mlx_destroy_image(fdf->mlx, fdf->menu->rotation);
+	if (fdf->menu->translation)
+		mlx_destroy_image(fdf->mlx, fdf->menu->translation);
+	if (fdf->menu->zoom)
+		mlx_destroy_image(fdf->mlx, fdf->menu->zoom);
+	if (fdf->menu->projection_height)
+		mlx_destroy_image(fdf->mlx, fdf->menu->projection_height);
 }
 
-void	ft_free_strs(void **strs)
+void	ft_free_strs(t_map *map, void **strs, char flg)
 {
-	size_t		i;
+	int		i;
 
 	i = 0;
 	if (!strs)
 		return ;
-	while (strs[i])
+	if (flg == 'c')
 	{
-		free(strs[i]);
-		strs[i] = NULL;
-		i++;
+		while (strs[i])
+		{
+			free(strs[i]);
+			strs[i] = NULL;
+			i++;
+		}
+	}
+	else if (flg == 'i')
+	{
+		while (i < map->height)
+		{
+			free(strs[i]);
+			strs[i] = NULL;
+			i++;
+		}
 	}
 	free(strs);
 	strs = NULL;

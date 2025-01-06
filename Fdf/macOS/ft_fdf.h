@@ -37,10 +37,10 @@
 
 # include <math.h>
 
-// My libraries
-
 // minilibX
 # include "minilibx_macos/mlx.h"
+
+// My libraries
 
 # include "Get_Next_Line/get_next_line.h"
 # include "Printf_fd/ft_printf.h"
@@ -134,7 +134,7 @@ typedef struct s_cohen
 
 // ft_fdf.c
 
-int			ft_close_window(int keycode, t_fdf *fdf);
+int			ft_close_window(t_fdf *fdf);
 void		ft_init(t_fdf **fdf);
 void		ft_error(t_fdf *fdf, int error);
 void		ft_free_fdf(t_fdf *fdf);
@@ -144,8 +144,8 @@ void		ft_free_fdf(t_fdf *fdf);
 int			ft_parse_map(t_fdf *fdf, t_map *map, char **argv);
 int			ft_parse_map_next(t_map *map, int fd, char *line);
 void		ft_parse_map_next_next(t_map *map, char **out, size_t j);
-void		ft_clear_image(t_img *img);
-void		ft_free_strs(void **strs);
+void		ft_clear_image(t_fdf *fdf, t_img *img);
+void		ft_free_strs(t_map *map, void **strs, char flg);
 
 // ft_fdf_2.c
 

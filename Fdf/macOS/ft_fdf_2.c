@@ -56,7 +56,7 @@ void	ft_fdf_next(t_fdf *fdf)
 // Fonction pour dessiner la grille.
 void	ft_draw(t_fdf *fdf)
 {
-	ft_clear_image(fdf->img);
+	ft_clear_image(fdf, fdf->img);
 	if (WIDTH > MIN_MENU)
 		ft_background_menu(fdf);
 	ft_default_dimensions(fdf);

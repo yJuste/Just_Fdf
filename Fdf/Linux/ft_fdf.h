@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated: 2025/01/06 01:57:18 by jlongin          ###   ########.fr       */
+/*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                                */
@@ -15,13 +15,6 @@
 /* ************************************************************************** */
 #ifndef FT_FDF_H
 # define FT_FDF_H
-
-/*
- * NOTE:
- * - La minilibx sur MacOS n'a pas été entièrement développé et c'est pour cette
- *	raison qu'il y a 1 leak de 32 bytes non atteignable dû au comportement
- *	de la lib.
- */
 
 // Standard Libraries
 

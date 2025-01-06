@@ -15,12 +15,12 @@
 /* ************************************************************************** */
 #include "ft_fdf.h"
 
-// ---------------------------PROTOTYPE--------------------------
-int			ft_close_window(int keycode, t_fdf *fdf);
+// ------------------PROTOTYPE----------------------
+int			ft_close_window(t_fdf *fdf);
 void		ft_init(t_fdf **fdf);
 void		ft_error(t_fdf *fdf, int error);
 void		ft_free_fdf(t_fdf *fdf);
-// --------------------------------------------------------------
+// -------------------------------------------------
 
 int	main(int argc, char **argv)
 {
@@ -43,10 +43,10 @@ int	main(int argc, char **argv)
 }
 
 // Ferme la fenêtre.
-int	ft_close_window(int keycode, t_fdf *fdf)
+int	ft_close_window(t_fdf *fdf)
 {
-	(void)keycode;
-	(void)fdf;
+	if (fdf)
+		ft_free_fdf(fdf);
 	ft_printf(1, "Window closed\n");
 	exit(2);
 	return (0);
@@ -77,9 +77,9 @@ void	ft_error(t_fdf *fdf, int error)
 void	ft_free_fdf(t_fdf *fdf)
 {
 	if (fdf->map->map)
-		ft_free_strs((void **)fdf->map->map);
+		ft_free_strs(fdf->map, (void **)fdf->map->map, 'i');
 	if (fdf->map->colors)
-		ft_free_strs((void **)fdf->map->colors);
+		ft_free_strs(fdf->map, (void **)fdf->map->colors, 'i');
 	if (fdf->menu->rotation)
 		mlx_destroy_image(fdf->mlx, fdf->menu->rotation);
 	if (fdf->menu->translation)

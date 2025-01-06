@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated: 2025/01/06 02:20:30 by jlongin          ###   ########.fr       */
+/*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Analyse la map.                                               PART 2   */
@@ -40,8 +40,8 @@ int	ft_parse_map(t_fdf *fdf, t_map *map, char **argv)
 		return (ft_error(fdf, EBADF), exit(5), 0);
 	line = get_next_line(fd);
 	j = ft_parse_map_next(map, fd, line);
-	close(fd);
 	map->height = j;
+	close(fd);
 	return (0);
 }
 
