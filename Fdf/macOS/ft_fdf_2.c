@@ -37,13 +37,14 @@ void	ft_fdf_next(t_fdf *fdf)
 		fdf->cam->zoom_ix = 300;
 	fdf->cam->offset_x = WIDTH / 3;
 	fdf->cam->offset_y = HEIGHT / 3;
-	fdf->cam->height = 3;
+	fdf->cam->height = 5;
 	fdf->cam->zoom_ix = 200;
 	fdf->cam->zoom = 1;
 	fdf->cam->projection = 'i';
 	fdf->cam->alpha = 0;
 	fdf->cam->beta = 0;
 	fdf->cam->gamma = 0;
+	fdf->cam->poudreuse = '0';
 	fdf->cohen->xmin = 0;
 	fdf->cohen->xmax = WIDTH - 1;
 	fdf->cohen->ymin = 0;
@@ -57,11 +58,11 @@ void	ft_fdf_next(t_fdf *fdf)
 void	ft_draw(t_fdf *fdf)
 {
 	ft_clear_image(fdf, fdf->img);
-	if (WIDTH > MIN_MENU)
-		ft_background_menu(fdf);
 	ft_default_dimensions(fdf);
 	ft_draw_lines(fdf, fdf->map, 1, 0);
 	ft_draw_lines(fdf, fdf->map, 0, 1);
+	if (WIDTH > MIN_MENU)
+		ft_background_menu(fdf);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
 	ft_menu(fdf);
 }
@@ -87,9 +88,6 @@ void	ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy)
 			map->z1 = map->map[y + dy][x + dx] * fdf->cam->height;
 			map->color = map->colors[y][x];
 			ft_draw_next(fdf, map);
-			if (map->x0 >= 0 && map->y0
-				>= -(fdf->cam->zoom * fdf->cam->zoom_ix))
-				ft_bresenham_line(fdf, map);
 			x++;
 		}
 		y++;
@@ -112,4 +110,12 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 	ft_translate(fdf->cam, &map->x0, &map->y0);
 	ft_translate(fdf->cam, &map->x1, &map->y1);
 	ft_cohen_sutherland_clip(map, fdf->cohen);
+	if (fdf->cam->poudreuse == '0')
+	{
+		if (map->x0 >= 0 && map->y0
+			>= -(fdf->cam->zoom * fdf->cam->zoom_ix))
+			ft_bresenham_line(fdf, map);
+	}
+	else if (fdf->cam->poudreuse == '1')
+		ft_pixel_put(fdf->img, map->x0, map->y0, map->color);
 }

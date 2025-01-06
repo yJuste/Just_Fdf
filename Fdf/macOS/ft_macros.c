@@ -37,7 +37,7 @@ int	ft_key_hook(int keycode, t_fdf *fdf)
 		|| keycode == NUM_PAD_3 || keycode == MAIN_PAD_5
 		|| keycode == NUM_PAD_6 || keycode == MAIN_PAD_6)
 		ft_key_rotate(keycode, fdf);
-	else if (keycode == KEY_R || keycode == KEY_I
+	else if (keycode == KEY_R || keycode == KEY_I || keycode == KEY_P
 		|| keycode == MAIN_PAD_8 || keycode == NUM_PAD_8
 		|| keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
 		ft_key_projection_and_height(keycode, fdf);
@@ -103,13 +103,16 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 		ft_fdf_next(fdf);
 		return ;
 	}
-	if (keycode == KEY_I)
-	{
+	else if (keycode == KEY_I)
 		if (fdf->cam->projection == 'i')
 			fdf->cam->projection = 'o';
-		else
-			fdf->cam->projection = 'i';
-	}
+	else
+		fdf->cam->projection = 'i';
+	else if (keycode == KEY_P)
+		if (fdf->cam->poudreuse == '0')
+			fdf->cam->poudreuse = '1';
+	else
+		fdf->cam->poudreuse = '0';
 	else if (keycode == MAIN_PAD_8 || keycode == NUM_PAD_8)
 		fdf->cam->height += 1;
 	else if (keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)

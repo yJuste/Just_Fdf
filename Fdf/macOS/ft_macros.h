@@ -20,7 +20,7 @@
 # define HEIGHT			700
 
 // You have 0x424242 or 0xa6b1b3, this one is cool too.
-# define BCKGRND_COLOR		0xa6b1b3
+# define BCKGRND_COLOR		0x000000
 
 // Affiche le menu à une taille minimum.
 # define MIN_MENU		500
@@ -29,8 +29,8 @@
 # define COLOR			0xffffff
 
 // Change the color for menu, 0x7b8587 is good.
-# define COLOR_HEADER		BCKGRND_COLOR
-# define COLOR_MENU		0x2a2d2e
+# define COLOR_HEADER		0xffffff
+# define COLOR_MENU		0x17191a
 
 // For exiting and Reset.
 
@@ -77,9 +77,10 @@
 # define MAIN_PAD_5		23
 # define MAIN_PAD_6		22
 
-// For PROJECTION.
+// For PROJECTION et POUDREUSE
 
 # define KEY_I			34
+# define KEY_P			35
 
 // For HEIGHT.
 
