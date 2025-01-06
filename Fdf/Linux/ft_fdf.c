@@ -94,7 +94,8 @@ void	ft_free_fdf(t_fdf *fdf)
 		mlx_destroy_window(fdf->mlx, fdf->win);
 	if (fdf->mlx)
 		mlx_destroy_display(fdf->mlx);
-	free(fdf->mlx);
+	if (fdf->mlx)
+		free(fdf->mlx);
 	free(fdf->img);
 	free(fdf->cam);
 	free(fdf->map);
