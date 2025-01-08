@@ -103,6 +103,7 @@ typedef struct s_camera
 	float		alpha;
 	float		beta;
 	float		gamma;
+	char		poudreuse;
 }	t_camera;
 
 typedef struct s_menu

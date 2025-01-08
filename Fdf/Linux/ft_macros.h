@@ -28,8 +28,8 @@
 # define COLOR			0xffffff
 
 // Change the color for menu, 0x7b8587 is good.
-# define COLOR_HEADER		BCKGRND_COLOR
-# define COLOR_MENU		0x2a2d2e
+# define COLOR_HEADER		0xffffff
+# define COLOR_MENU		0x17191a
 
 // For exiting and Reset.
 
@@ -76,9 +76,10 @@
 # define MAIN_PAD_5		53
 # define MAIN_PAD_6		54
 
-// For PROJECTION.
+// For PROJECTION and POUDREUSE.
 
 # define KEY_I			105
+# define KEY_P			106
 
 // For HEIGHT.
 

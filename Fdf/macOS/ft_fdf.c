@@ -34,6 +34,7 @@ int	main(int argc, char **argv)
 		fdf->mlx = mlx_init();
 		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Just'Fdf");
 		ft_fdf(fdf, fdf->img);
+		mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
 		mlx_hook(fdf->win, 17, 0, ft_close_window, fdf);
 		mlx_loop(fdf->mlx);
 	}

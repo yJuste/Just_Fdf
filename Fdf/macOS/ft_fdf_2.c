@@ -28,7 +28,6 @@ void	ft_fdf(t_fdf *fdf, t_img *img)
 	img->addr = mlx_get_data_addr(img->ptr,
 			&img->bpp, &img->size, &img->endian);
 	ft_fdf_next(fdf);
-	mlx_hook(fdf->win, 2, 0, ft_key_hook, fdf);
 }
 
 void	ft_fdf_next(t_fdf *fdf)
