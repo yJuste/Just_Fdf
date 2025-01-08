@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:31:32 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Gestion des touches du clavier.                                        */
@@ -59,7 +59,6 @@ void	ft_key_zoom(int keycode, t_fdf *fdf)
 		fdf->cam->zoom = 0.1;
 	if (fdf->cam->zoom >= 15)
 		fdf->cam->zoom = 15;
-	ft_draw(fdf);
 }
 
 // Gére les touches de TRANSLATION.
@@ -73,7 +72,6 @@ void	ft_key_translate(int keycode, t_fdf *fdf)
 		fdf->cam->offset_y -= 20;
 	else if (keycode == ARROW_UP)
 		fdf->cam->offset_y += 20;
-	ft_draw(fdf);
 }
 
 // Gére les touches de ROTATION.
@@ -91,7 +89,6 @@ void	ft_key_rotate(int keycode, t_fdf *fdf)
 		fdf->cam->gamma += 0.05;
 	else if (keycode == NUM_PAD_6 || keycode == MAIN_PAD_6)
 		fdf->cam->gamma -= 0.05;
-	ft_draw(fdf);
 }
 
 // 1. Gére les touches de PROJECTION et de HEIGHT.
@@ -100,7 +97,7 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_R)
 	{
-		ft_fdf_next(fdf);
+		ft_fdf(fdf);
 		return ;
 	}
 	else if (keycode == KEY_I)
@@ -114,12 +111,11 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 	else
 		fdf->cam->poudreuse = '0';
 	else if (keycode == MAIN_PAD_8 || keycode == NUM_PAD_8)
-		fdf->cam->height += 1;
-	else if (keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
 		fdf->cam->height -= 1;
+	else if (keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
+		fdf->cam->height += 1;
 	if (fdf->cam->height > 30)
 		fdf->cam->height = 30;
 	if (fdf->cam->height < -30)
 		fdf->cam->height = -30;
-	ft_draw(fdf);
 }

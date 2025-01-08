@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:34:15 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche les lignes et applique les rendus.                             */
@@ -14,23 +14,15 @@
 #include "ft_fdf.h"
 
 // -----------------------------PROTOTYPE-----------------------------
-void		ft_fdf(t_fdf *fdf, t_img *img);
-void		ft_fdf_next(t_fdf *fdf);
+void		ft_fdf(t_fdf *fdf);
 void		ft_draw(t_fdf *fdf);
 void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
 void		ft_draw_next(t_fdf *fdf, t_map *map);
+void		ft_free_fdf(t_fdf *fdf);
 // -------------------------------------------------------------------
 
 // Fonction principale de fdf.
-void	ft_fdf(t_fdf *fdf, t_img *img)
-{
-	img->ptr = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
-	img->addr = mlx_get_data_addr(img->ptr,
-			&img->bpp, &img->size, &img->endian);
-	ft_fdf_next(fdf);
-}
-
-void	ft_fdf_next(t_fdf *fdf)
+void	ft_fdf(t_fdf *fdf)
 {
 	if (WIDTH * HEIGHT >= 450000)
 		fdf->cam->zoom_ix = 300;
@@ -119,8 +111,40 @@ void	ft_draw_next(t_fdf *fdf, t_map *map)
 	{
 		if (map->x0 >= 0 && map->y0
 			>= -(fdf->cam->zoom * fdf->cam->zoom_ix))
-		ft_bresenham_line(fdf, map);
+			ft_bresenham_line(fdf, map);
 	}
 	else if (fdf->cam->poudreuse == '1')
 		ft_pixel_put(fdf->img, map->x0, map->y0, map->color);
+}
+
+//	----------GOTO FREE----------
+
+// Libére toutes les variables dans fdf.
+void	ft_free_fdf(t_fdf *fdf)
+{
+	if (fdf->map->map)
+		ft_free_strs(fdf->map, (void **)fdf->map->map, 'i');
+	if (fdf->map->colors)
+		ft_free_strs(fdf->map, (void **)fdf->map->colors, 'i');
+	if (fdf->menu->rotation)
+		mlx_destroy_image(fdf->mlx, fdf->menu->rotation);
+	if (fdf->menu->translation)
+		mlx_destroy_image(fdf->mlx, fdf->menu->translation);
+	if (fdf->menu->zoom)
+		mlx_destroy_image(fdf->mlx, fdf->menu->zoom);
+	if (fdf->menu->projection_height)
+		mlx_destroy_image(fdf->mlx, fdf->menu->projection_height);
+	if (fdf->img->ptr)
+		mlx_destroy_image(fdf->mlx, fdf->img->ptr);
+	if (fdf->win)
+		mlx_destroy_window(fdf->mlx, fdf->win);
+	if (fdf->mlx)
+		mlx_destroy_display(fdf->mlx);
+	if (fdf->mlx)
+		free(fdf->mlx);
+	free(fdf->img);
+	free(fdf->cam);
+	free(fdf->map);
+	free(fdf->menu);
+	free(fdf->cohen);
 }

@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:30:08 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                                */
@@ -128,11 +128,10 @@ typedef struct s_cohen
 //	---------- MY CODE ----------
 
 // ft_fdf.c
-
+int			ft_loop_hook(t_fdf *fdf);
 int			ft_close_window(t_fdf *fdf);
-void		ft_init(t_fdf **fdf);
 void		ft_error(t_fdf *fdf, int error);
-void		ft_free_fdf(t_fdf *fdf);
+void		ft_init(t_fdf **fdf);
 
 // ft_fdf_next.c
 
@@ -144,11 +143,11 @@ void		ft_free_strs(t_map *map, void **strs, char flg);
 
 // ft_fdf_2.c
 
-void		ft_fdf(t_fdf *fdf, t_img *img);
-void		ft_fdf_next(t_fdf *fdf);
+void		ft_fdf(t_fdf *fdf);
 void		ft_draw(t_fdf *fdf);
 void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
 void		ft_draw_next(t_fdf *fdf, t_map *map);
+void		ft_free_fdf(t_fdf *fdf);
 
 // ft_cam_movements.c
 

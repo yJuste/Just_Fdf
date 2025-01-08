@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:30:00 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                       PART 1   */
@@ -16,10 +16,10 @@
 #include "ft_fdf.h"
 
 // ------------------PROTOTYPE------------------
-int			ft_close(t_fdf *fdf);
-void		ft_init(t_fdf **fdf);
+int			ft_loop_hook(t_fdf *fdf);
+int			ft_close_window(t_fdf *fdf);
 void		ft_error(t_fdf *fdf, int error);
-void		ft_free_fdf(t_fdf *fdf);
+void		ft_init(t_fdf **fdf);
 // ---------------------------------------------
 
 int	main(int argc, char **argv)
@@ -33,13 +33,24 @@ int	main(int argc, char **argv)
 		ft_parse_map(fdf, fdf->map, argv);
 		fdf->mlx = mlx_init();
 		fdf->win = mlx_new_window(fdf->mlx, WIDTH, HEIGHT, "Just'Fdf");
-		ft_fdf(fdf, fdf->img);
+		fdf->img->ptr = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
+		fdf->img->addr = mlx_get_data_addr(fdf->img->ptr, &fdf->img->bpp,
+				&fdf->img->size, &fdf->img->endian);
+		ft_fdf(fdf);
 		mlx_hook(fdf->win, 2, 1L << 0, ft_key_hook, fdf);
 		mlx_hook(fdf->win, 17, 1L << 17, ft_close_window, fdf);
+		mlx_loop_hook(fdf->mlx, ft_loop_hook, fdf);
 		mlx_loop(fdf->mlx);
 	}
 	else
 		ft_error(fdf, ENOENT);
+	return (0);
+}
+
+// Applique les modifs de mlx_hook.
+int	ft_loop_hook(t_fdf *fdf)
+{
+	ft_draw(fdf);
 	return (0);
 }
 
@@ -55,18 +66,6 @@ int	ft_close_window(t_fdf *fdf)
 	return (0);
 }
 
-// 1. Alloue de la mémoire pour chaque structure.
-// 2. Met toutes les variables à 0.
-void	ft_init(t_fdf **fdf)
-{
-	*fdf = ft_calloc(1, sizeof(t_fdf));
-	(*fdf)->img = ft_calloc(1, sizeof(t_img));
-	(*fdf)->map = ft_calloc(1, sizeof(t_map));
-	(*fdf)->cam = ft_calloc(1, sizeof(t_camera));
-	(*fdf)->menu = ft_calloc(1, sizeof(t_menu));
-	(*fdf)->cohen = ft_calloc(1, sizeof(t_cohen));
-}
-
 // Fonction d'erreur.
 void	ft_error(t_fdf *fdf, int error)
 {
@@ -78,32 +77,14 @@ void	ft_error(t_fdf *fdf, int error)
 	exit(error);
 }
 
-// Libére toutes les variables dans fdf.
-void	ft_free_fdf(t_fdf *fdf)
+// 1. Alloue de la mémoire pour chaque structure.
+// 2. Met toutes les variables à 0.
+void	ft_init(t_fdf **fdf)
 {
-	if (fdf->map->map)
-		ft_free_strs(fdf->map, (void **)fdf->map->map, 'i');
-	if (fdf->map->colors)
-		ft_free_strs(fdf->map, (void **)fdf->map->colors, 'i');
-	if (fdf->menu->rotation)
-		mlx_destroy_image(fdf->mlx, fdf->menu->rotation);
-	if (fdf->menu->translation)
-		mlx_destroy_image(fdf->mlx, fdf->menu->translation);
-	if (fdf->menu->zoom)
-		mlx_destroy_image(fdf->mlx, fdf->menu->zoom);
-	if (fdf->menu->projection_height)
-		mlx_destroy_image(fdf->mlx, fdf->menu->projection_height);
-	if (fdf->img->ptr)
-		mlx_destroy_image(fdf->mlx, fdf->img->ptr);
-	if (fdf->win)
-		mlx_destroy_window(fdf->mlx, fdf->win);
-	if (fdf->mlx)
-		mlx_destroy_display(fdf->mlx);
-	if (fdf->mlx)
-		free(fdf->mlx);
-	free(fdf->img);
-	free(fdf->cam);
-	free(fdf->map);
-	free(fdf->menu);
-	free(fdf->cohen);
+	*fdf = ft_calloc(1, sizeof(t_fdf));
+	(*fdf)->img = ft_calloc(1, sizeof(t_img));
+	(*fdf)->map = ft_calloc(1, sizeof(t_map));
+	(*fdf)->cam = ft_calloc(1, sizeof(t_camera));
+	(*fdf)->menu = ft_calloc(1, sizeof(t_menu));
+	(*fdf)->cohen = ft_calloc(1, sizeof(t_cohen));
 }

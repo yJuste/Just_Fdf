@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:07:46 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Gestion des touches du clavier.                                        */
@@ -114,9 +114,9 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 	else
 		fdf->cam->poudreuse = '0';
 	else if (keycode == MAIN_PAD_8 || keycode == NUM_PAD_8)
-		fdf->cam->height += 1;
-	else if (keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
 		fdf->cam->height -= 1;
+	else if (keycode == MAIN_PAD_9 || keycode == NUM_PAD_9)
+		fdf->cam->height += 1;
 	if (fdf->cam->height > 30)
 		fdf->cam->height = 30;
 	if (fdf->cam->height < -30)

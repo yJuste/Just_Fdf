@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:06:38 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Gestion des touches du clavier.                                LINUX   */
@@ -79,7 +79,7 @@
 // For PROJECTION and POUDREUSE.
 
 # define KEY_I			105
-# define KEY_P			106
+# define KEY_P			112
 
 // For HEIGHT.
 
