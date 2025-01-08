@@ -101,6 +101,7 @@ typedef struct s_map
 // zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
+	int			reset;
 	int			offset_x;
 	int			offset_y;
 	int			height;
@@ -136,10 +137,10 @@ typedef struct s_cohen
 
 // ft_fdf.c
 
+int			ft_loop_hook(t_fdf *fdf);
 int			ft_close_window(t_fdf *fdf);
-void		ft_init(t_fdf **fdf);
 void		ft_error(t_fdf *fdf, int error);
-void		ft_free_fdf(t_fdf *fdf);
+void		ft_init(t_fdf **fdf);
 
 // ft_fdf_next.c
 
@@ -151,11 +152,11 @@ void		ft_free_strs(t_map *map, void **strs, char flg);
 
 // ft_fdf_2.c
 
-void		ft_fdf(t_fdf *fdf, t_img *img);
-void		ft_fdf_next(t_fdf *fdf);
+void		ft_fdf(t_fdf *fdf);
 void		ft_draw(t_fdf *fdf);
 void		ft_draw_lines(t_fdf *fdf, t_map *map, int dx, int dy);
 void		ft_draw_next(t_fdf *fdf, t_map *map);
+void		ft_free_fdf(t_fdf *fdf);
 
 // ft_cam_movements.c
 

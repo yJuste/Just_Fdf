@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated: 2025/01/08 21:30:08 by jlongin          ###   ########.fr       */
+/*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                                */
@@ -94,6 +94,7 @@ typedef struct s_map
 // zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
+	int			reset;
 	int			offset_x;
 	int			offset_y;
 	int			height;

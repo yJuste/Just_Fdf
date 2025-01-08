@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated: 2025/01/08 21:31:32 by jlongin          ###   ########.fr       */
+/*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Gestion des touches du clavier.                                        */
@@ -97,7 +97,7 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_R)
 	{
-		ft_fdf(fdf);
+		fdf->cam->reset = 1;
 		return ;
 	}
 	else if (keycode == KEY_I)

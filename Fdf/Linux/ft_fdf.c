@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated: 2025/01/08 21:30:00 by jlongin          ###   ########.fr       */
+/*   Updated:   by Just'                              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche des cartes 2D en projection 3D.                       PART 1   */
@@ -50,7 +50,13 @@ int	main(int argc, char **argv)
 // Applique les modifs de mlx_hook.
 int	ft_loop_hook(t_fdf *fdf)
 {
-	ft_draw(fdf);
+	if (fdf->cam->reset == 1)
+	{
+		fdf->cam->reset = 0;
+		ft_fdf(fdf);
+	}
+	else
+		ft_draw(fdf);
 	return (0);
 }
 
