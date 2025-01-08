@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 21:56:10 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche les lignes et applique les rendus.                             */
@@ -62,6 +62,7 @@ void	ft_draw(t_fdf *fdf)
 	ft_draw_lines(fdf, fdf->map, 1, 0);
 	ft_draw_lines(fdf, fdf->map, 0, 1);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img->ptr, 0, 0);
+	ft_menu(fdf);
 }
 
 // 1. Fonction pour desiner les lignes.

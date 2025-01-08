@@ -6,7 +6,7 @@
 /*   By:                                            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created:   by Just'                               #+#    #+#             */
-/*   Updated:   by Just'                              ###   ########.fr       */
+/*   Updated: 2025/01/08 22:11:50 by jlongin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 /*   • Affiche le menu et les aides.                                 PART 1   */
@@ -22,31 +22,43 @@ void		ft_projection(t_map *map, char projection);
 // --------------------------------------------------------
 
 // Fonction pour afficher le menu.
+/*	l.4-5:
+ *	ft_put_image_translation(fdf);
+ *	ft_put_image_rotation(fdf);
+ *	ft_put_image_zoom(fdf);
+ *	ft_put_image_projection_and_height(fdf);
+ */
 void	ft_menu(t_fdf *fdf)
 {
 	if (WIDTH > MIN_MENU)
 	{
 		ft_header(fdf);
 		ft_menu_next(fdf);
-		ft_put_image_translation(fdf);
-		ft_put_image_rotation(fdf);
-		ft_put_image_zoom(fdf);
-		ft_put_image_projection_and_height(fdf);
 	}
 }
 
 void	ft_menu_next(t_fdf *fdf)
 {
 	mlx_string_put(fdf->mlx, fdf->win, 25, 160, COLOR_HEADER,
-		"------ translation ------");
+		"TRANSLATION: Use the Arrows");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 200, COLOR_HEADER,
+		"ROTATION:");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 220, COLOR_HEADER,
+		"->   '1' or '2' for x axe");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 240, COLOR_HEADER,
+		"->   '3' or '4' for y axe");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 260, COLOR_HEADER,
+		"->   '5' or '6' for z axe");
 	mlx_string_put(fdf->mlx, fdf->win, 25, 300, COLOR_HEADER,
-		"-------- rotation -------");
-	mlx_string_put(fdf->mlx, fdf->win, 25, 430, COLOR_HEADER,
-		"---------- zoom ---------");
-	mlx_string_put(fdf->mlx, fdf->win, 25, 510, COLOR_HEADER,
-		"-- projection / height --");
-	mlx_string_put(fdf->mlx, fdf->win, 25, 530, COLOR_HEADER,
-		"        and RESET        ");
+		"ZOOM: Use '-' or '+' for zooming.");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 340, COLOR_HEADER,
+		"PROJECTION: Use 'I' for changing the projection.");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 380, COLOR_HEADER,
+		"HEIGHT: Use '8' or '9' for changing the height of the field.");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 420, COLOR_HEADER,
+		"POUDREUSE: Use 'P' for changing the poudreuse's effect.");
+	mlx_string_put(fdf->mlx, fdf->win, 25, 460, COLOR_HEADER,
+		"RESET: Use 'R' for reset.");
 	mlx_string_put(fdf->mlx, fdf->win, 15, HEIGHT - 30, COLOR_HEADER,
 		"by Juste              2024");
 }
