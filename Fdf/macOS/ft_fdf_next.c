@@ -90,7 +90,7 @@ void	ft_parse_map_next_next(t_map *map, char **out, size_t j)
 		else
 		{
 			map->map[j - 1][i] = ft_atoi(out[i]);
-			map->colors[j - 1][i] = COLOR;
+			map->colors[j - 1][i] = ft_gradient(i, map->width);
 		}
 		i++;
 	}

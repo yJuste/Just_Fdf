@@ -198,6 +198,12 @@ int			ft_tolower(int c);
 char		*ft_strchr(const char *s, int c, char flg);
 int			ft_strcmp(const char *s1, const char *s2);
 
+// ft_color.c
+
+int			ft_scale(int n, int new_min, int new_max, int old_max);
+int			ft_gradient(int iteration, int max);
+int			ft_gradientbw(int iteration, int max);
+
 // ft_bresenham.c
 
 void		ft_bresenham_line(t_fdf *fdf, t_map *map);

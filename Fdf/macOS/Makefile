@@ -20,6 +20,7 @@ SRC =	ft_fdf.c				\
 	ft_cam_movements.c			\
 	ft_lib.c				\
 	ft_lib_2.c				\
+	ft_color.c				\
 	ft_bresenham.c				\
 	ft_cohen_sutherland_clip.c		\
 	ft_split.c				\
@@ -27,8 +28,8 @@ SRC =	ft_fdf.c				\
 
 OBJ = $(SRC:.c=.o)
 
-NORMINETTE =	ft_*.c		\
-		ft_*.h		\
+NORMINETTE =	*.c		\
+		*.h		\
 		Get_Next_Line	\
 		Printf_fd
 
