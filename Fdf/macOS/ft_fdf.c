@@ -73,7 +73,10 @@ void	ft_error(t_fdf *fdf, int error)
 		ft_free_fdf(fdf);
 	if (fdf)
 		free(fdf);
-	ft_printf(2, "%s\n", strerror(error));
+	if (error == -1)
+		ft_printf(2, "Format should be .fdf\n");
+	else
+		ft_printf(2, "%s\n", strerror(error));
 	exit(error);
 }
 
