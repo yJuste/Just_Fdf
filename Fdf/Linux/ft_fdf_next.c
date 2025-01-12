@@ -37,7 +37,13 @@ int	ft_parse_map(t_fdf *fdf, t_map *map, char **argv)
 		return (ft_error(fdf, ENOEXEC), exit(4), 0);
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		return (ft_error(fdf, EBADF), exit(5), 0);
+	{
+		if (errno == EACCES)
+			ft_error(fdf, EACCES);
+		else
+			ft_error(fdf, EBADF);
+		exit(5);
+	}
 	line = get_next_line(fd);
 	j = ft_parse_map_next(map, fd, line);
 	map->height = j;
