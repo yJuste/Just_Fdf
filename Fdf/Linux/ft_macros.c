@@ -57,7 +57,7 @@ void	ft_key_zoom(int keycode, t_fdf *fdf)
 		fdf->cam->zoom -= 0.1;
 	if (fdf->cam->zoom <= 0.1)
 		fdf->cam->zoom = 0.1;
-	if (fdf->cam->zoom >= 15)
+	else if (fdf->cam->zoom >= 15)
 		fdf->cam->zoom = 15;
 }
 
@@ -97,7 +97,7 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_R)
 	{
-		fdf->cam->reset = 1;
+		ft_fdf(fdf);
 		return ;
 	}
 	else if (keycode == KEY_I)
@@ -116,6 +116,6 @@ void	ft_key_projection_and_height(int keycode, t_fdf *fdf)
 		fdf->cam->height += 1;
 	if (fdf->cam->height > 30)
 		fdf->cam->height = 30;
-	if (fdf->cam->height < -30)
+	else if (fdf->cam->height < -30)
 		fdf->cam->height = -30;
 }

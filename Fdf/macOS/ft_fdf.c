@@ -50,13 +50,7 @@ int	main(int argc, char **argv)
 // Applique les modifs de mlx_hook.
 int	ft_loop_hook(t_fdf *fdf)
 {
-	if (fdf->cam->reset == 1)
-	{
-		fdf->cam->reset = 0;
-		ft_fdf(fdf);
-	}
-	else
-		ft_draw(fdf);
+	ft_draw(fdf);
 	return (0);
 }
 

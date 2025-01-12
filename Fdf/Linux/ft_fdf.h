@@ -94,7 +94,6 @@ typedef struct s_map
 // zoom_ix is for optimisation, without it, it lags more.
 typedef struct s_camera
 {
-	int			reset;
 	int			offset_x;
 	int			offset_y;
 	int			height;
