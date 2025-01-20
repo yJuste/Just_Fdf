@@ -43,6 +43,8 @@ $(NAME): $(OBJ) $(PRINTF) $(MINILIBX)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(PATH_PRINTF) -lftprintf -L $(PATH_MINILIBX) -lmlx $(MLXFLAGS)
 	@echo $(GREEN)"--- EXECUTABLE ./$(NAME) is ready ---"$(RESET)
 
+bonus: $(NAME)
+
 $(PRINTF):
 	$(MAKE) -C $(PATH_PRINTF)
 
