@@ -41,7 +41,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(PRINTF) $(MINILIBX)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L $(PATH_PRINTF) -lftprintf -L $(PATH_MINILIBX) -lmlx_Linux $(MLXFLAGS)
-	@echo $(GREEN)"--- EXECUTABLE ./$(NAME) is ready ---"$(RESET)
+	@echo $(GREEN)"--- EXECUTABLE ./$(NAME) is ready ---`make help`"$(RESET)
 
 bonus: $(NAME)
 
