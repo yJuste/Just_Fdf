@@ -1,7 +1,7 @@
 NAME = fdf
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3
 
 MINILIBX = libmlx.a
 PATH_MINILIBX = minilibx_macos
